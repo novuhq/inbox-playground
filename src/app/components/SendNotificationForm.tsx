@@ -49,7 +49,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElemen
 
     const handleSubmit = async () => {
         try {
-            const response = await fetch('https://inbox-demo-backend.vercel.app/api/trigger-notification', {
+            const response = await fetch('http://localhost:3030/api/trigger-notification', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
