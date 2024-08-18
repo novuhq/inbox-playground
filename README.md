@@ -14,7 +14,7 @@ pnpm dev
 bun dev
 ```
 
-2. Insert your Novu secret key
+2. Update the .env file.
 
 2. Run the backend server:
 
