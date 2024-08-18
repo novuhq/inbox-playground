@@ -30,13 +30,22 @@ const SendNotificationForm = () => {
 
     const toast = useToast();
 
-    const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
+const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+
+    // Type guard to check if the target is an input element of type checkbox
+    if (e.target instanceof HTMLInputElement && e.target.type === "checkbox") {
         setFormState({
             ...formState,
-            [name]: type === "checkbox" ? checked : value,
+            [name]: e.target.checked,
         });
-    };
+    } else {
+        setFormState({
+            ...formState,
+            [name]: value,
+        });
+    }
+};
 
     const handleSubmit = async () => {
         try {
