@@ -1,10 +1,9 @@
 'use client';
 import { Inbox } from "@novu/react";
 
-
 export const novuConfig = {
-    applicationIdentifier: process.env.NEXT_PUBLIC_APPLICATION_IDENTIFIER,
-    subscriberId: process.env.NEXT_PUBLIC_SUBSCRIBER_ID,
+    applicationIdentifier: 'QldXz8WKHsiP',
+    subscriberId: '66ab924daa4218d126f9ba68',
     // open: { open },
     appearance: {
         variables: {
