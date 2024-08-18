@@ -2,8 +2,8 @@
 import { Inbox } from "@novu/react";
 
 export const novuConfig = {
-    applicationIdentifier: 'QldXz8WKHsiP',
-    subscriberId: '66ab924daa4218d126f9ba68',
+    applicationIdentifier: process.env.APPLICATION_IDENTIFIER,
+    subscriberId: process.env.SUBSCRIBER_ID,
     // open: { open },
     appearance: {
         variables: {
