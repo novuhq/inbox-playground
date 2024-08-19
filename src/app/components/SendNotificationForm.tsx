@@ -1,7 +1,7 @@
 "use client";
+import { createId } from "@paralleldrive/cuid2";
 
 import {
-  Box,
   Button,
   FormControl,
   FormLabel,
@@ -12,20 +12,36 @@ import {
   Flex,
   useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const SendNotificationForm = () => {
+  const [subscriberId, setSubscriberId] = useState("");
+
+  useEffect(() => {
+    const subscriberIdFromLocalStorage = localStorage.getItem(
+      "inbox_demo_subscriberId"
+    );
+
+    if (subscriberIdFromLocalStorage) {
+      setSubscriberId(subscriberIdFromLocalStorage);
+    } else {
+      const newSubscriberId = createId();
+      localStorage.setItem("inbox_demo_subscriberId", newSubscriberId);
+      setSubscriberId(newSubscriberId);
+    }
+  }, []);
+
   const [formState, setFormState] = useState({
-    inAppSubject: "In-App Notification Subject!",
-    inAppBody: "In-App Notification Body!",
-    inAppAvatar: "https://avatars.githubusercontent.com/u/63902456?v=4",
-    showInAppAvatar: true,
-    inAppPrimaryActionLabel: "Primary Action",
-    enablePrimaryAction: true,
-    inAppPrimaryActionUrl: "https://novu.com",
-    inAppSecondaryActionLabel: "Secondary Action",
-    enableSecondaryAction: false,
-    inAppSecondaryActionUrl: "https://novu.com",
+    subject: "In-App Notification Subject!",
+    body: "In-App Notification Body!",
+    avatar: "https://avatars.githubusercontent.com/u/63902456?v=4",
+    showAvatar: true,
+    primaryActionLabel: "Primary Action",
+    showPrimaryAction: true,
+    primaryActionUrl: "https://novu.com",
+    secondaryActionLabel: "Secondary Action",
+    showSecondaryAction: false,
+    secondaryActionUrl: "https://novu.com",
   });
 
   const toast = useToast();
@@ -59,7 +75,7 @@ const SendNotificationForm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          subscriberId: process.env.SUBSCRIBER_ID, // Replace this with dynamic subscriber ID if needed
+          subscriberId: subscriberId,
           payload: formState,
         }),
       });
@@ -117,8 +133,8 @@ const SendNotificationForm = () => {
         <FormControl>
           <FormLabel>Subject</FormLabel>
           <Input
-            name="inAppSubject"
-            value={formState.inAppSubject}
+            name="subject"
+            value={formState.subject}
             onChange={handleChange}
             placeholder="In-App Notification Subject"
             size="sm"
@@ -128,8 +144,8 @@ const SendNotificationForm = () => {
         <FormControl>
           <FormLabel>Body</FormLabel>
           <Input
-            name="inAppBody"
-            value={formState.inAppBody}
+            name="body"
+            value={formState.body}
             onChange={handleChange}
             placeholder="In-App Notification Body"
             size="sm"
@@ -139,8 +155,8 @@ const SendNotificationForm = () => {
         <FormControl>
           <FormLabel>Avatar URL</FormLabel>
           <Input
-            name="inAppAvatar"
-            value={formState.inAppAvatar}
+            name="avatar"
+            value={formState.avatar}
             onChange={handleChange}
             placeholder="URL for the avatar image"
             size="sm"
@@ -154,8 +170,8 @@ const SendNotificationForm = () => {
         >
           <FormLabel mb="0">Show Avatar</FormLabel>
           <Switch
-            name="showInAppAvatar"
-            isChecked={formState.showInAppAvatar}
+            name="showAvatar"
+            isChecked={formState.showAvatar}
             onChange={handleChange}
             size="sm"
           />
@@ -164,8 +180,8 @@ const SendNotificationForm = () => {
         <FormControl>
           <FormLabel>Primary Action Label</FormLabel>
           <Input
-            name="inAppPrimaryActionLabel"
-            value={formState.inAppPrimaryActionLabel}
+            name="primaryActionLabel"
+            value={formState.primaryActionLabel}
             onChange={handleChange}
             placeholder="Primary Action Label"
             size="sm"
@@ -175,8 +191,8 @@ const SendNotificationForm = () => {
         <FormControl>
           <FormLabel>Primary Action URL</FormLabel>
           <Input
-            name="inAppPrimaryActionUrl"
-            value={formState.inAppPrimaryActionUrl}
+            name="primaryActionUrl"
+            value={formState.primaryActionUrl}
             onChange={handleChange}
             placeholder="Primary Action URL"
             size="sm"
@@ -190,8 +206,8 @@ const SendNotificationForm = () => {
         >
           <FormLabel mb="0">Enable Primary Action</FormLabel>
           <Switch
-            name="enablePrimaryAction"
-            isChecked={formState.enablePrimaryAction}
+            name="showPrimaryAction"
+            isChecked={formState.showPrimaryAction}
             onChange={handleChange}
             size="sm"
           />
@@ -200,8 +216,8 @@ const SendNotificationForm = () => {
         <FormControl>
           <FormLabel>Secondary Action Label</FormLabel>
           <Input
-            name="inAppSecondaryActionLabel"
-            value={formState.inAppSecondaryActionLabel}
+            name="secondaryActionLabel"
+            value={formState.secondaryActionLabel}
             onChange={handleChange}
             placeholder="Secondary Action Label"
             size="sm"
@@ -211,8 +227,8 @@ const SendNotificationForm = () => {
         <FormControl>
           <FormLabel>Secondary Action URL</FormLabel>
           <Input
-            name="inAppSecondaryActionUrl"
-            value={formState.inAppSecondaryActionUrl}
+            name="secondaryActionUrl"
+            value={formState.secondaryActionUrl}
             onChange={handleChange}
             placeholder="Secondary Action URL"
             size="sm"
@@ -226,8 +242,8 @@ const SendNotificationForm = () => {
         >
           <FormLabel mb="0">Enable Secondary Action</FormLabel>
           <Switch
-            name="enableSecondaryAction"
-            isChecked={formState.enableSecondaryAction}
+            name="showSecondaryAction"
+            isChecked={formState.showSecondaryAction}
             onChange={handleChange}
             size="sm"
           />

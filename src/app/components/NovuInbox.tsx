@@ -1,10 +1,10 @@
 "use client";
+import { useState } from "react";
 import { Inbox } from "@novu/react";
 
 export const novuConfig = {
-  applicationIdentifier: "QldXz8WKHsiP",
-  subscriberId: "66ab924daa4218d126f9ba68",
-  // open: { open },
+  applicationIdentifier: process.env
+    .NEXT_PUBLIC_APPLICATION_IDENTIFIER as string,
   appearance: {
     variables: {},
     elements: {
@@ -34,7 +34,10 @@ export const novuConfig = {
 };
 
 function NovuInbox() {
-  return <Inbox {...novuConfig} />;
+  const [subscriberId, setSubscriberId] = useState<string>(
+    localStorage.getItem("inbox_demo_subscriberId") as string
+  );
+  return <Inbox {...novuConfig} subscriberId={subscriberId} open={true} />;
 }
 
 export default NovuInbox;

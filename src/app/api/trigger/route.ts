@@ -1,9 +1,17 @@
-export async function POST(request: Request) {
-  const res = await request.json();
+import { inboxWorkflow } from "@/app/workflows/inbox";
 
-  console.log("POST request received ==>", res);
-  // Do whatever you want
-  return new Response("Hello, Next.js!", {
+export async function POST(request: Request) {
+  const req = await request.json();
+
+  const { subscriberId, payload } = req;
+
+  if (subscriberId === "") {
+    throw new Error("Subscriber id is required");
+  }
+
+  await inboxWorkflow.trigger({ to: subscriberId, payload });
+
+  return new Response("Inapp notification sent ✅", {
     status: 200,
   });
 }

@@ -2,7 +2,7 @@ import { workflow } from "@novu/framework";
 import { z } from "zod";
 
 export const inboxWorkflow = workflow(
-  "inbox-demo-workflow",
+  "inbox-in-app-demo-workflow",
   async ({ step, payload }) => {
     await step.inApp("send-inbox-notification", async (controls) => {
       return {
@@ -28,9 +28,7 @@ export const inboxWorkflow = workflow(
   },
   {
     payloadSchema: z.object({
-      subject: z
-        .string()
-        .default("A Successful Test on Novu from {{userName}}"),
+      subject: z.string().default("A Successful Test on Novu from"),
       body: z.string().default("This is a test notification from Novu."),
       avatar: z.string().default("https://i.pravatar.cc/300"),
       showAvatar: z.boolean().default(false),
