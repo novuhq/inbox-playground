@@ -1,15 +1,22 @@
-import { inboxWorkflow } from "@/app/workflows/inbox";
+import { Novu } from '@novu/node'; 
+
+const novu = new Novu(process.env.NOVU_API_KEY);
 
 export async function POST(request: Request) {
   const req = await request.json();
 
-  const { subscriberId, payload } = req;
+  const { subscriberId, firstName, lastName, payload } = req;
 
   if (subscriberId === "") {
     throw new Error("Subscriber id is required");
   }
 
-  await inboxWorkflow.trigger({ to: subscriberId, payload });
+  novu.trigger('Inbox Demo', {
+  to: {subscriberId, firstName, lastName},
+  payload: {...payload}
+});
+
+  // await inboxWorkflow.trigger({ to: subscriberId, payload });
 
   return new Response("Inapp notification sent ✅", {
     status: 200,
