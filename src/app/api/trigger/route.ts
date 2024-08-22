@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     throw new Error("Subscriber id is required");
   }
 
-  novu.trigger('Inbox Demo', {
+  await novu.trigger('Inbox Demo', {
   to: {subscriberId, firstName, lastName},
   payload: {...payload}
 });
