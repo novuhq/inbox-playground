@@ -472,14 +472,24 @@ export default function App() {
                 size="sm"
               />
             </FormControl>
-
+            <FormControl>
+              <FormLabel>Subject</FormLabel>
+              <Textarea
+                name="inAppSubject"
+                value={notificationFormState.inAppSubject}
+                  // @ts-ignore
+                onChange={handleNotificationFormChange}
+                placeholder="In-App Notification Subject"
+                size="sm"
+                resize="vertical"
+              />
+            </FormControl>
 
             <FormControl>
               <FormLabel>Body</FormLabel>
               <Textarea
                 name="inAppBody"
                 value={notificationFormState.inAppBody}
-                  // @ts-ignore
                 onChange={handleNotificationFormChange}
                 placeholder="In-App Notification Body"
                 size="sm"
