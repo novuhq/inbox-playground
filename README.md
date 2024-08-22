@@ -14,7 +14,7 @@ pnpm dev
 bun dev
 ```
 
-2. Update the .env file.
+2. Update the .env file. Take example from .env.example
 
 2. Run the backend server:
 
