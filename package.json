@@ -15,6 +15,7 @@
     "@novu/framework": "^2.0.0-canary.6",
     "@novu/react": "^2.0.0-canary.0",
     "@paralleldrive/cuid2": "^2.2.2",
+    "@react-email/components": "0.0.22",
     "framer-motion": "^11.3.24",
     "next": "14.2.5",
     "react": "^18",

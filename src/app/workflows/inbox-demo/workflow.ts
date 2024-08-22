@@ -1,5 +1,5 @@
 import { workflow } from "@novu/framework";
-import { renderEmail } from "./email-templates/react-email-template";
+// import { renderEmail } from "./email-templates/react-email-template";
 import { payloadSchema } from './payloadSchema';
 import {
   emailControlSchema,

@@ -79,14 +79,14 @@ const SendNotificationForm = () => {
   });
 
   const handleToggleDesignDashboard = () => {
-    setShowDesignDashboard((prevValue) => {
+    setShowDesignDashboard((prevValue: any) => {
       const newValue = !prevValue;
       localStorage.setItem("showDesignDashboard", JSON.stringify(newValue));
       return newValue;
     });
   };
 
-  const handleLanguageChange = (e) => {
+  const handleLanguageChange = (e: { target: { value: any; }; }) => {
     const language = e.target.value;
     setSelectedLanguage(language);
     localStorage.setItem("inbox_demo_language", language);
@@ -116,7 +116,7 @@ const SendNotificationForm = () => {
 
   const toast = useToast();
 
-  const handleNotificationFormChange = (e) => {
+  const handleNotificationFormChange = (e: { target: { name: any; value: any; type: any; checked: any; }; }) => {
     const { name, value, type, checked } = e.target;
     setNotificationFormState((prevState) => ({
       ...prevState,
@@ -124,7 +124,7 @@ const SendNotificationForm = () => {
     }));
   };
 
-  const handleDesignFormChange = (e) => {
+  const handleDesignFormChange = (e: { target: { name: any; value: any; }; }) => {
     const { name, value } = e.target;
     setDesignFormState((prevState) => ({
       ...prevState,
@@ -275,7 +275,7 @@ export default function App() {
               Configure And Design Inbox Component
             </Text>
             <Text fontSize="sm" color="gray.500" textAlign="center">
-              Click on the "Apply Changes" button to see the changes in the Inbox component.
+              Click on the &quot;Apply Changes&quot; button to see the changes in the Inbox component.
             </Text>
 
             <FormControl display="flex" alignItems="center" justifyContent="space-between">
@@ -473,22 +473,13 @@ export default function App() {
               />
             </FormControl>
 
-            <FormControl>
-              <FormLabel>Subject</FormLabel>
-              <Textarea
-                name="inAppSubject"
-                value={notificationFormState.inAppSubject}
-                onChange={handleNotificationFormChange}
-                placeholder="In-App Notification Subject"
-                size="sm"
-              />
-            </FormControl>
 
             <FormControl>
               <FormLabel>Body</FormLabel>
               <Textarea
                 name="inAppBody"
                 value={notificationFormState.inAppBody}
+                  // @ts-ignore
                 onChange={handleNotificationFormChange}
                 placeholder="In-App Notification Body"
                 size="sm"
