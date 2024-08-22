@@ -2,22 +2,22 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { Inbox } from "@novu/react";
 
-const localSubscriberId = window.localStorage.getItem("inbox_demo_subscriberId");
+const localSubscriberId = localStorage.getItem("inbox_demo_subscriberId");
 const localInboxDesign = {
-  colorPrimary: window.localStorage.getItem("inbox_demo_colorPrimary") || "#0081F1",
-  colorPrimaryForeground: window.localStorage.getItem("inbox_demo_colorPrimaryForeground") || "white",
-  colorSecondary: window.localStorage.getItem("inbox_demo_colorSecondary") || "#F3F3F3",
-  colorSecondaryForeground: window.localStorage.getItem("inbox_demo_colorSecondaryForeground") || "#1A1523",
-  colorCounter: window.localStorage.getItem("inbox_demo_colorCounter") || "#E5484D",
-  colorCounterForeground: window.localStorage.getItem("inbox_demo_colorCounterForeground") || "white",
-  colorBackground: window.localStorage.getItem("inbox_demo_colorBackground") || "#FCFCFC",
-  colorForeground: window.localStorage.getItem("inbox_demo_colorForeground") || "#1A1523",
-  colorNeutral: window.localStorage.getItem("inbox_demo_colorNeutral") || "black",
-  fontSize: window.localStorage.getItem("inbox_demo_fontSize") || "inherit",
-  borderRadius: window.localStorage.getItem("inbox_demo_borderRadius") || "0.375rem",
+  colorPrimary: localStorage.getItem("inbox_demo_colorPrimary") || "#0081F1",
+  colorPrimaryForeground: localStorage.getItem("inbox_demo_colorPrimaryForeground") || "white",
+  colorSecondary: localStorage.getItem("inbox_demo_colorSecondary") || "#F3F3F3",
+  colorSecondaryForeground: localStorage.getItem("inbox_demo_colorSecondaryForeground") || "#1A1523",
+  colorCounter: localStorage.getItem("inbox_demo_colorCounter") || "#E5484D",
+  colorCounterForeground: localStorage.getItem("inbox_demo_colorCounterForeground") || "white",
+  colorBackground: localStorage.getItem("inbox_demo_colorBackground") || "#FCFCFC",
+  colorForeground: localStorage.getItem("inbox_demo_colorForeground") || "#1A1523",
+  colorNeutral: localStorage.getItem("inbox_demo_colorNeutral") || "black",
+  fontSize: localStorage.getItem("inbox_demo_fontSize") || "inherit",
+  borderRadius: localStorage.getItem("inbox_demo_borderRadius") || "0.375rem",
 };
 
-const localLocale = window.localStorage.getItem("inbox_demo_language") || "en";
+const localLocale = localStorage.getItem("inbox_demo_language") || "en";
 
 // Localization object containing translations for multiple languages
 const localization = {
@@ -269,7 +269,7 @@ export const novuConfig = {
   applicationIdentifier: process.env.NEXT_PUBLIC_APPLICATION_IDENTIFIER!,
   subscriberId: localSubscriberId!,
   localization: localization[localLocale as keyof typeof localization] || localization['en-US'], // Fallback to English if locale not found
-  ...(window.localStorage.getItem("inbox_demo_open") === "true" && { open: true }),
+  ...(localStorage.getItem("inbox_demo_open") === "true" && { open: true }),
   appearance: {
     variables: {
       ...localInboxDesign,
@@ -317,7 +317,7 @@ const NotificationFeed = () => {
           Notifications
         </Text>
         <Box>
-          <Inbox {...(novuConfig as any)}/>
+          <Inbox {...novuConfig}/>
         </Box>
       </Flex>
     </Box>

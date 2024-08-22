@@ -28,7 +28,7 @@ import { useEffect, useState } from "react";
 
 const SendNotificationForm = () => {
   const [subscriberId, setSubscriberId] = useState("");
-  const [selectedLanguage, setSelectedLanguage] = useState(window.localStorage.getItem("inbox_demo_language") || "en");
+  const [selectedLanguage, setSelectedLanguage] = useState(localStorage.getItem("inbox_demo_language") || "en");
   const availableLanguages = [
     { code: "en", label: "English" },
     { code: "es", label: "Spanish" },
@@ -59,29 +59,29 @@ const SendNotificationForm = () => {
   });
 
   const [designFormState, setDesignFormState] = useState({
-    colorPrimary: window.localStorage.getItem("inbox_demo_colorPrimary") || "#0081F1",
-    colorPrimaryForeground: window.localStorage.getItem("inbox_demo_colorPrimaryForeground") || "white",
-    colorSecondary: window.localStorage.getItem("inbox_demo_colorSecondary") || "#F3F3F3",
-    colorSecondaryForeground: window.localStorage.getItem("inbox_demo_colorSecondaryForeground") || "#1A1523",
-    colorCounter: window.localStorage.getItem("inbox_demo_colorCounter") || "#E5484D",
-    colorCounterForeground: window.localStorage.getItem("inbox_demo_colorCounterForeground") || "white",
-    colorBackground: window.localStorage.getItem("inbox_demo_colorBackground") || "#FCFCFC",
-    colorForeground: window.localStorage.getItem("inbox_demo_colorForeground") || "#1A1523",
-    colorNeutral: window.localStorage.getItem("inbox_demo_colorNeutral") || "black",
-    fontSize: window.localStorage.getItem("inbox_demo_fontSize") || "inherit",
-    borderRadius: window.localStorage.getItem("inbox_demo_borderRadius") || "0.375rem",
-    open: window.localStorage.getItem("inbox_demo_open") === "true" ,
+    colorPrimary: localStorage.getItem("inbox_demo_colorPrimary") || "#0081F1",
+    colorPrimaryForeground: localStorage.getItem("inbox_demo_colorPrimaryForeground") || "white",
+    colorSecondary: localStorage.getItem("inbox_demo_colorSecondary") || "#F3F3F3",
+    colorSecondaryForeground: localStorage.getItem("inbox_demo_colorSecondaryForeground") || "#1A1523",
+    colorCounter: localStorage.getItem("inbox_demo_colorCounter") || "#E5484D",
+    colorCounterForeground: localStorage.getItem("inbox_demo_colorCounterForeground") || "white",
+    colorBackground: localStorage.getItem("inbox_demo_colorBackground") || "#FCFCFC",
+    colorForeground: localStorage.getItem("inbox_demo_colorForeground") || "#1A1523",
+    colorNeutral: localStorage.getItem("inbox_demo_colorNeutral") || "black",
+    fontSize: localStorage.getItem("inbox_demo_fontSize") || "inherit",
+    borderRadius: localStorage.getItem("inbox_demo_borderRadius") || "0.375rem",
+    open: localStorage.getItem("inbox_demo_open") === "true",
   });
 
   const [showDesignDashboard, setShowDesignDashboard] = useState(() => {
-    const savedValue = window.localStorage.getItem("showDesignDashboard");
+    const savedValue = localStorage.getItem("showDesignDashboard");
     return savedValue !== null ? JSON.parse(savedValue) : false;
   });
 
   const handleToggleDesignDashboard = () => {
     setShowDesignDashboard((prevValue: any) => {
       const newValue = !prevValue;
-      window.localStorage.setItem("showDesignDashboard", JSON.stringify(newValue));
+      localStorage.setItem("showDesignDashboard", JSON.stringify(newValue));
       return newValue;
     });
   };
@@ -89,19 +89,19 @@ const SendNotificationForm = () => {
   const handleLanguageChange = (e: { target: { value: any; }; }) => {
     const language = e.target.value;
     setSelectedLanguage(language);
-    window.localStorage.setItem("inbox_demo_language", language);
+    localStorage.setItem("inbox_demo_language", language);
   };
 
   useEffect(() => {
-    const subscriberIdFromLocalStorage = window.localStorage.getItem("inbox_demo_subscriberId");
-    const firstNameFromLocalStorage = window.localStorage.getItem("inbox_demo_firstName");
-    const lastNameFromLocalStorage = window.localStorage.getItem("inbox_demo_lastName");
+    const subscriberIdFromLocalStorage = localStorage.getItem("inbox_demo_subscriberId");
+    const firstNameFromLocalStorage = localStorage.getItem("inbox_demo_firstName");
+    const lastNameFromLocalStorage = localStorage.getItem("inbox_demo_lastName");
 
     if (subscriberIdFromLocalStorage) {
       setSubscriberId(subscriberIdFromLocalStorage);
     } else {
       const newSubscriberId = createId();
-      window.localStorage.setItem("inbox_demo_subscriberId", newSubscriberId);
+      localStorage.setItem("inbox_demo_subscriberId", newSubscriberId);
       setSubscriberId(newSubscriberId);
     }
 
@@ -130,7 +130,7 @@ const SendNotificationForm = () => {
       ...prevState,
       [name]: value,
     }));
-    window.localStorage.setItem(`inbox_demo_${name}`, value);
+    localStorage.setItem(`inbox_demo_${name}`, value);
   };
 
   const handleSubmit = async () => {
@@ -147,8 +147,8 @@ const SendNotificationForm = () => {
       return;
     }
 
-    window.localStorage.setItem("inbox_demo_firstName", subscriberFirstName);
-    window.localStorage.setItem("inbox_demo_lastName", subscriberLastName);
+    localStorage.setItem("inbox_demo_firstName", subscriberFirstName);
+    localStorage.setItem("inbox_demo_lastName", subscriberLastName);
 
     try {
       const response = await fetch("/api/trigger", {
@@ -289,7 +289,7 @@ export default function App() {
                     ...prevState,
                     open: isChecked,
                   }));
-                  window.localStorage.setItem("inbox_demo_open", isChecked.toString());
+                  localStorage.setItem("inbox_demo_open", isChecked.toString());
                 }}
                 size="md"
               />
