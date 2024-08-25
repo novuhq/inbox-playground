@@ -55,7 +55,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
       </Text>
       <Flex gap={4}>
         <FormControl isRequired flex={1}>
-          <FormLabel>First Name</FormLabel>
+          <FormLabel fontSize="sm">First Name</FormLabel>
           <Input
             name="subscriberFirstName"
             value={notificationFormState.subscriberFirstName}
@@ -66,7 +66,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
         </FormControl>
 
         <FormControl isRequired flex={1}>
-          <FormLabel>Last Name</FormLabel>
+          <FormLabel fontSize="sm">Last Name</FormLabel>
           <Input
             name="subscriberLastName"
             value={notificationFormState.subscriberLastName}
@@ -79,7 +79,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
 
       <Divider />
       <FormControl>
-        <FormLabel>Workflow</FormLabel>
+        <FormLabel fontSize="sm">Workflow</FormLabel>
         <Text fontSize="sm" color="gray.600" mb={2}>
           Select a workflow to customize the notification content.
         </Text>
@@ -97,8 +97,8 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
       </FormControl>
 
       <FormControl>
-        <FormLabel>Subject</FormLabel>
-        <Textarea
+        <FormLabel fontSize="sm">Subject</FormLabel>
+        <Input
           name="inAppSubject"
           value={notificationFormState.inAppSubject}
           onChange={handleNotificationFormChange}
@@ -109,7 +109,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
       </FormControl>
 
       <FormControl>
-        <FormLabel>Body</FormLabel>
+        <FormLabel fontSize="sm">Body</FormLabel>
         <Textarea
           name="inAppBody"
           value={notificationFormState.inAppBody}
@@ -125,7 +125,9 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
         alignItems="center"
         justifyContent="space-between"
       >
-        <FormLabel mb="0">Show Avatar</FormLabel>
+        <FormLabel fontSize="sm" mb="0">
+          Show Avatar
+        </FormLabel>
         <Switch
           name="showInAppAvatar"
           isChecked={notificationFormState.showInAppAvatar}
@@ -136,7 +138,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
 
       {notificationFormState.showInAppAvatar && (
         <FormControl>
-          <FormLabel>Avatar URL</FormLabel>
+          <FormLabel fontSize="sm">Avatar URL</FormLabel>
           <Input
             name="inAppAvatar"
             value={notificationFormState.inAppAvatar}
@@ -152,7 +154,9 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
         alignItems="center"
         justifyContent="space-between"
       >
-        <FormLabel mb="0">Enable Primary Action</FormLabel>
+        <FormLabel fontSize="sm" mb="0">
+          Enable Primary Action
+        </FormLabel>
         <Switch
           name="enablePrimaryAction"
           isChecked={notificationFormState.enablePrimaryAction}
@@ -164,7 +168,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
       {notificationFormState.enablePrimaryAction && (
         <>
           <FormControl>
-            <FormLabel>Primary Action Label</FormLabel>
+            <FormLabel fontSize="sm">Primary Action Label</FormLabel>
             <Input
               name="inAppPrimaryActionLabel"
               value={notificationFormState.inAppPrimaryActionLabel}
@@ -175,7 +179,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
           </FormControl>
 
           <FormControl>
-            <FormLabel>Primary Action URL</FormLabel>
+            <FormLabel fontSize="sm">Primary Action URL</FormLabel>
             <Input
               name="inAppPrimaryActionUrl"
               value={notificationFormState.inAppPrimaryActionUrl}
@@ -192,7 +196,9 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
         alignItems="center"
         justifyContent="space-between"
       >
-        <FormLabel mb="0">Enable Secondary Action</FormLabel>
+        <FormLabel fontSize="sm" mb="0">
+          Enable Secondary Action
+        </FormLabel>
         <Switch
           name="enableSecondaryAction"
           isChecked={notificationFormState.enableSecondaryAction}
@@ -203,7 +209,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
 
       {notificationFormState.enableSecondaryAction && (
         <FormControl>
-          <FormLabel>Secondary Action Label</FormLabel>
+          <FormLabel fontSize="sm">Secondary Action Label</FormLabel>
           <Input
             name="inAppSecondaryActionLabel"
             value={notificationFormState.inAppSecondaryActionLabel}
@@ -216,7 +222,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
 
       {notificationFormState.enableSecondaryAction && (
         <FormControl>
-          <FormLabel>Secondary Action URL</FormLabel>
+          <FormLabel fontSize="sm">Secondary Action URL</FormLabel>
           <Input
             name="inAppSecondaryActionUrl"
             value={notificationFormState.inAppSecondaryActionUrl}

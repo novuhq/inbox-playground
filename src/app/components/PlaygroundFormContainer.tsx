@@ -60,6 +60,17 @@ const themes = [
     ],
   },
   {
+    id: "reddit",
+    title: "Reddit",
+    icon: <NotionIcon />,
+    workflows: [
+      {
+        id: "1",
+        title: "Workflow 1",
+      },
+    ],
+  },
+  {
     id: "hn",
     title: "Hacker News",
     icon: <HackerNewsIcon />,
