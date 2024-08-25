@@ -36,7 +36,9 @@ interface NotificationContentFormProps {
   notificationFormState: NotificationFormState;
   handleNotificationFormChange: (
     e:
-      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | React.ChangeEvent<
+          HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+        >
       | React.ChangeEvent<HTMLInputElement>
   ) => void;
   workflows: Workflow[];
@@ -49,10 +51,13 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
 }) => {
   return (
     <VStack spacing={4} alignItems="stretch">
-      <Heading size="sm">Subscriber</Heading>
-      <Text fontSize="sm" color="gray.600" mb={2}>
-        The recipient of the notification, change the details to customize.
-      </Text>
+      <div>
+        <Heading size="sm">Subscriber</Heading>
+        <Text fontSize="sm" color="gray.600" mb={2}>
+          The recipient of the notification, change the details to customize.
+        </Text>
+      </div>
+
       <Flex gap={4}>
         <FormControl isRequired flex={1}>
           <FormLabel fontSize="sm">First Name</FormLabel>
@@ -65,7 +70,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
           />
         </FormControl>
 
-        <FormControl isRequired flex={1}>
+        <FormControl flex={1}>
           <FormLabel fontSize="sm">Last Name</FormLabel>
           <Input
             name="subscriberLastName"
@@ -79,12 +84,13 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
 
       <Divider />
       <FormControl>
-        <FormLabel fontSize="sm">Workflow</FormLabel>
+        <Heading size="sm">Workflow</Heading>
         <Text fontSize="sm" color="gray.600" mb={2}>
           Select a workflow to customize the notification content.
         </Text>
         <Select
           name="selectedWorkflow"
+          size="sm"
           value={notificationFormState.selectedWorkflow}
           onChange={handleNotificationFormChange}
         >

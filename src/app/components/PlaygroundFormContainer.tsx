@@ -2,12 +2,7 @@
 import {
   VStack,
   Flex,
-  FormControl,
-  FormLabel,
-  Switch,
-  Box,
   Button,
-  Select,
   Tabs,
   TabList,
   Tab,
@@ -36,7 +31,7 @@ const themes = [
     workflows: [
       {
         id: "1",
-        title: "Mentions",
+        title: "Mention in a Comment",
       },
       {
         id: "2",
