@@ -9,7 +9,12 @@ import {
   Switch,
   Text,
   VStack,
+  Select,
+  Heading,
+  Flex,
+  Divider,
 } from "@chakra-ui/react";
+import { Workflow } from "./PlaygroundFormContainer";
 
 interface NotificationFormState {
   subscriberFirstName: string;
@@ -24,6 +29,7 @@ interface NotificationFormState {
   inAppSecondaryActionLabel: string;
   enableSecondaryAction: boolean;
   inAppSecondaryActionUrl: string;
+  selectedWorkflow: string;
 }
 
 interface NotificationContentFormProps {
@@ -33,43 +39,61 @@ interface NotificationContentFormProps {
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
       | React.ChangeEvent<HTMLInputElement>
   ) => void;
-  handleSubmit: () => Promise<void>;
+  workflows: Workflow[];
 }
 
 const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
+  workflows,
   notificationFormState,
   handleNotificationFormChange,
-  handleSubmit,
 }) => {
   return (
     <VStack spacing={4} alignItems="stretch">
-      <Text fontSize="lg" fontWeight="bold" textAlign="center">
-        Send In-App Notification
+      <Heading size="sm">Subscriber</Heading>
+      <Text fontSize="sm" color="gray.600" mb={2}>
+        The recipient of the notification, change the details to customize.
       </Text>
-      <Text fontSize="sm" color="gray.500" textAlign="center">
-        Fill out all the fields below to send an in-app notification
-      </Text>
+      <Flex gap={4}>
+        <FormControl isRequired flex={1}>
+          <FormLabel>First Name</FormLabel>
+          <Input
+            name="subscriberFirstName"
+            value={notificationFormState.subscriberFirstName}
+            onChange={handleNotificationFormChange}
+            placeholder="First Name"
+            size="sm"
+          />
+        </FormControl>
 
-      <FormControl isRequired>
-        <FormLabel>First Name</FormLabel>
-        <Input
-          name="subscriberFirstName"
-          value={notificationFormState.subscriberFirstName}
-          onChange={handleNotificationFormChange}
-          placeholder="First Name"
-          size="sm"
-        />
-      </FormControl>
+        <FormControl isRequired flex={1}>
+          <FormLabel>Last Name</FormLabel>
+          <Input
+            name="subscriberLastName"
+            value={notificationFormState.subscriberLastName}
+            onChange={handleNotificationFormChange}
+            placeholder="Last Name"
+            size="sm"
+          />
+        </FormControl>
+      </Flex>
 
-      <FormControl isRequired>
-        <FormLabel>Last Name</FormLabel>
-        <Input
-          name="subscriberLastName"
-          value={notificationFormState.subscriberLastName}
+      <Divider />
+      <FormControl>
+        <FormLabel>Workflow</FormLabel>
+        <Text fontSize="sm" color="gray.600" mb={2}>
+          Select a workflow to customize the notification content.
+        </Text>
+        <Select
+          name="selectedWorkflow"
+          value={notificationFormState.selectedWorkflow}
           onChange={handleNotificationFormChange}
-          placeholder="Last Name"
-          size="sm"
-        />
+        >
+          {workflows.map((workflow) => (
+            <option key={workflow.id} value={workflow.id}>
+              {workflow.title}
+            </option>
+          ))}
+        </Select>
       </FormControl>
 
       <FormControl>
@@ -96,17 +120,6 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
         />
       </FormControl>
 
-      <FormControl>
-        <FormLabel>Avatar URL</FormLabel>
-        <Input
-          name="inAppAvatar"
-          value={notificationFormState.inAppAvatar}
-          onChange={handleNotificationFormChange}
-          placeholder="URL for the avatar image"
-          size="sm"
-        />
-      </FormControl>
-
       <FormControl
         display="flex"
         alignItems="center"
@@ -121,27 +134,18 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
         />
       </FormControl>
 
-      <FormControl>
-        <FormLabel>Primary Action Label</FormLabel>
-        <Input
-          name="inAppPrimaryActionLabel"
-          value={notificationFormState.inAppPrimaryActionLabel}
-          onChange={handleNotificationFormChange}
-          placeholder="Primary Action Label"
-          size="sm"
-        />
-      </FormControl>
-
-      <FormControl>
-        <FormLabel>Primary Action URL</FormLabel>
-        <Input
-          name="inAppPrimaryActionUrl"
-          value={notificationFormState.inAppPrimaryActionUrl}
-          onChange={handleNotificationFormChange}
-          placeholder="Primary Action URL"
-          size="sm"
-        />
-      </FormControl>
+      {notificationFormState.showInAppAvatar && (
+        <FormControl>
+          <FormLabel>Avatar URL</FormLabel>
+          <Input
+            name="inAppAvatar"
+            value={notificationFormState.inAppAvatar}
+            onChange={handleNotificationFormChange}
+            placeholder="URL for the avatar image"
+            size="sm"
+          />
+        </FormControl>
+      )}
 
       <FormControl
         display="flex"
@@ -157,27 +161,31 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
         />
       </FormControl>
 
-      <FormControl>
-        <FormLabel>Secondary Action Label</FormLabel>
-        <Input
-          name="inAppSecondaryActionLabel"
-          value={notificationFormState.inAppSecondaryActionLabel}
-          onChange={handleNotificationFormChange}
-          placeholder="Secondary Action Label"
-          size="sm"
-        />
-      </FormControl>
+      {notificationFormState.enablePrimaryAction && (
+        <>
+          <FormControl>
+            <FormLabel>Primary Action Label</FormLabel>
+            <Input
+              name="inAppPrimaryActionLabel"
+              value={notificationFormState.inAppPrimaryActionLabel}
+              onChange={handleNotificationFormChange}
+              placeholder="Primary Action Label"
+              size="sm"
+            />
+          </FormControl>
 
-      <FormControl>
-        <FormLabel>Secondary Action URL</FormLabel>
-        <Input
-          name="inAppSecondaryActionUrl"
-          value={notificationFormState.inAppSecondaryActionUrl}
-          onChange={handleNotificationFormChange}
-          placeholder="Secondary Action URL"
-          size="sm"
-        />
-      </FormControl>
+          <FormControl>
+            <FormLabel>Primary Action URL</FormLabel>
+            <Input
+              name="inAppPrimaryActionUrl"
+              value={notificationFormState.inAppPrimaryActionUrl}
+              onChange={handleNotificationFormChange}
+              placeholder="Primary Action URL"
+              size="sm"
+            />
+          </FormControl>
+        </>
+      )}
 
       <FormControl
         display="flex"
@@ -193,16 +201,31 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
         />
       </FormControl>
 
-      <Button
-        colorScheme="blue"
-        size="md"
-        width="full"
-        marginTop={4}
-        onClick={handleSubmit}
-        alignSelf="flex-end"
-      >
-        Send Notification
-      </Button>
+      {notificationFormState.enableSecondaryAction && (
+        <FormControl>
+          <FormLabel>Secondary Action Label</FormLabel>
+          <Input
+            name="inAppSecondaryActionLabel"
+            value={notificationFormState.inAppSecondaryActionLabel}
+            onChange={handleNotificationFormChange}
+            placeholder="Secondary Action Label"
+            size="sm"
+          />
+        </FormControl>
+      )}
+
+      {notificationFormState.enableSecondaryAction && (
+        <FormControl>
+          <FormLabel>Secondary Action URL</FormLabel>
+          <Input
+            name="inAppSecondaryActionUrl"
+            value={notificationFormState.inAppSecondaryActionUrl}
+            onChange={handleNotificationFormChange}
+            placeholder="Secondary Action URL"
+            size="sm"
+          />
+        </FormControl>
+      )}
     </VStack>
   );
 };
