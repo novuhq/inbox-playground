@@ -82,7 +82,7 @@ const PlaygroundFormContainer = () => {
   return (
     <Flex
       width="100%"
-      maxW="500px"
+      maxW="600px"
       borderWidth="1px"
       borderRadius="lg"
       padding={3}

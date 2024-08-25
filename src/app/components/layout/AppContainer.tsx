@@ -13,7 +13,7 @@ const AppContainer = () => {
         height="calc(100vh - 72px)"
         padding={8}
         alignItems="flex-start"
-        gap={6}
+        gap={4}
       >
         <PlaygroundFormContainer />
         <NotificationFeed />
