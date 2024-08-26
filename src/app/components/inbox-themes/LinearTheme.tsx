@@ -8,6 +8,7 @@ import {
     Link,
     Icon,
     useColorModeValue,
+    background,
 } from "@chakra-ui/react";
 import {
     FiSearch,
@@ -22,6 +23,14 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import { FaUserFriends } from "react-icons/fa";
 import { Inbox, Notifications } from "@novu/react";
 
+const notificationStyles = {
+  color: "#EDEEF3",
+  backgroundColor: "#000000",
+  _hover: {
+    backgroundColor: "#475BA1", // Hover background color (blue)
+  },
+};
+
 export const novuConfig = {
     applicationIdentifier: "QldXz8WKHsiP",
     subscriberId: "66ab924daa4218d126f9ba68",
@@ -33,24 +42,31 @@ export const novuConfig = {
                 width: "24px",
                 height: "24px",
             },
+            notificationList: {
+
+            },
+            notification: {
+                ...notificationStyles,
+            },
+
             notificationPrimaryAction__button: {
-                cursor: "pointer",
-                display: "inline-flex",
-                alignItems: "center",
-                whiteSpace: "nowrap",
-                height: "26px",
-                borderRadius: "4px",
-                fontSize: "12px",
-                lineHeight: "1.2",
-                paddingLeft: "8px",
-                paddingRight: "8px",
-                color: "#44494D", // Dark text color
-                boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 0px 1px",
-                fontWeight: "500",
-                backgroundColor: "#EDEEF3", // Light gray button background
-                "&:hover": {
-                    backgroundColor: "#475BA1", // Hover background color (blue)
-                },
+                // cursor: "pointer",
+                // display: "inline-flex",
+                // alignItems: "center",
+                // whiteSpace: "nowrap",
+                // height: "26px",
+                // borderRadius: "4px",
+                // fontSize: "12px",
+                // lineHeight: "1.2",
+                // paddingLeft: "8px",
+                // paddingRight: "8px",
+                // // color: "#FFFFFF", // Dark text color
+                // boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 0px 1px",
+                // fontWeight: "500",
+                // backgroundColor: "#EDEEF3", // Light gray button background
+                // "&:hover": {
+                //     backgroundColor: "#475BA1", // Hover background color (blue)
+                // },
             },
         },
     }
@@ -64,12 +80,11 @@ const LinearTheme = () => {
             height="100%"
             minHeight="400px"
             borderRadius="lg"
-            bg="#FFFFFF" // White background
         >
             {/* Sidebar */}
             <Box
                 width="250px"
-                bg="#44494D" // Dark gray sidebar background
+                bg="#000000"
                 boxShadow="lg"
                 color="#EDEEF3" // Light gray text color
                 padding={4}
@@ -119,13 +134,11 @@ const LinearTheme = () => {
             {/* Main Content Area */}
             <Box
                 flex="1"
-                // padding={2}
-                bg="#FFFFFF" // White background
+                bg="#0e0f10"
                 height="100%"
                 display="flex"
                 flexDirection="column"
                 justifyContent="center"
-                color="#44494D" // Dark gray text color
             >
                 <Flex
                     justifyContent="space-between"
@@ -134,7 +147,7 @@ const LinearTheme = () => {
                     <Text
                         fontSize="lg"
                         fontWeight="bold"
-                        color="#44494D"
+                        color="#EDEEF3"
                         margin={4}
                     >
                         Inbox
@@ -149,7 +162,6 @@ const LinearTheme = () => {
                     />
                 </Flex>
                 <Box
-                    // bg="#EDEEF3" // Light gray background for notification area
                     height="100%"
                     overflowY="auto"
                     width="100%"
