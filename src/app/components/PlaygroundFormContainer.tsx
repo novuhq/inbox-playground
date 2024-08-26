@@ -17,68 +17,15 @@ import { useSubscriber } from "../hooks/useSubscriber";
 import { LinearIcon } from "./icons/Linear";
 import { NotionIcon } from "./icons/Notion";
 import { HackerNewsIcon } from "./icons/HackerNews";
+import { useState } from "react";
 
-export interface Workflow {
-  id: string;
-  title: string;
-}
-
-const themes = [
-  {
-    id: "linear",
-    title: "Linear",
-    icon: <LinearIcon />,
-    workflows: [
-      {
-        id: "1",
-        title: "Mention in a Comment",
-      },
-      {
-        id: "2",
-        title: "Project Updates",
-      },
-      {
-        id: "3",
-        title: "Status Change",
-      },
-    ],
-  },
-  {
-    id: "notion",
-    title: "Notion",
-    icon: <NotionIcon />,
-    workflows: [
-      {
-        id: "1",
-        title: "Workflow 1",
-      },
-    ],
-  },
-  {
-    id: "reddit",
-    title: "Reddit",
-    icon: <NotionIcon />,
-    workflows: [
-      {
-        id: "1",
-        title: "Workflow 1",
-      },
-    ],
-  },
-  {
-    id: "hn",
-    title: "Hacker News",
-    icon: <HackerNewsIcon />,
-    workflows: [
-      {
-        id: "1",
-        title: "Workflow 1",
-      },
-    ],
-  },
-];
-
-const PlaygroundFormContainer = () => {
+const PlaygroundFormContainer = ({
+  onThemeChange,
+  themes,
+}: {
+  onThemeChange: (index: number) => void;
+  themes: any[];
+}) => {
   const { notificationFormState, handleNotificationFormChange, handleSubmit } =
     useNotificationForm();
   const { showDesignDashboard, handleToggleDesignDashboard } =
@@ -102,7 +49,12 @@ const PlaygroundFormContainer = () => {
         {showDesignDashboard ? (
           <InboxDesignForm />
         ) : (
-          <Tabs height="calc(100% - 80px)">
+          <Tabs
+            height="calc(100% - 80px)"
+            onChange={(index) => {
+              onThemeChange(index);
+            }}
+          >
             <TabList>
               {themes.map((theme) => (
                 <Tab

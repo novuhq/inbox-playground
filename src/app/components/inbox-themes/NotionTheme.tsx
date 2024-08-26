@@ -72,9 +72,6 @@ export const novuConfig: any = {
         border: "1px solid rgba(15, 15, 15, 0.1)",
         fontWeight: "500",
         backgroundColor: "#ffffff", // Default background color
-        "&:hover": {
-          backgroundColor: "red", // Hover background color
-        },
       },
     },
   },
@@ -180,7 +177,19 @@ const NotionTheme = () => {
 };
 
 // Sidebar Item Component
-const SidebarItem = ({ icon, label, isActive, external }) => {
+interface SidebarItemProps {
+  icon: React.ElementType;
+  label: string;
+  isActive?: boolean;
+  external?: boolean;
+}
+
+const SidebarItem: React.FC<SidebarItemProps> = ({
+  icon,
+  label,
+  isActive = false,
+  external = false,
+}) => {
   return (
     <HStack
       as={external ? Link : Box}
