@@ -4,6 +4,9 @@ import { Box, Flex } from "@chakra-ui/react";
 import Navbar from "../Navbar";
 import PlaygroundFormContainer from "../PlaygroundFormContainer";
 import NotificationFeed from "../NotificationFeed";
+import NotionTheme from "../inbox-themes/NotionTheme";
+import LinearTheme from "../inbox-themes/LinearTheme";
+
 
 const AppContainer = () => {
   return (
@@ -16,7 +19,7 @@ const AppContainer = () => {
         gap={4}
       >
         <PlaygroundFormContainer />
-        <NotificationFeed />
+        <NotionTheme />
       </Flex>
     </Box>
   );
