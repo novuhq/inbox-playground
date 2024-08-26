@@ -26,6 +26,7 @@ import { BsFillFileTextFill, BsTrash } from "react-icons/bs";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { FaUserFriends } from "react-icons/fa";
 import { Inbox, Notifications } from "@novu/react";
+import { NotionIcon } from "../icons/Notion";
 
 export const novuConfig: any = {
   applicationIdentifier: "QldXz8WKHsiP",
@@ -94,16 +95,26 @@ const NotionTheme = () => {
       {/* Sidebar */}
       <Box
         width="250px"
-        bg="#faf9f7"
+        bg="rgb(247, 247, 245)"
         boxShadow="lg"
-        padding={4}
+        padding={"8px"}
         display="flex"
         flexDirection="column"
         borderRight="1px solid"
         borderColor={useColorModeValue("gray.200", "gray.700")}
       >
-        <Flex alignItems="center" justifyContent="space-between" mb={4}>
-          <Text fontSize="lg" fontWeight="bold">
+        <Flex alignItems="center" mb={"4px"}>
+          <Text fontSize="14px" fontWeight="bold" color="rgb(55, 53, 47)">
+            <Icon
+              as={NotionIcon}
+              sx={{
+                width: "18px",
+                height: "18px",
+                marginRight: "4px",
+                paddingLeft: "4px",
+                display: "inline-block",
+              }}
+            />{" "}
             Notion Workspace
           </Text>
           <IconButton
@@ -114,7 +125,7 @@ const NotionTheme = () => {
           />
         </Flex>
 
-        <VStack align="stretch" spacing={2} mb={8}>
+        <VStack align="stretch" spacing={0} mb={8}>
           <SidebarItem icon={FiSearch} label="Search" />
           <SidebarItem icon={FiHome} label="Home" />
           <SidebarItem icon={FiInbox} label="Inbox" isActive />
@@ -148,18 +159,6 @@ const NotionTheme = () => {
         flexDirection="column"
         justifyContent="center"
       >
-        <Flex justifyContent="space-between" alignItems="center">
-          <Text fontSize="lg" fontWeight="bold" margin={4}>
-            Inbox
-          </Text>
-          <IconButton
-            aria-label="Filter notifications"
-            icon={<FiFilter />}
-            variant="ghost"
-            size="sm"
-            margin={4}
-          />
-        </Flex>
         <Box
           // bg="white"
           height="100%"
@@ -195,13 +194,24 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
       as={external ? Link : Box}
       spacing={3}
       p={2}
-      borderRadius="md"
-      bg={isActive ? "gray.200" : "transparent"}
-      color={isActive ? "black" : "gray.600"}
-      _hover={{ bg: "gray.100", cursor: "pointer" }}
+      fontWeight={"500"}
+      borderRadius="6px"
+      bg={isActive ? "rgba(0, 0, 0, 0.03)" : "transparent"}
+      color={isActive ? "rgb(29, 27, 22)" : "rgba(55, 53, 47, 0.65)"}
+      _hover={{ bg: "rgba(0, 0, 0, 0.03)", cursor: "pointer" }}
+      sx={{
+        height: "30px",
+        padding: "4px 8px",
+      }}
     >
-      <Icon as={icon} />
-      <Text fontSize="sm">{label}</Text>
+      <Icon
+        sx={{
+          width: "14px",
+          height: "14px",
+        }}
+        as={icon}
+      />
+      <Text fontSize="14px">{label}</Text>
     </HStack>
   );
 };
