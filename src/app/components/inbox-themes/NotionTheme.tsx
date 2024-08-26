@@ -125,7 +125,7 @@ const NotionTheme = () => {
           />
         </Flex>
 
-        <VStack align="stretch" spacing={0} mb={8}>
+        <VStack align="stretch" spacing={0} mb={"15px"}>
           <SidebarItem icon={FiSearch} label="Search" />
           <SidebarItem icon={FiHome} label="Home" />
           <SidebarItem icon={FiInbox} label="Inbox" isActive />
@@ -135,7 +135,7 @@ const NotionTheme = () => {
         <Text fontSize="xs" fontWeight="bold" color="gray.500" mb={2}>
           Favorites
         </Text>
-        <VStack align="stretch" spacing={2} mb={8}>
+        <VStack align="stretch" spacing={2} mb={"15px"}>
           <SidebarItem icon={FiHome} label="Teamspaces" />
           <SidebarItem icon={BsFillFileTextFill} label="Shared" />
         </VStack>
@@ -143,8 +143,8 @@ const NotionTheme = () => {
         <Text fontSize="xs" fontWeight="bold" color="gray.500" mb={2}>
           Private
         </Text>
-        <VStack align="stretch" spacing={2} mb={8}>
-          <SidebarItem icon={AiOutlineCalendar} label="Calendar" external />
+        <VStack align="stretch" spacing={2} mb={"15px"}>
+          <SidebarItem icon={AiOutlineCalendar} label="Calendar" />
           <SidebarItem icon={FaUserFriends} label="Templates" />
           <SidebarItem icon={BsTrash} label="Trash" />
         </VStack>
