@@ -91,6 +91,7 @@ const AppContainer = () => {
           }}
         />
         {selectedTheme && selectedTheme.id === "notion" && <NotionTheme />}
+        {selectedTheme && selectedTheme.id === "linear" && <LinearTheme />}
       </Flex>
     </Box>
   );
