@@ -30,7 +30,7 @@ import { NotionIcon } from "../icons/Notion";
 
 export const novuConfig: any = {
   applicationIdentifier: "QldXz8WKHsiP",
-  subscriberId: "66ab924daa4218d126f9ba68",
+  subscriberId: "66ab924daa4218d126f9ba68_notion",
   appearance: {
     variables: {},
     elements: {
@@ -94,7 +94,7 @@ const NotionTheme = () => {
     >
       {/* Sidebar */}
       <Box
-        width="250px"
+        width="240px"
         bg="rgb(247, 247, 245)"
         boxShadow="lg"
         padding={"8px"}
