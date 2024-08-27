@@ -11,25 +11,27 @@ import {
   delayControlSchema,
 } from './stepsControlSchema';
 
-
-// Define the name for your workflow 
-const workflowName = 'Notion Invite Notification';
+const workflowName = 'Notion Suggestion Notification';
 
 // Define the workflow
-export const notionInviteNotification = workflow(
+export const notionSuggestionNotification = workflow(
   workflowName,
   async ({ step, payload, subscriber }) => {
     // Define the step for the workflow
     // -----------------------------------in-app step-------------------------------------------------------------------------
     await step.inApp(
-      'In App Step-1',
+      'In App Step',
       async () => {
         const result: any = {
-          subject: `Dima Grossman invited you to a page`,
-          body: payload.inAppBody,
+          subject: `${subscriber?.firstName} ${subscriber?.lastName} suggested in`,
+          body: payload.pageName,
         };
-        return result;
+
+        if (payload.showInAppAvatar) {
+          result.avatar = payload.mainActorAvatar;
+        }
         
+        return result;
       }
     );
 
@@ -38,7 +40,6 @@ export const notionInviteNotification = workflow(
   {
     payloadSchema: payloadSchema,
     // -----------------------------------tags-------------------------------------------------------------------------
-    tags: ['Invite']
+    tags: ['Suggestion']
   }
 );
-
