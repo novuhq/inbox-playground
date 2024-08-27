@@ -8,24 +8,18 @@ import {
   Tab,
   TabPanels,
   TabPanel,
+  Select,
 } from "@chakra-ui/react";
 import InboxDesignForm from "./InboxDesignForm";
 import NotificationContentForm from "./NotificationContentForm";
 import { useNotificationForm } from "../hooks/useNotificationForm";
 import { useDesignDashboard } from "../hooks/useDesignDashboard";
 import { useSubscriber } from "../hooks/useSubscriber";
-import { LinearIcon } from "./icons/Linear";
-import { NotionIcon } from "./icons/Notion";
-import { HackerNewsIcon } from "./icons/HackerNews";
-import { useState } from "react";
+import { useTheme } from "../contexts/ThemeContext";
 
-const PlaygroundFormContainer = ({
-  onThemeChange,
-  themes,
-}: {
-  onThemeChange: (index: number) => void;
-  themes: any[];
-}) => {
+const PlaygroundFormContainer = () => {
+  const { themes, selectedTheme, setSelectedTheme } = useTheme();
+
   const { notificationFormState, handleNotificationFormChange, handleSubmit } =
     useNotificationForm();
   const { showDesignDashboard, handleToggleDesignDashboard } =
@@ -51,9 +45,7 @@ const PlaygroundFormContainer = ({
         ) : (
           <Tabs
             height="calc(100% - 80px)"
-            onChange={(index) => {
-              onThemeChange(index);
-            }}
+            onChange={(index) => setSelectedTheme(themes[index])}
           >
             <TabList>
               {themes.map((theme) => (
