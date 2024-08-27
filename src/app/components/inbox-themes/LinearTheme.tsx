@@ -24,13 +24,37 @@ import { FaUserFriends } from "react-icons/fa";
 import { Inbox, Notifications } from "@novu/react";
 import { formatDistanceToNow } from "date-fns";
 import { color } from "framer-motion";
+import { LinearIcon } from "../icons/Linear";
+import { TbFilePencil } from "react-icons/tb";
+import { SlPencil } from "react-icons/sl";
 
 export const novuConfig = {
   applicationIdentifier: "QldXz8WKHsiP",
   subscriberId: "66ab924daa4218d126f9ba68",
   appearance: {
-    variables: {},
+    variables: {
+      colorPrimary: "#0081F1",
+      colorPrimaryForeground: "white",
+      colorSecondary: "#F3F3F3",
+      colorSecondaryForeground: "#1A1523",
+      colorCounter: "#E5484D",
+      colorCounterForeground: "white",
+      colorBackground: "#FCFCFC",
+      colorForeground: "#1A1523",
+      colorNeutral: "black",
+      fontSize: "inherit",
+      borderRadius: "0.375rem",
+    },
     elements: {
+      inboxStatus__title: {
+        color: "rgb(255, 255, 255)",
+        fontSize: "13px",
+      },
+      inboxHeader: {
+        paddingLeft: "0px",
+        paddingTop: "7px",
+        paddingBottom: "7px",
+      },
       notificationImage: {
         borderRadius: "50%",
         width: "24px",
@@ -72,79 +96,89 @@ const LinearTheme = () => {
       height="100%"
       minHeight="400px"
       borderRadius="lg"
+      bg="#080808"
+      color="rgb(226, 227, 229)"
+      style={{
+        fontFamily:
+          '"Inter UI", "SF Pro Display", -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serifui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
+      }}
     >
       {/* Sidebar */}
       <Box
-        width="250px"
-        bg="#000000"
+        width="207px"
         boxShadow="lg"
-        color="#EDEEF3" // Light gray text color
-        padding={4}
+        padding={"0 14px"}
         display="flex"
         flexDirection="column"
         borderRight="1px solid"
-        borderColor={useColorModeValue("#EDEEF3", "#44494D")}
+        borderColor={"#26282d"}
       >
-        <Flex alignItems="center" justifyContent="space-between" mb={4}>
-          <Text fontSize="lg" fontWeight="bold" color="#FFFFFF">
-            Novu Workspace
+        <Flex
+          alignItems="center"
+          justifyContent={"space-between"}
+          mb={"8px"}
+          paddingLeft="4px"
+        >
+          <Text fontSize="14px" fontWeight="bold">
+            <Icon
+              as={LinearIcon}
+              sx={{
+                width: "18px",
+                height: "18px",
+                marginRight: "4px",
+                display: "inline-block",
+                color: "rgb(94, 105, 209)",
+                "& path": {
+                  fill: "rgb(94, 105, 209)",
+                },
+              }}
+            />{" "}
+            Linear
           </Text>
+
           <IconButton
-            aria-label="User Settings"
-            icon={<FiChevronDown />}
+            color="white"
+            aria-label="Create"
+            icon={<SlPencil />}
             variant="ghost"
             size="sm"
-            color="#EDEEF3"
           />
         </Flex>
 
-        <VStack align="stretch" spacing={2} mb={8}>
-          <SidebarItem icon={FiSearch} label="Search" />
-          <SidebarItem icon={FiHome} label="Home" />
+        <VStack align="stretch" spacing={0} mb={"15px"}>
           <SidebarItem icon={FiInbox} label="Inbox" isActive />
-          <SidebarItem icon={FiSettings} label="Settings & members" />
+
+          <SidebarItem icon={FiSearch} label="My Issues" />
         </VStack>
 
-        <Text fontSize="xs" fontWeight="bold" color="#EDEEF3" mb={2}>
+        <Text fontSize="xs" fontWeight="bold" color="rgb(148, 148, 150)" mb={2}>
           Workspace
         </Text>
-        <VStack align="stretch" spacing={2} mb={8}>
-          <SidebarItem icon={FiHome} label="Teamspaces" />
-          <SidebarItem icon={BsFillFileTextFill} label="Shared" />
+        <VStack align="stretch" spacing={0} mb={"15px"}>
+          <SidebarItem icon={FiHome} label="Initiatives" />
+          <SidebarItem icon={BsFillFileTextFill} label="Projects" />
+          <SidebarItem icon={BsFillFileTextFill} label="Views" />
+          <SidebarItem icon={BsFillFileTextFill} label="Teams" />
         </VStack>
 
-        <Text fontSize="xs" fontWeight="bold" color="#EDEEF3" mb={2}>
+        <Text fontSize="xs" fontWeight="bold" color="rgb(148, 148, 150)" mb={2}>
           Favorites
         </Text>
-        <VStack align="stretch" spacing={2} mb={8}>
-          <SidebarItem icon={AiOutlineCalendar} label="Calendar" external />
-          <SidebarItem icon={FaUserFriends} label="Templates" />
-          <SidebarItem icon={BsTrash} label="Trash" />
+        <VStack align="stretch" spacing={0} mb={"15px"}>
+          <SidebarItem icon={AiOutlineCalendar} label="Security" />
+          <SidebarItem icon={FaUserFriends} label="Planning" />
+          <SidebarItem icon={BsTrash} label="Bugs" />
         </VStack>
       </Box>
 
       {/* Main Content Area */}
       <Box
         flex="1"
-        bg="#0e0f10"
         height="100%"
         display="flex"
         flexDirection="column"
         justifyContent="center"
       >
-        <Flex justifyContent="space-between" alignItems="center">
-          <Text fontSize="lg" fontWeight="bold" color="#EDEEF3" margin={4}>
-            Inbox
-          </Text>
-          <IconButton
-            aria-label="Filter notifications"
-            icon={<FiFilter />}
-            variant="ghost"
-            size="sm"
-            color="#44494D"
-            margin={4}
-          />
-        </Flex>
         <Box height="100%" overflowY="auto" width="100%" maxW="900px">
           <Inbox {...novuConfig}>
             <Notifications />
@@ -156,19 +190,43 @@ const LinearTheme = () => {
 };
 
 // Sidebar Item Component
-const SidebarItem = ({ icon, label, isActive, external }) => {
+interface SidebarItemProps {
+  icon: React.ElementType;
+  label: string;
+  isActive?: boolean;
+  external?: boolean;
+}
+
+const SidebarItem: React.FC<SidebarItemProps> = ({
+  icon,
+  label,
+  isActive = false,
+  external = false,
+}) => {
   return (
     <HStack
       as={external ? Link : Box}
       spacing={3}
-      p={2}
-      borderRadius="md"
-      bg={isActive ? "#475BA1" : "transparent"} // Active item background (blue)
-      color={isActive ? "#FFFFFF" : "#EDEEF3"} // Active item text color
-      _hover={{ bg: "#475BA1", cursor: "pointer" }} // Hover background color (blue)
+      p={0}
+      fontWeight={"500"}
+      borderRadius="6px"
+      bg={isActive ? "#1c1f25" : "transparent"}
+      color={isActive ? "rgb(226, 227, 229)" : "rgb(226, 227, 229)"}
+      _hover={{ bg: "rgba(0, 0, 0, 0.03)", cursor: "pointer" }}
+      sx={{
+        height: "30px",
+        padding: "4px 0px",
+        lineHeight: "28px",
+      }}
     >
-      <Icon as={icon} />
-      <Text fontSize="sm">{label}</Text>
+      <Icon
+        sx={{
+          width: "14px",
+          height: "14px",
+        }}
+        as={icon}
+      />
+      <Text fontSize="13px">{label}</Text>
     </HStack>
   );
 };
