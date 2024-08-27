@@ -16,10 +16,13 @@ export const useNotificationForm = () => {
     inAppSecondaryActionLabel: "Secondary Action",
     enableSecondaryAction: false,
     inAppSecondaryActionUrl: "https://novu.com",
+    selectedWorkflow: "",
   });
 
   const handleNotificationFormChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
