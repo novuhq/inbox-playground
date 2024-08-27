@@ -13,40 +13,23 @@ import {
 
 
 // Define the name for your workflow 
-const workflowName = 'Inbox Demo';
+const workflowName = 'Notion Invite Notification';
 
 // Define the workflow
-export const inboxDemo = workflow(
+export const notionInviteNotification = workflow(
   workflowName,
-  async ({ step, payload, subscriber}) => {
+  async ({ step, payload, subscriber }) => {
     // Define the step for the workflow
     // -----------------------------------in-app step-------------------------------------------------------------------------
     await step.inApp(
-      'In App Step',
+      'In App Step-1',
       async () => {
         const result: any = {
-          subject: `Hello ${subscriber?.firstName} ${subscriber?.lastName}`,
+          subject: `Dima Grossman invited you to a page`,
           body: payload.inAppBody,
         };
-
-        if (payload.showInAppAvatar) {
-          result.avatar = payload.inAppAvatar;
-        }
-
-        if (payload.enablePrimaryAction) {
-          result.primaryAction = {
-            label: payload.inAppPrimaryActionLabel,
-            url: payload.inAppPrimaryActionUrl,
-          };
-        }
-
-        if (payload.enableSecondaryAction) {
-          result.secondaryAction = {
-            label: payload.inAppSecondaryActionLabel,
-            url: payload.inAppSecondaryActionUrl,
-          };
-        }
         return result;
+        
       }
     );
 
@@ -54,7 +37,8 @@ export const inboxDemo = workflow(
   },
   {
     payloadSchema: payloadSchema,
-  },
-  // -----------------------------------tags-------------------------------------------------------------------------
+    // -----------------------------------tags-------------------------------------------------------------------------
+    tags: ['Invite']
+  }
 );
 

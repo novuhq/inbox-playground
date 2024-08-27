@@ -11,6 +11,7 @@ import {
   Link,
   Icon,
   useColorModeValue,
+  Button,
   background,
 } from "@chakra-ui/react";
 import {
@@ -27,10 +28,11 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import { FaUserFriends } from "react-icons/fa";
 import { Inbox, Notifications } from "@novu/react";
 import { NotionIcon } from "../icons/Notion";
+import React, { useState } from 'react';
 
 export const novuConfig: any = {
   applicationIdentifier: "QldXz8WKHsiP",
-  subscriberId: "66ab924daa4218d126f9ba68_notion",
+  subscriberId: "66ab924daa4218d126f9ba68",
   appearance: {
     variables: {},
     elements: {
@@ -167,7 +169,40 @@ const NotionTheme = () => {
           maxW="900px"
         >
           <Inbox {...novuConfig}>
-            <Notifications />
+            <Notifications
+              renderNotification={(notification) => {
+                console.log(notification.tags[0]);
+                const type = notification.tags[0] || 'Notification';
+                const mainAvatar = notification.avatar || notification.to.firstName?.charAt(0).toUpperCase() || 'A';
+                const mainFirstName = notification.to.firstName || 'Unknown';
+                const mainLastName = notification.to.lastName || 'User';
+                const seconderyAvatar = notification.avatar || notification.to.firstName?.charAt(0).toUpperCase() || 'A';
+                const seconderyFirstName = notification.to.firstName || 'Unknown';
+                const seconderyLastName = notification.to.lastName || 'User';
+                const subject = notification.subject || 'No Subject';
+                const body = notification.body || '#';
+                const createdAt = notification.createdAt || new Date().toISOString();
+                const formattedTime = formatTime(createdAt);
+
+                return (
+                  <div>
+                    <InboxItem
+                      notificationType={type}
+                      mainActorAvatar={mainAvatar}
+                      mainActorName={`${mainFirstName} ${mainLastName}`}
+                      seconderyActorAvatar={seconderyAvatar}
+                      seconderyActorName={`${seconderyFirstName} ${seconderyLastName}`}
+                      title={subject}
+                      pageLink={body}
+                      sentTime={formattedTime}
+                      isRead={notification.isRead || false}
+                      isArchived={notification.isArchived || false}
+                      replyAction={notification.replyAction || (() => { })}
+                    />
+                  </div>
+                );
+              }}
+            />
           </Inbox>
         </Box>
       </Box>
@@ -215,5 +250,132 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     </HStack>
   );
 };
+
+const InboxItem = ({
+  notificationType,
+  mainActorAvatar,
+  mainActorName,
+  title,
+  pageLink,
+  sentTime,
+  isRead,
+  isArchived,
+  replyAction
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Determine the dynamic title based on the notification type
+  const dynamicTitle = () => {
+    if (notificationType === "Invite") {
+      return (
+        <>
+          <Text as="span" fontWeight="bold">{mainActorName}</Text> invited you to a page
+        </>
+      );
+    }
+    // Add other conditions for different notification types here if needed
+    return title; // Default title
+  };
+
+  return (
+    <Flex
+      p={4}
+      align="center"
+      bg="white"
+      _hover={{ bg: "gray.100" }}
+      position="relative" // To position the dot without affecting other elements
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {!isRead && (
+        <Box
+          position="absolute"
+          width="8px"
+          height="8px"
+          bg="blue.500"
+          borderRadius="full"
+        />
+      )}
+      <Flex align="center" ml={"14px"}>
+        <Avatar size="md" name={mainActorName} src={mainActorAvatar} />
+      </Flex>
+      <VStack align="start" spacing={1} ml={4} flex="1">
+        <HStack spacing={2} align="center" justifyContent="space-between" width="100%">
+          <Text fontSize="md" color="gray.800">
+            {dynamicTitle()}
+          </Text>
+          {isHovered ? (
+            <HStack spacing={2}>
+              {isRead ? (
+                <Button size="xs" variant="outline" onClick={() => {/* Mark as unread action */}}>
+                  Mark as Unread
+                </Button>
+              ) : (
+                <Button size="xs" variant="outline" onClick={() => {/* Mark as read action */}}>
+                  Mark as Read
+                </Button>
+              )}
+              {isArchived ? (
+                <Button size="xs" variant="outline" onClick={() => {/* Unarchive action */}}>
+                  Unarchive
+                </Button>
+              ) : (
+                <Button size="xs" variant="outline" onClick={() => {/* Archive action */}}>
+                  Archive
+                </Button>
+              )}
+            </HStack>
+          ) : (
+            <Text fontSize="xs" color="gray.400">
+              {sentTime}
+            </Text>
+          )}
+        </HStack>
+        <Text fontSize="sm" color="gray.600">
+          {pageLink}
+        </Text>
+      </VStack>
+      <Flex align="center" ml={4} color="gray.500">
+        {isArchived}
+        {replyAction}
+      </Flex>
+    </Flex>
+  );
+};
+
+
+
+
+function formatTime(timestamp) {
+  const date = new Date(timestamp);
+  const now = new Date();
+  const diffInSeconds = Math.floor((now - date) / 1000);
+
+  // Time calculations
+  const secondsInMinute = 60;
+  const secondsInHour = secondsInMinute * 60;
+  const secondsInDay = secondsInHour * 24;
+  const secondsInWeek = secondsInDay * 7;
+  const secondsInYear = secondsInDay * 365;
+
+  if (diffInSeconds < secondsInMinute) {
+    return `${diffInSeconds} seconds`;
+  } else if (diffInSeconds < secondsInHour) {
+    const minutes = Math.floor(diffInSeconds / secondsInMinute);
+    return `${minutes} minutes`;
+  } else if (diffInSeconds < secondsInDay) {
+    const hours = Math.floor(diffInSeconds / secondsInHour);
+    return `${hours} hours`;
+  } else if (diffInSeconds < secondsInWeek) {
+    const days = Math.floor(diffInSeconds / secondsInDay);
+    return `${days} days`;
+  } else if (diffInSeconds < secondsInYear) {
+    const options = { month: 'short', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options); // e.g., "Feb 26"
+  } else {
+    return date.getFullYear().toString(); // e.g., "2022"
+  }
+}
+
 
 export default NotionTheme;
