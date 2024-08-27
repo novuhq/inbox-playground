@@ -18,12 +18,11 @@ import { useSubscriber } from "../hooks/useSubscriber";
 import { useTheme } from "../contexts/ThemeContext";
 
 const PlaygroundFormContainer = () => {
-  const { themes, selectedTheme, setSelectedTheme } = useTheme();
+  const { themes, setSelectedTheme } = useTheme();
 
   const { notificationFormState, handleNotificationFormChange, handleSubmit } =
     useNotificationForm();
-  const { showDesignDashboard, handleToggleDesignDashboard } =
-    useDesignDashboard();
+  const { showDesignDashboard } = useDesignDashboard();
   useSubscriber();
 
   return (
