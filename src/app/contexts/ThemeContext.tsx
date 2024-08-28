@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { NotionIcon } from "../components/icons/Notion";
 import { LinearIcon } from "../components/icons/Linear";
 import { HackerNewsIcon } from "../components/icons/HackerNews";
+import { useForm, UseFormReturn } from "react-hook-form";
 
 export interface Workflow {
   id: string;
@@ -46,6 +47,7 @@ interface ThemeContextType {
   themes: Theme[];
   selectedTheme: Theme;
   setSelectedTheme: (theme: Theme) => void;
+  inboxThemeForm: UseFormReturn;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -64,10 +66,32 @@ interface ThemeProviderProps {
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [selectedTheme, setSelectedTheme] = useState(themes[0]);
+  const inboxThemeForm = useForm({
+    defaultValues: {
+      open: false,
+      language: "en",
+      colorPrimary: "#0081F1",
+      colorPrimaryForeground: "white",
+      colorSecondary: "#F3F3F3",
+      colorSecondaryForeground: "#1A1523",
+      colorCounter: "#E5484D",
+      colorCounterForeground: "white",
+      colorBackground: "#FCFCFC",
+      colorForeground: "#1A1523",
+      colorNeutral: "black",
+      fontSize: "inherit",
+      borderRadius: "0.375rem",
+    },
+  });
+
+  const value = {
+    themes,
+    selectedTheme,
+    setSelectedTheme,
+    inboxThemeForm,
+  };
 
   return (
-    <ThemeContext.Provider value={{ themes, selectedTheme, setSelectedTheme }}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 }

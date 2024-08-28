@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import React from "react";
+import { useTheme } from "../contexts/ThemeContext";
 
 import {
   VStack,
@@ -12,16 +12,17 @@ import {
   SimpleGrid,
   Select,
   Input,
-  useDisclosure,
 } from "@chakra-ui/react";
 
 export function InboxDesignForm() {
   const {
-    handleSubmit,
-    register,
-    formState: { errors, isSubmitting },
-    getValues,
-  } = useForm();
+    inboxThemeForm: {
+      handleSubmit,
+      register,
+      formState: { errors, isSubmitting },
+      getValues,
+    },
+  } = useTheme();
 
   function onSubmit(values: any) {
     alert(JSON.stringify(values, null, 2));

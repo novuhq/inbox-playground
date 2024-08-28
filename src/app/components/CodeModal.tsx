@@ -10,20 +10,59 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
-  Text,
 } from "@chakra-ui/react";
 import { useCopyToClipboard } from "react-use";
+import { useTheme } from "../contexts/ThemeContext";
 interface CodeModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
 function CodeModal({ isOpen, onClose }: CodeModalProps) {
+  const {
+    inboxThemeForm: {
+      handleSubmit,
+      register,
+      formState: { errors, isSubmitting },
+      getValues,
+    },
+  } = useTheme();
+
+  const formValues = getValues();
+  const appearanceVariables = {
+    colorBackground: formValues.colorBackground,
+    colorForeground: formValues.colorForeground,
+    colorPrimary: formValues.colorPrimary,
+    colorPrimaryForeground: formValues.colorPrimaryForeground,
+    colorSecondary: formValues.colorSecondary,
+    colorSecondaryForeground: formValues.colorSecondaryForeground,
+    colorCounter: formValues.colorCounter,
+    colorCounterForeground: formValues.colorCounterForeground,
+    colorNeutral: formValues.colorNeutral,
+    fontSize: formValues.fontSize,
+    borderRadius: formValues.borderRadius,
+  };
+
+  const code = `
+  function InboxComponent(){
+    return <Inbox applicationIdentifier="YOUR_APP_ID" 
+        subscriberId="subscriberId"
+        appearance={{
+            variables: ${JSON.stringify(appearanceVariables, null, 4)
+              .split("\n")
+              .map((line, index) =>
+                index === 0 ? line : "    ".repeat(3) + line
+              )
+              .join("\n")}
+        }} 
+    />
+  }
+  `;
   const [, copyToClipboard] = useCopyToClipboard();
   const [isCopied, setIsCopied] = useState(false);
 
   const copyCode = useCallback(() => {
-    copyToClipboard("asd");
+    copyToClipboard(code);
     setIsCopied(true);
   }, [copyToClipboard]);
 
@@ -43,7 +82,7 @@ function CodeModal({ isOpen, onClose }: CodeModalProps) {
         <ModalHeader>Get Code</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <CodeBlock code={"console.log()"} language={"tsx"}>
+          <CodeBlock code={code} language={"tsx"}>
             <div className="relative">
               <CodeBlock.Code className="bg-gray-900 !p-6 rounded-xl shadow-lg">
                 <div className="table-row">
