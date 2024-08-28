@@ -7,7 +7,8 @@ export const useNotificationForm = () => {
   const { getValues } = notificationForm;
 
   const onSubmit = async () => {
-    const { subscriberFirstName, subscriberLastName } = getValues();
+    const { subscriberFirstName, subscriberLastName, selectedWorkflow } =
+      getValues();
 
     if (!subscriberFirstName || !subscriberLastName) {
       toast({
@@ -27,6 +28,7 @@ export const useNotificationForm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          workflowId: selectedWorkflow,
           to: {
             subscriberId: localStorage.getItem("inbox_demo_subscriberId"),
             firstName: subscriberFirstName,

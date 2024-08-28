@@ -5,13 +5,13 @@ const novu = new Novu(process.env.NOVU_API_KEY || "default_api_key");
 export async function POST(request: Request) {
   const body = await request.json();
 
-  const { to, payload } = body;
+  const { to, payload, workflowId } = body;
 
   if (to.subscriberId === "") {
     throw new Error("Subscriber id is required");
   }
 
-  const response = await novu.trigger("Inbox Demo", {
+  const response = await novu.trigger(workflowId, {
     to,
     payload,
   });
