@@ -19,8 +19,7 @@ import { useTheme } from "../contexts/ThemeContext";
 const PlaygroundFormContainer = () => {
   const { themes, setSelectedTheme } = useTheme();
 
-  const { notificationFormState, handleNotificationFormChange, handleSubmit } =
-    useNotificationForm();
+  const { notificationForm, handleSubmit } = useNotificationForm();
   const { showDesignDashboard } = useDesignDashboard();
   useSubscriber();
 
@@ -69,11 +68,7 @@ const PlaygroundFormContainer = () => {
               {themes.map((theme) => (
                 <TabPanel key={theme.id} height="100%" overflowY="auto">
                   {theme.id === "custom" ? <InboxDesignForm /> : null}
-                  <NotificationContentForm
-                    workflows={theme.workflows}
-                    notificationFormState={notificationFormState}
-                    handleNotificationFormChange={handleNotificationFormChange}
-                  />
+                  <NotificationContentForm workflows={theme.workflows} />
                 </TabPanel>
               ))}
             </TabPanels>

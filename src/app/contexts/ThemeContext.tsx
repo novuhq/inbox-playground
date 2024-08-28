@@ -4,11 +4,12 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { NotionIcon } from "../components/icons/Notion";
 import { LinearIcon } from "../components/icons/Linear";
 import { HackerNewsIcon } from "../components/icons/HackerNews";
-import { useForm, UseFormReturn } from "react-hook-form";
+import { FieldValues, useForm, UseFormReturn } from "react-hook-form";
 
 export interface Workflow {
   id: string;
   title: string;
+  data?: Record<string, unknown>;
 }
 
 export interface Theme {
@@ -23,7 +24,28 @@ const themes: Theme[] = [
     id: "notion",
     title: "Notion",
     icon: <NotionIcon />,
-    workflows: [{ id: "1", title: "Workflow 1" }],
+    workflows: [
+      {
+        id: "notion-comment-notification",
+        title: "Comment",
+        data: {
+          inAppSubject: `{{subscriber.firstName}} {{subscriber.lastName}} commented in`,
+          inAppBody: "Hello world",
+          inAppPrimaryActionLabel: "Reply",
+          inAppPrimaryActionUrl: "https://google.com",
+        },
+      },
+      {
+        id: "notion-comment-2",
+        title: "Another workflow",
+        data: {
+          inAppSubject: `Hi`,
+          inAppBody: "Hello worldasda",
+          inAppPrimaryActionLabel: "Reply",
+          inAppPrimaryActionUrl: "https://google.com",
+        },
+      },
+    ],
   },
   {
     id: "linear",
@@ -43,11 +65,28 @@ const themes: Theme[] = [
   },
 ];
 
+interface NotificationFormState {
+  subscriberFirstName: string;
+  subscriberLastName: string;
+  inAppSubject: string;
+  inAppBody: string;
+  inAppAvatar: string;
+  showInAppAvatar: string;
+  inAppPrimaryActionLabel: string;
+  enablePrimaryAction: string;
+  inAppPrimaryActionUrl: string;
+  inAppSecondaryActionLabel: string;
+  enableSecondaryAction: string;
+  inAppSecondaryActionUrl: string;
+  selectedWorkflow: string;
+}
+
 interface ThemeContextType {
   themes: Theme[];
   selectedTheme: Theme;
   setSelectedTheme: (theme: Theme) => void;
-  inboxThemeForm: UseFormReturn;
+  inboxThemeForm: UseFormReturn<any>;
+  notificationForm: UseFormReturn<NotificationFormState>;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -84,11 +123,30 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     },
   });
 
-  const value = {
+  const notificationForm = useForm<NotificationFormState>({
+    defaultValues: {
+      subscriberFirstName: "",
+      subscriberLastName: "",
+      inAppSubject: "",
+      inAppBody: "",
+      inAppAvatar: "",
+      showInAppAvatar: "false",
+      inAppPrimaryActionLabel: "",
+      enablePrimaryAction: "false",
+      inAppPrimaryActionUrl: "",
+      inAppSecondaryActionLabel: "",
+      enableSecondaryAction: "false",
+      inAppSecondaryActionUrl: "",
+      selectedWorkflow: themes[0].workflows[0].id,
+    },
+  });
+
+  const value: ThemeContextType = {
     themes,
     selectedTheme,
     setSelectedTheme,
     inboxThemeForm,
+    notificationForm,
   };
 
   return (

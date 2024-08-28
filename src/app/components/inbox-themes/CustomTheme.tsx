@@ -410,10 +410,6 @@ const CustomTheme = () => {
     borderRadius: formValues.borderRadius,
   };
 
-  console.log({
-    appearanceVariables,
-  });
-
   return (
     <Flex
       width="100%"
@@ -464,7 +460,7 @@ const CustomTheme = () => {
             mt={"5px"}
           >
             <Inbox
-              open={appearanceVariables.open}
+              open={appearanceVariables.open === true ? true : undefined}
               applicationIdentifier={novuConfig.applicationIdentifier}
               subscriberId={novuConfig.subscriberId}
               localization={
