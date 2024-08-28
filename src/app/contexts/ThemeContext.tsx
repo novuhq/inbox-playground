@@ -13,7 +13,7 @@ export interface Workflow {
 export interface Theme {
   id: string;
   title: string;
-  icon: JSX.Element;
+  icon: JSX.Element | null;
   workflows: Workflow[];
 }
 
@@ -33,6 +33,12 @@ const themes: Theme[] = [
       { id: "2", title: "Project Updates" },
       { id: "3", title: "Status Change" },
     ],
+  },
+  {
+    id: "custom",
+    title: "Custom",
+    icon: null,
+    workflows: [{ id: "1", title: "Workflow 1" }],
   },
 ];
 

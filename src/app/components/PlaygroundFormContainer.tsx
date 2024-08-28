@@ -8,7 +8,6 @@ import {
   Tab,
   TabPanels,
   TabPanel,
-  Select,
 } from "@chakra-ui/react";
 import InboxDesignForm from "./InboxDesignForm";
 import NotificationContentForm from "./NotificationContentForm";
@@ -69,6 +68,7 @@ const PlaygroundFormContainer = () => {
             <TabPanels height="calc(100% - 30px)">
               {themes.map((theme) => (
                 <TabPanel key={theme.id} height="100%" overflowY="auto">
+                  {theme.id === "custom" ? <InboxDesignForm /> : null}
                   <NotificationContentForm
                     workflows={theme.workflows}
                     notificationFormState={notificationFormState}

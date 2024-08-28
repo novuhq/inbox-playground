@@ -6,6 +6,7 @@ import PlaygroundFormContainer from "../PlaygroundFormContainer";
 import NotionTheme from "../inbox-themes/NotionTheme";
 import LinearTheme from "../inbox-themes/LinearTheme";
 import { ThemeProvider, useTheme } from "../../contexts/ThemeContext";
+import CustomTheme from "../inbox-themes/CustomTheme";
 
 const ThemeRenderer = () => {
   const { selectedTheme } = useTheme();
@@ -14,6 +15,7 @@ const ThemeRenderer = () => {
     <>
       {selectedTheme.id === "notion" && <NotionTheme />}
       {selectedTheme.id === "linear" && <LinearTheme />}
+      {selectedTheme.id === "custom" && <CustomTheme />}
     </>
   );
 };
