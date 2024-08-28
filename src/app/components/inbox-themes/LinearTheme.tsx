@@ -9,6 +9,7 @@ import {
   Icon,
   useColorModeValue,
   background,
+  Avatar,
 } from "@chakra-ui/react";
 import {
   FiSearch,
@@ -17,6 +18,8 @@ import {
   FiSettings,
   FiChevronDown,
   FiFilter,
+  FiXCircle,
+  FiCheckCircle,
 } from "react-icons/fi";
 import { BsFillFileTextFill, BsTrash, BsArrowRepeat } from "react-icons/bs";
 import { AiOutlineCalendar } from "react-icons/ai";
@@ -242,7 +245,7 @@ const InboxItem = ({
   completed,
   icon,
   badgeColor,
-}) => {
+}: any) => {
   return (
     <Flex
       p={3}

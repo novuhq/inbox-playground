@@ -404,7 +404,7 @@ const NotificationFeed = () => {
           Notifications
         </Text>
         <Box>
-          <Inbox {...novuConfig} />
+          <Inbox {...(novuConfig as any)} />
         </Box>
       </Flex>
     </Box>

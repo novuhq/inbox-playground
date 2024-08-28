@@ -31,7 +31,7 @@ import { GrDocumentText } from "react-icons/gr";
 import { FaUserFriends } from "react-icons/fa";
 import { Inbox, Notifications } from "@novu/react";
 import { NotionIcon } from "../icons/Notion";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export const novuConfig: any = {
   applicationIdentifier: "QldXz8WKHsiP",
@@ -175,14 +175,18 @@ const NotionTheme = () => {
             <Notifications
               renderNotification={(notification) => {
                 console.log(notification);
-                const type = notification.tags[0] || 'Notification';
-                const mainAvatar = notification.avatar || notification.to.firstName?.charAt(0).toUpperCase() || 'A';
-                const mainFirstName = notification.to.firstName || 'Unknown';
-                const mainLastName = notification.to.lastName || 'User';
-                const subject = notification.subject || 'No Subject';
-                const body = notification.body || '#';
+                const type = notification.tags?.[0] || "Notification";
+                const mainAvatar =
+                  notification.avatar ||
+                  notification.to.firstName?.charAt(0).toUpperCase() ||
+                  "A";
+                const mainFirstName = notification.to.firstName || "Unknown";
+                const mainLastName = notification.to.lastName || "User";
+                const subject = notification.subject || "No Subject";
+                const body = notification.body || "#";
                 const replyAction = notification.primaryAction !== undefined;
-                const createdAt = notification.createdAt || new Date().toISOString();
+                const createdAt =
+                  notification.createdAt || new Date().toISOString();
                 const formattedTime = formatTime(createdAt);
 
                 return (
@@ -259,12 +263,16 @@ const InboxItem = ({
   sentTime,
   isRead,
   isArchived,
-  replyAction
-}) => {
+  replyAction,
+}: any) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const dynamicTitle = () => {
-    const boldName = <Text as="span" fontWeight="bold">{mainActorName}</Text>;
+    const boldName = (
+      <Text as="span" fontWeight="bold">
+        {mainActorName}
+      </Text>
+    );
 
     switch (notificationType) {
       case "Invite":
@@ -291,7 +299,14 @@ const InboxItem = ({
     >
       <Flex align="flex-start">
         <Box position="relative" width="32px" height="24px" mr={2}>
-          <Avatar width="24px" height="24px" name={mainActorAvatar} src={mainActorAvatar} position="absolute" left={"10px"} />
+          <Avatar
+            width="24px"
+            height="24px"
+            name={mainActorAvatar}
+            src={mainActorAvatar}
+            position="absolute"
+            left={"10px"}
+          />
           {!isRead && (
             <Box
               width="8px"
@@ -307,7 +322,7 @@ const InboxItem = ({
         </Box>
         <VStack align="start" spacing={1} flex="1" ml={1}>
           <Flex justify="space-between" width="100%">
-            <Text fontSize="md" color="gray.800" >
+            <Text fontSize="md" color="gray.800">
               {dynamicTitle()}
             </Text>
             <Text fontSize="xs" color="gray.400">
@@ -346,15 +361,10 @@ const InboxItem = ({
   );
 };
 
-
-
-
-
-
-function formatTime(timestamp) {
+function formatTime(timestamp: any) {
   const date = new Date(timestamp);
-  const now = new Date();
-  const diffInSeconds = Math.floor((now - date) / 1000);
+  const now = new Date().getTime();
+  const diffInSeconds = Math.floor((now - date.getTime()) / 1000);
 
   // Time calculations
   const secondsInMinute = 60;
@@ -375,12 +385,11 @@ function formatTime(timestamp) {
     const days = Math.floor(diffInSeconds / secondsInDay);
     return `${days} days`;
   } else if (diffInSeconds < secondsInYear) {
-    const options = { month: 'short', day: 'numeric' };
+    const options: any = { month: "short", day: "numeric" };
     return date.toLocaleDateString(undefined, options); // e.g., "Feb 26"
   } else {
     return date.getFullYear().toString(); // e.g., "2022"
   }
 }
-
 
 export default NotionTheme;

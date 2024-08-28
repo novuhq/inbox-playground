@@ -65,42 +65,45 @@ export const novuConfig: any = {
   },
 };
 
-type LocalizationKey = keyof (typeof localization)["en-US"];
 type LocalizationValue =
   | string
   | (({ notificationCount }: { notificationCount: number }) => string);
+
+const englishLocalization = {
+  "inbox.status.options.unread": "Unread only",
+  "inbox.status.options.unreadRead": "Unread & read",
+  "inbox.status.options.archived": "Archived",
+  "inbox.status.unread": "Unread",
+  "inbox.status.unreadRead": "Inbox",
+  "inbox.status.archived": "Archived",
+  "notifications.emptyNotice": "No notifications",
+  "notifications.actions.readAll": "Mark all as read",
+  "notifications.actions.archiveAll": "Archive all",
+  "notifications.actions.archiveRead": "Archive read",
+  "notifications.newNotifications": ({
+    notificationCount,
+  }: {
+    notificationCount: number;
+  }) =>
+    `${notificationCount > 99 ? "99+" : notificationCount} new ${
+      notificationCount === 1 ? "notification" : "notifications"
+    }`,
+  "notification.actions.read.toolTip": "Mark as read",
+  "notification.actions.unread.toolTip": "Mark as unread",
+  "notification.actions.archive.toolTip": "Archive",
+  "notification.actions.unarchive.toolTip": "Unarchive",
+  "preferences.title": "Notification Preferences",
+  "preferences.global": "Global Preferences",
+};
+
+type LocalizationKey = keyof typeof englishLocalization;
 
 const localization: Record<
   string,
   Record<LocalizationKey, LocalizationValue>
 > = {
   // English (Default)
-  "en-US": {
-    "inbox.status.options.unread": "Unread only",
-    "inbox.status.options.unreadRead": "Unread & read",
-    "inbox.status.options.archived": "Archived",
-    "inbox.status.unread": "Unread",
-    "inbox.status.unreadRead": "Inbox",
-    "inbox.status.archived": "Archived",
-    "notifications.emptyNotice": "No notifications",
-    "notifications.actions.readAll": "Mark all as read",
-    "notifications.actions.archiveAll": "Archive all",
-    "notifications.actions.archiveRead": "Archive read",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} new ${
-        notificationCount === 1 ? "notification" : "notifications"
-      }`,
-    "notification.actions.read.toolTip": "Mark as read",
-    "notification.actions.unread.toolTip": "Mark as unread",
-    "notification.actions.archive.toolTip": "Archive",
-    "notification.actions.unarchive.toolTip": "Unarchive",
-    "preferences.title": "Notification Preferences",
-    "preferences.global": "Global Preferences",
-  },
+  "en-US": englishLocalization,
 
   // Spanish (es)
   es: {
@@ -387,7 +390,7 @@ const localization: Record<
 
 const typedLocalization: Record<
   string,
-  Record<LocalizationKey, LocalizationValue>
+  Record<LocalizationKey, any>
 > = localization;
 
 const CustomTheme = () => {

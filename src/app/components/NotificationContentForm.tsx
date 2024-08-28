@@ -58,7 +58,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
 
   useEffect(() => {
     if (onSubmit) {
-      onSubmit(formValues);
+      onSubmit(formValues as NotificationFormState);
     }
   }, [formValues, onSubmit]);
 
@@ -191,7 +191,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
               <FormLabel fontSize="sm" mb="0">
                 Enable Primary Action
               </FormLabel>
-              <Switch {...field} isChecked={field.value} size="sm" />
+              <Switch {...(field as any)} isChecked={field.value} size="sm" />
             </FormControl>
           )}
         />
@@ -244,7 +244,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
               <FormLabel fontSize="sm" mb="0">
                 Enable Secondary Action
               </FormLabel>
-              <Switch {...field} isChecked={field.value} size="sm" />
+              <Switch {...(field as any)} isChecked={field.value} size="sm" />
             </FormControl>
           )}
         />
@@ -293,7 +293,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
                 <FormLabel fontSize="sm" mb="0" mr={2} whiteSpace="nowrap">
                   Show Avatar
                 </FormLabel>
-                <Switch {...field} isChecked={field.value} size="sm" />
+                <Switch {...(field as any)} isChecked={field.value} size="sm" />
               </FormControl>
             )}
           />
