@@ -179,39 +179,35 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
           )}
         />
 
-        <Controller
-          name="showInAppAvatar"
-          control={control}
-          render={({ field }) => (
-            <FormControl
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <FormLabel fontSize="sm" mb="0">
-                Show Avatar
-              </FormLabel>
-              <Switch {...field} size="sm" />
-            </FormControl>
-          )}
-        />
+        <Flex alignItems="center" justifyContent="space-between" gap={4}>
+          <Controller
+            name="showInAppAvatar"
+            control={control}
+            render={({ field }) => (
+              <FormControl display="flex" alignItems="center" width="auto">
+                <FormLabel fontSize="sm" mb="0" mr={2} whiteSpace="nowrap">
+                  Show Avatar
+                </FormLabel>
+                <Switch {...field} size="sm" />
+              </FormControl>
+            )}
+          />
 
-        {showInAppAvatar && (
           <Controller
             name="inAppAvatar"
             control={control}
             render={({ field }) => (
-              <FormControl>
-                <FormLabel fontSize="sm">Avatar URL</FormLabel>
+              <FormControl flex={1}>
                 <Input
                   {...field}
-                  placeholder="URL for the avatar image"
+                  placeholder="Avatar URL"
                   size="sm"
+                  isDisabled={!watch("showInAppAvatar")}
                 />
               </FormControl>
             )}
           />
-        )}
+        </Flex>
 
         <Controller
           name="enablePrimaryAction"
@@ -232,35 +228,37 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
 
         {enablePrimaryAction && (
           <>
-            <Controller
-              name="inAppPrimaryActionLabel"
-              control={control}
-              render={({ field }) => (
-                <FormControl>
-                  <FormLabel fontSize="sm">Primary Action Label</FormLabel>
-                  <Input
-                    {...field}
-                    placeholder="Primary Action Label"
-                    size="sm"
-                  />
-                </FormControl>
-              )}
-            />
+            <Flex alignItems="center" justifyContent="space-between" gap={4}>
+              <Controller
+                name="inAppPrimaryActionLabel"
+                control={control}
+                render={({ field }) => (
+                  <FormControl>
+                    <FormLabel fontSize="sm">Primary Action Label</FormLabel>
+                    <Input
+                      {...field}
+                      placeholder="Primary Action Label"
+                      size="sm"
+                    />
+                  </FormControl>
+                )}
+              />
 
-            <Controller
-              name="inAppPrimaryActionUrl"
-              control={control}
-              render={({ field }) => (
-                <FormControl>
-                  <FormLabel fontSize="sm">Primary Action URL</FormLabel>
-                  <Input
-                    {...field}
-                    placeholder="Primary Action URL"
-                    size="sm"
-                  />
-                </FormControl>
-              )}
-            />
+              <Controller
+                name="inAppPrimaryActionUrl"
+                control={control}
+                render={({ field }) => (
+                  <FormControl>
+                    <FormLabel fontSize="sm">Primary Action URL</FormLabel>
+                    <Input
+                      {...field}
+                      placeholder="Primary Action URL"
+                      size="sm"
+                    />
+                  </FormControl>
+                )}
+              />
+            </Flex>
           </>
         )}
 
@@ -283,35 +281,37 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
 
         {enableSecondaryAction && (
           <>
-            <Controller
-              name="inAppSecondaryActionLabel"
-              control={control}
-              render={({ field }) => (
-                <FormControl>
-                  <FormLabel fontSize="sm">Secondary Action Label</FormLabel>
-                  <Input
-                    {...field}
-                    placeholder="Secondary Action Label"
-                    size="sm"
-                  />
-                </FormControl>
-              )}
-            />
+            <Flex alignItems="center" justifyContent="space-between" gap={4}>
+              <Controller
+                name="inAppSecondaryActionLabel"
+                control={control}
+                render={({ field }) => (
+                  <FormControl>
+                    <FormLabel fontSize="sm">Secondary Action Label</FormLabel>
+                    <Input
+                      {...field}
+                      placeholder="Secondary Action Label"
+                      size="sm"
+                    />
+                  </FormControl>
+                )}
+              />
 
-            <Controller
-              name="inAppSecondaryActionUrl"
-              control={control}
-              render={({ field }) => (
-                <FormControl>
-                  <FormLabel fontSize="sm">Secondary Action URL</FormLabel>
-                  <Input
-                    {...field}
-                    placeholder="Secondary Action URL"
-                    size="sm"
-                  />
-                </FormControl>
-              )}
-            />
+              <Controller
+                name="inAppSecondaryActionUrl"
+                control={control}
+                render={({ field }) => (
+                  <FormControl>
+                    <FormLabel fontSize="sm">Secondary Action URL</FormLabel>
+                    <Input
+                      {...field}
+                      placeholder="Secondary Action URL"
+                      size="sm"
+                    />
+                  </FormControl>
+                )}
+              />
+            </Flex>
           </>
         )}
       </VStack>
