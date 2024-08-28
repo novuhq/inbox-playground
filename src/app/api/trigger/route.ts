@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     payload,
   });
 
-  return new Response(response.data, {
+  return Response.json(response.data, {
     status: 200,
   });
 }

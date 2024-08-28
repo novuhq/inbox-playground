@@ -13,12 +13,14 @@ import {
   Stack,
 } from "@chakra-ui/react";
 
-import { Inbox, Notifications } from "@novu/react";
+import { Inbox } from "@novu/react";
 
 export const novuConfig: any = {
   applicationIdentifier:
     process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID || "QldXz8WKHsiP",
-  subscriberId: "66ab924daa4218d126f9ba68_notion",
+  subscriberId:
+    localStorage.getItem("inbox_demo_subscriberId") ||
+    "66ab924daa4218d126f9ba68_notion",
   appearance: {
     variables: {},
     elements: {
