@@ -1,71 +1,109 @@
-"use client";
-import { Box, Flex, Text } from "@chakra-ui/react";
-import { Inbox } from "@novu/react";
+import React from "react";
+import { useTheme } from "../../contexts/ThemeContext";
+import {
+  Box,
+  Flex,
+  Text,
+  HStack,
+  Link,
+  Icon,
+  useColorModeValue,
+  useBreakpointValue,
+  Popover,
+  Stack,
+} from "@chakra-ui/react";
 
-function getLocalStorageItem(key: string, defaultValue: string = ""): string {
-  if (typeof window !== "undefined") {
-    return window.localStorage.getItem(key) || defaultValue;
-  }
+import { Inbox, Notifications } from "@novu/react";
 
-  return defaultValue;
-}
-
-const localSubscriberId = getLocalStorageItem("inbox_demo_subscriberId");
-
-const localInboxDesign = {
-  colorPrimary: getLocalStorageItem("inbox_demo_colorPrimary", "#0081F1"),
-  colorPrimaryForeground: getLocalStorageItem(
-    "inbox_demo_colorPrimaryForeground",
-    "white"
-  ),
-  colorSecondary: getLocalStorageItem("inbox_demo_colorSecondary", "#F3F3F3"),
-  colorSecondaryForeground: getLocalStorageItem(
-    "inbox_demo_colorSecondaryForeground",
-    "#1A1523"
-  ),
-  colorCounter: getLocalStorageItem("inbox_demo_colorCounter", "#E5484D"),
-  colorCounterForeground: getLocalStorageItem(
-    "inbox_demo_colorCounterForeground",
-    "white"
-  ),
-  colorBackground: getLocalStorageItem("inbox_demo_colorBackground", "#FCFCFC"),
-  colorForeground: getLocalStorageItem("inbox_demo_colorForeground", "#1A1523"),
-  colorNeutral: getLocalStorageItem("inbox_demo_colorNeutral", "black"),
-  fontSize: getLocalStorageItem("inbox_demo_fontSize", "inherit"),
-  borderRadius: getLocalStorageItem("inbox_demo_borderRadius", "0.375rem"),
+export const novuConfig: any = {
+  applicationIdentifier: "QldXz8WKHsiP",
+  subscriberId: "66ab924daa4218d126f9ba68_notion",
+  appearance: {
+    variables: {},
+    elements: {
+      notificationCustomActions: {
+        marginTop: "8px",
+      },
+      notificationImage: {
+        borderRadius: "50%",
+        width: "24px",
+        height: "24px",
+      },
+      notificationArchive__button: {
+        width: "24px",
+        height: "24px",
+        borderRadius: "4px",
+      },
+      notificationDefaultActions: {
+        gap: "0",
+        backgroundColor: "white",
+        borderRadius: "6px",
+        border: "1px solid rgba(22, 29, 27, 0.02)",
+      },
+      notificationUnread__button: {
+        width: "24px",
+        height: "24px",
+        borderRadius: "4px",
+      },
+      notificationPrimaryAction__button: {
+        cursor: "pointer",
+        display: "inline-flex",
+        alignItems: "center",
+        whiteSpace: "nowrap",
+        height: "26px",
+        borderRadius: "4px",
+        fontSize: "12px",
+        lineHeight: "1.2",
+        paddingLeft: "8px",
+        paddingRight: "8px",
+        color: "rgb(55, 53, 47)",
+        border: "1px solid rgba(15, 15, 15, 0.1)",
+        fontWeight: "500",
+        backgroundColor: "#ffffff", // Default background color
+      },
+    },
+  },
 };
 
-const localLocale = getLocalStorageItem("inbox_demo_language", "en");
+type LocalizationValue =
+  | string
+  | (({ notificationCount }: { notificationCount: number }) => string);
 
-// Localization object containing translations for multiple languages
-const localization = {
+const englishLocalization = {
+  "inbox.status.options.unread": "Unread only",
+  "inbox.status.options.unreadRead": "Unread & read",
+  "inbox.status.options.archived": "Archived",
+  "inbox.status.unread": "Unread",
+  "inbox.status.unreadRead": "Inbox",
+  "inbox.status.archived": "Archived",
+  "notifications.emptyNotice": "No notifications",
+  "notifications.actions.readAll": "Mark all as read",
+  "notifications.actions.archiveAll": "Archive all",
+  "notifications.actions.archiveRead": "Archive read",
+  "notifications.newNotifications": ({
+    notificationCount,
+  }: {
+    notificationCount: number;
+  }) =>
+    `${notificationCount > 99 ? "99+" : notificationCount} new ${
+      notificationCount === 1 ? "notification" : "notifications"
+    }`,
+  "notification.actions.read.toolTip": "Mark as read",
+  "notification.actions.unread.toolTip": "Mark as unread",
+  "notification.actions.archive.toolTip": "Archive",
+  "notification.actions.unarchive.toolTip": "Unarchive",
+  "preferences.title": "Notification Preferences",
+  "preferences.global": "Global Preferences",
+};
+
+type LocalizationKey = keyof typeof englishLocalization;
+
+const localization: Record<
+  string,
+  Record<LocalizationKey, LocalizationValue>
+> = {
   // English (Default)
-  "en-US": {
-    "inbox.status.options.unread": "Unread only",
-    "inbox.status.options.unreadRead": "Unread & read",
-    "inbox.status.options.archived": "Archived",
-    "inbox.status.unread": "Unread",
-    "inbox.status.unreadRead": "Inbox",
-    "inbox.status.archived": "Archived",
-    "notifications.emptyNotice": "No notifications",
-    "notifications.actions.readAll": "Mark all as read",
-    "notifications.actions.archiveAll": "Archive all",
-    "notifications.actions.archiveRead": "Archive read",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} new ${
-        notificationCount === 1 ? "notification" : "notifications"
-      }`,
-    "notification.actions.read.toolTip": "Mark as read",
-    "notification.actions.unread.toolTip": "Mark as unread",
-    "notification.actions.archive.toolTip": "Archive",
-    "notification.actions.unarchive.toolTip": "Unarchive",
-    "preferences.title": "Notification Preferences",
-    "preferences.global": "Global Preferences",
-  },
+  "en-US": englishLocalization,
 
   // Spanish (es)
   es: {
@@ -156,7 +194,7 @@ const localization = {
   // Chinese (Simplified) (zh-CN)
   "zh-CN": {
     "inbox.status.options.unread": "仅未读",
-    "inbox.status.options.unreadRead": "未读和��读",
+    "inbox.status.options.unreadRead": "未读和已读",
     "inbox.status.options.archived": "已归档",
     "inbox.status.unread": "未读",
     "inbox.status.unreadRead": "收件箱",
@@ -187,7 +225,7 @@ const localization = {
     "inbox.status.options.unreadRead": "未読と既読",
     "inbox.status.options.archived": "アーカイブ済み",
     "inbox.status.unread": "未読",
-    "inbox.status.unreadRead": "受信ト���イ",
+    "inbox.status.unreadRead": "受信トレイ",
     "inbox.status.archived": "アーカイブ済み",
     "notifications.emptyNotice": "通知はありません",
     "notifications.actions.readAll": "すべて既読にする",
@@ -346,69 +384,146 @@ const localization = {
     "notification.actions.archive.toolTip": "संग्रहित करें",
     "notification.actions.unarchive.toolTip": "संग्रहण रद्द करें",
     "preferences.title": "सूचना प्राथमिकताएँ",
-    "preferences.global": "वैश्विक प्राथमिकताएँ",
+    "preferences.global": "वैश्विक ���्राथमिकताएँ",
   },
 };
 
-// Merge the selected locale translations into novuConfig
-export const novuConfig = {
-  applicationIdentifier: process.env.NEXT_PUBLIC_APPLICATION_IDENTIFIER!,
-  subscriberId: localSubscriberId!,
-  localization:
-    localization[localLocale as keyof typeof localization] ||
-    localization["en-US"], // Fallback to English if locale not found
-  ...(getLocalStorageItem("inbox_demo_open") === "true" && { open: true }),
-  appearance: {
-    variables: {
-      ...localInboxDesign,
-    },
-    elements: {
-      bellContainer: {
-        color: "",
-        width: "30px",
-        height: "30px",
-      },
-      bellIcon: {
-        width: "30px",
-        height: "30px",
-      },
-      bellDot: {
-        width: "10px",
-        height: "10px",
-      },
-      inbox__popoverContent: {
-        width: "59%",
-        marginLeft: "-45px",
-      },
-      popoverContent: {},
-      notification: {},
-      notificationList: {},
-    },
-  },
-};
+const typedLocalization: Record<
+  string,
+  Record<LocalizationKey, any>
+> = localization;
 
-const NotificationFeed = () => {
+const CustomTheme = () => {
+  const { inboxThemeForm } = useTheme();
+  const formValues = inboxThemeForm.watch();
+
+  const appearanceVariables = {
+    open: formValues.open,
+    language: formValues.language,
+    colorPrimary: formValues.colorPrimary,
+    colorPrimaryForeground: formValues.colorPrimaryForeground,
+    colorSecondary: formValues.colorSecondary,
+    colorSecondaryForeground: formValues.colorSecondaryForeground,
+    colorCounter: formValues.colorCounter,
+    colorCounterForeground: formValues.colorCounterForeground,
+    colorBackground: formValues.colorBackground,
+    colorForeground: formValues.colorForeground,
+    colorNeutral: formValues.colorNeutral,
+    fontSize: formValues.fontSize,
+    borderRadius: formValues.borderRadius,
+  };
+
   return (
-    <Box
-      flex="1" // Takes up the remaining width
-      borderWidth="1px"
+    <Flex
+      width="100%"
+      maxW="1200px"
+      height="100%"
+      minHeight="400px"
       borderRadius="lg"
-      padding={6}
-      boxShadow="lg"
       bg="white"
-      height="100%" // Ensure the feed takes full height
-      position="relative"
+      style={{
+        fontFamily:
+          'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
+      }}
     >
-      <Flex justifyContent="space-between" alignItems="center">
-        <Text fontSize="lg" fontWeight="bold">
-          Notifications
-        </Text>
-        <Box>
-          <Inbox {...(novuConfig as any)} />
-        </Box>
-      </Flex>
-    </Box>
+      {/* Main Content Area */}
+      <Box width="100%">
+        <Flex
+          bg={useColorModeValue("white", "gray.800")}
+          color={useColorModeValue("gray.600", "white")}
+          minH={"60px"}
+          py={{ base: 2 }}
+          px={{ base: 4 }}
+          borderBottom={1}
+          borderStyle={"solid"}
+          borderColor={useColorModeValue("gray.200", "gray.900")}
+        >
+          <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
+            <Text
+              textAlign={useBreakpointValue({ base: "center", md: "left" })}
+              fontFamily={"heading"}
+              display="block"
+              lineHeight={"40px"}
+              fontWeight={"bold"}
+              color={useColorModeValue("gray.800", "white")}
+            >
+              Acme
+            </Text>
+
+            <Flex display={{ base: "none", md: "flex" }} ml={10}>
+              <DesktopNav />
+            </Flex>
+          </Flex>
+
+          <Stack
+            flex={{ base: 1, md: 0 }}
+            justify={"flex-end"}
+            direction={"row"}
+            spacing={6}
+            mt={"5px"}
+          >
+            <Inbox
+              open={appearanceVariables.open === true ? true : undefined}
+              applicationIdentifier={novuConfig.applicationIdentifier}
+              subscriberId={novuConfig.subscriberId}
+              localization={
+                typedLocalization[
+                  appearanceVariables.language as keyof typeof typedLocalization
+                ] || typedLocalization["en-US"]
+              }
+              appearance={{
+                variables: appearanceVariables,
+              }}
+            />
+          </Stack>
+        </Flex>
+      </Box>
+    </Flex>
   );
 };
 
-export default NotificationFeed;
+const NAV_ITEMS: Array<any> = [
+  {
+    label: "Home",
+  },
+  {
+    label: "Tasks",
+  },
+  {
+    label: "Items",
+  },
+  {
+    label: "Settings",
+  },
+];
+
+const DesktopNav = () => {
+  const linkColor = useColorModeValue("gray.600", "gray.200");
+  const linkHoverColor = useColorModeValue("gray.800", "white");
+
+  return (
+    <Stack direction={"row"} spacing={4}>
+      {NAV_ITEMS.map((navItem) => (
+        <Box key={navItem.label} display="flex" alignItems="center">
+          <Box
+            as="a"
+            p={2}
+            href={navItem.href ?? "#"}
+            fontSize={"sm"}
+            fontWeight={500}
+            color={linkColor}
+            lineHeight="18px"
+            display="block"
+            _hover={{
+              textDecoration: "none",
+              color: linkHoverColor,
+            }}
+          >
+            {navItem.label}
+          </Box>
+        </Box>
+      ))}
+    </Stack>
+  );
+};
+export default CustomTheme;

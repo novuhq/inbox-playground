@@ -1,10 +1,11 @@
-export function LinearIcon() {
+export function LinearIcon(props: any) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       width="200"
       height="200"
+      {...props}
       viewBox="0 0 100 100"
     >
       <path

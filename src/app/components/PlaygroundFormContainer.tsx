@@ -14,75 +14,13 @@ import NotificationContentForm from "./NotificationContentForm";
 import { useNotificationForm } from "../hooks/useNotificationForm";
 import { useDesignDashboard } from "../hooks/useDesignDashboard";
 import { useSubscriber } from "../hooks/useSubscriber";
-import { LinearIcon } from "./icons/Linear";
-import { NotionIcon } from "./icons/Notion";
-import { HackerNewsIcon } from "./icons/HackerNews";
-
-export interface Workflow {
-  id: string;
-  title: string;
-}
-
-const themes = [
-  {
-    id: "linear",
-    title: "Linear",
-    icon: <LinearIcon />,
-    workflows: [
-      {
-        id: "1",
-        title: "Mention in a Comment",
-      },
-      {
-        id: "2",
-        title: "Project Updates",
-      },
-      {
-        id: "3",
-        title: "Status Change",
-      },
-    ],
-  },
-  {
-    id: "notion",
-    title: "Notion",
-    icon: <NotionIcon />,
-    workflows: [
-      {
-        id: "1",
-        title: "Workflow 1",
-      },
-    ],
-  },
-  {
-    id: "reddit",
-    title: "Reddit",
-    icon: <NotionIcon />,
-    workflows: [
-      {
-        id: "1",
-        title: "Workflow 1",
-      },
-    ],
-  },
-  {
-    id: "hn",
-    title: "Hacker News",
-    icon: <HackerNewsIcon />,
-    workflows: [
-      {
-        id: "1",
-        title: "Workflow 1",
-      },
-    ],
-  },
-];
+import { useTheme } from "../contexts/ThemeContext";
 
 const PlaygroundFormContainer = () => {
-  const { notificationFormState, handleNotificationFormChange, handleSubmit } =
-    useNotificationForm();
-  const { showDesignDashboard, handleToggleDesignDashboard } =
-    useDesignDashboard();
+  const { themes, setSelectedTheme } = useTheme();
+
+  const { notificationForm, handleSubmit } = useNotificationForm();
+  const { showDesignDashboard } = useDesignDashboard();
   useSubscriber();
 
   return (
@@ -102,7 +40,10 @@ const PlaygroundFormContainer = () => {
         {showDesignDashboard ? (
           <InboxDesignForm />
         ) : (
-          <Tabs height="calc(100% - 80px)">
+          <Tabs
+            height="calc(100% - 80px)"
+            onChange={(index) => setSelectedTheme(themes[index])}
+          >
             <TabList>
               {themes.map((theme) => (
                 <Tab
@@ -126,11 +67,8 @@ const PlaygroundFormContainer = () => {
             <TabPanels height="calc(100% - 30px)">
               {themes.map((theme) => (
                 <TabPanel key={theme.id} height="100%" overflowY="auto">
-                  <NotificationContentForm
-                    workflows={theme.workflows}
-                    notificationFormState={notificationFormState}
-                    handleNotificationFormChange={handleNotificationFormChange}
-                  />
+                  {theme.id === "custom" ? <InboxDesignForm /> : null}
+                  <NotificationContentForm workflows={theme.workflows} />
                 </TabPanel>
               ))}
             </TabPanels>

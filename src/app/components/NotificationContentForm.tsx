@@ -1,7 +1,8 @@
 "use client";
 
+import React, { useEffect } from "react";
+import { Controller } from "react-hook-form";
 import {
-  Button,
   FormControl,
   FormLabel,
   Textarea,
@@ -14,7 +15,13 @@ import {
   Flex,
   Divider,
 } from "@chakra-ui/react";
-import { Workflow } from "./PlaygroundFormContainer";
+import { useTheme } from "../contexts/ThemeContext";
+
+// Assuming Workflow is defined in the same file or imported correctly
+interface Workflow {
+  id: string;
+  title: string;
+}
 
 interface NotificationFormState {
   subscriberFirstName: string;
@@ -33,212 +40,281 @@ interface NotificationFormState {
 }
 
 interface NotificationContentFormProps {
-  notificationFormState: NotificationFormState;
-  handleNotificationFormChange: (
-    e:
-      | React.ChangeEvent<
-          HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-        >
-      | React.ChangeEvent<HTMLInputElement>
-  ) => void;
   workflows: Workflow[];
+  onSubmit?: (data: NotificationFormState) => void;
 }
 
 const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
   workflows,
-  notificationFormState,
-  handleNotificationFormChange,
+  onSubmit,
 }) => {
+  const {
+    notificationForm: { control, watch, setValue },
+    selectedTheme,
+  } = useTheme();
+
+  const formValues = watch();
+  const selectedWorkflowId = watch("selectedWorkflow");
+
+  useEffect(() => {
+    if (onSubmit) {
+      onSubmit(formValues as NotificationFormState);
+    }
+  }, [formValues, onSubmit]);
+
+  useEffect(() => {
+    const selectedWorkflow = selectedTheme.workflows.find(
+      (workflow) => workflow.id === selectedWorkflowId
+    );
+
+    if (selectedWorkflow && selectedWorkflow.data) {
+      const {
+        inAppSubject,
+        inAppBody,
+        inAppPrimaryActionLabel,
+        inAppPrimaryActionUrl,
+      } = selectedWorkflow.data;
+
+      console.log("inAppPrimaryActionLabel", selectedWorkflow);
+
+      setValue("inAppSubject", inAppSubject as string);
+      setValue("inAppBody", inAppBody as string);
+      setValue("inAppPrimaryActionLabel", inAppPrimaryActionLabel as string);
+      setValue("inAppPrimaryActionUrl", inAppPrimaryActionUrl as string);
+      setValue("enablePrimaryAction", !!inAppPrimaryActionLabel);
+    }
+  }, [selectedWorkflowId, selectedTheme.workflows, setValue]);
+
+  const showInAppAvatar = watch("showInAppAvatar");
+  const enablePrimaryAction = watch("enablePrimaryAction");
+  const enableSecondaryAction = watch("enableSecondaryAction");
+
+  console.log({ enablePrimaryAction });
   return (
-    <VStack spacing={4} alignItems="stretch">
-      <div>
-        <Heading size="sm">Subscriber</Heading>
-        <Text fontSize="sm" color="gray.600" mb={2}>
-          The recipient of the notification, change the details to customize.
-        </Text>
-      </div>
+    <form>
+      <VStack spacing={4} alignItems="stretch">
+        <div>
+          <Heading size="sm">Subscriber</Heading>
+          <Text fontSize="sm" color="gray.600" mb={2}>
+            The recipient of the notification, change the details to customize.
+          </Text>
+        </div>
 
-      <Flex gap={4}>
-        <FormControl isRequired flex={1}>
-          <FormLabel fontSize="sm">First Name</FormLabel>
-          <Input
+        <Flex gap={4}>
+          <Controller
             name="subscriberFirstName"
-            value={notificationFormState.subscriberFirstName}
-            onChange={handleNotificationFormChange}
-            placeholder="First Name"
-            size="sm"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <FormControl isRequired flex={1}>
+                <FormLabel fontSize="sm">First Name</FormLabel>
+                <Input {...field} placeholder="First Name" size="sm" />
+              </FormControl>
+            )}
           />
-        </FormControl>
 
-        <FormControl flex={1}>
-          <FormLabel fontSize="sm">Last Name</FormLabel>
-          <Input
+          <Controller
             name="subscriberLastName"
-            value={notificationFormState.subscriberLastName}
-            onChange={handleNotificationFormChange}
-            placeholder="Last Name"
-            size="sm"
+            control={control}
+            render={({ field }) => (
+              <FormControl flex={1}>
+                <FormLabel fontSize="sm">Last Name</FormLabel>
+                <Input {...field} placeholder="Last Name" size="sm" />
+              </FormControl>
+            )}
           />
-        </FormControl>
-      </Flex>
+        </Flex>
 
-      <Divider />
-      <FormControl>
-        <Heading size="sm">Workflow</Heading>
-        <Text fontSize="sm" color="gray.600" mb={2}>
-          Select a workflow to customize the notification content.
-        </Text>
-        <Select
+        <Divider />
+
+        <Controller
           name="selectedWorkflow"
-          size="sm"
-          value={notificationFormState.selectedWorkflow}
-          onChange={handleNotificationFormChange}
-        >
-          {workflows.map((workflow) => (
-            <option key={workflow.id} value={workflow.id}>
-              {workflow.title}
-            </option>
-          ))}
-        </Select>
-      </FormControl>
+          control={control}
+          defaultValue={workflows[0].id}
+          render={({ field }) => (
+            <FormControl>
+              <Heading size="sm">Workflow</Heading>
+              <Text fontSize="sm" color="gray.600" mb={2}>
+                Select a workflow to customize the notification content.
+              </Text>
+              <Select {...field} size="sm">
+                {workflows.map((workflow) => (
+                  <option key={workflow.id} value={workflow.id}>
+                    {workflow.title}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          )}
+        />
 
-      <FormControl>
-        <FormLabel fontSize="sm">Subject</FormLabel>
-        <Input
+        <Controller
           name="inAppSubject"
-          value={notificationFormState.inAppSubject}
-          onChange={handleNotificationFormChange}
-          placeholder="In-App Notification Subject"
-          size="sm"
-          resize="vertical"
+          control={control}
+          render={({ field }) => (
+            <FormControl>
+              <FormLabel fontSize="sm">Subject</FormLabel>
+              <Input
+                {...field}
+                placeholder="In-App Notification Subject"
+                size="sm"
+              />
+            </FormControl>
+          )}
         />
-      </FormControl>
 
-      <FormControl>
-        <FormLabel fontSize="sm">Body</FormLabel>
-        <Textarea
+        <Controller
           name="inAppBody"
-          value={notificationFormState.inAppBody}
-          onChange={handleNotificationFormChange}
-          placeholder="In-App Notification Body"
-          size="sm"
-          resize="vertical"
+          control={control}
+          render={({ field }) => (
+            <FormControl>
+              <FormLabel fontSize="sm">Body</FormLabel>
+              <Textarea
+                {...field}
+                placeholder="In-App Notification Body"
+                size="sm"
+                resize="vertical"
+              />
+            </FormControl>
+          )}
         />
-      </FormControl>
 
-      <FormControl
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-      >
-        <FormLabel fontSize="sm" mb="0">
-          Show Avatar
-        </FormLabel>
-        <Switch
-          name="showInAppAvatar"
-          isChecked={notificationFormState.showInAppAvatar}
-          onChange={handleNotificationFormChange}
-          size="sm"
-        />
-      </FormControl>
-
-      {notificationFormState.showInAppAvatar && (
-        <FormControl>
-          <FormLabel fontSize="sm">Avatar URL</FormLabel>
-          <Input
-            name="inAppAvatar"
-            value={notificationFormState.inAppAvatar}
-            onChange={handleNotificationFormChange}
-            placeholder="URL for the avatar image"
-            size="sm"
-          />
-        </FormControl>
-      )}
-
-      <FormControl
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-      >
-        <FormLabel fontSize="sm" mb="0">
-          Enable Primary Action
-        </FormLabel>
-        <Switch
+        <Controller
           name="enablePrimaryAction"
-          isChecked={notificationFormState.enablePrimaryAction}
-          onChange={handleNotificationFormChange}
-          size="sm"
+          control={control}
+          render={({ field }) => (
+            <FormControl
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <FormLabel fontSize="sm" mb="0">
+                Enable Primary Action
+              </FormLabel>
+              <Switch {...(field as any)} isChecked={field.value} size="sm" />
+            </FormControl>
+          )}
         />
-      </FormControl>
 
-      {notificationFormState.enablePrimaryAction && (
-        <>
-          <FormControl>
-            <FormLabel fontSize="sm">Primary Action Label</FormLabel>
-            <Input
-              name="inAppPrimaryActionLabel"
-              value={notificationFormState.inAppPrimaryActionLabel}
-              onChange={handleNotificationFormChange}
-              placeholder="Primary Action Label"
-              size="sm"
-            />
-          </FormControl>
+        {enablePrimaryAction && (
+          <>
+            <Flex alignItems="center" justifyContent="space-between" gap={4}>
+              <Controller
+                name="inAppPrimaryActionLabel"
+                control={control}
+                render={({ field }) => (
+                  <FormControl>
+                    <FormLabel fontSize="sm">Primary Action Label</FormLabel>
+                    <Input
+                      {...field}
+                      placeholder="Primary Action Label"
+                      size="sm"
+                    />
+                  </FormControl>
+                )}
+              />
 
-          <FormControl>
-            <FormLabel fontSize="sm">Primary Action URL</FormLabel>
-            <Input
-              name="inAppPrimaryActionUrl"
-              value={notificationFormState.inAppPrimaryActionUrl}
-              onChange={handleNotificationFormChange}
-              placeholder="Primary Action URL"
-              size="sm"
-            />
-          </FormControl>
-        </>
-      )}
+              <Controller
+                name="inAppPrimaryActionUrl"
+                control={control}
+                render={({ field }) => (
+                  <FormControl>
+                    <FormLabel fontSize="sm">Primary Action URL</FormLabel>
+                    <Input
+                      {...field}
+                      placeholder="Primary Action URL"
+                      size="sm"
+                    />
+                  </FormControl>
+                )}
+              />
+            </Flex>
+          </>
+        )}
 
-      <FormControl
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-      >
-        <FormLabel fontSize="sm" mb="0">
-          Enable Secondary Action
-        </FormLabel>
-        <Switch
+        <Controller
           name="enableSecondaryAction"
-          isChecked={notificationFormState.enableSecondaryAction}
-          onChange={handleNotificationFormChange}
-          size="sm"
+          control={control}
+          render={({ field }) => (
+            <FormControl
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <FormLabel fontSize="sm" mb="0">
+                Enable Secondary Action
+              </FormLabel>
+              <Switch {...(field as any)} isChecked={field.value} size="sm" />
+            </FormControl>
+          )}
         />
-      </FormControl>
 
-      {notificationFormState.enableSecondaryAction && (
-        <FormControl>
-          <FormLabel fontSize="sm">Secondary Action Label</FormLabel>
-          <Input
-            name="inAppSecondaryActionLabel"
-            value={notificationFormState.inAppSecondaryActionLabel}
-            onChange={handleNotificationFormChange}
-            placeholder="Secondary Action Label"
-            size="sm"
-          />
-        </FormControl>
-      )}
+        {enableSecondaryAction && (
+          <>
+            <Flex alignItems="center" justifyContent="space-between" gap={4}>
+              <Controller
+                name="inAppSecondaryActionLabel"
+                control={control}
+                render={({ field }) => (
+                  <FormControl>
+                    <FormLabel fontSize="sm">Secondary Action Label</FormLabel>
+                    <Input
+                      {...field}
+                      placeholder="Secondary Action Label"
+                      size="sm"
+                    />
+                  </FormControl>
+                )}
+              />
 
-      {notificationFormState.enableSecondaryAction && (
-        <FormControl>
-          <FormLabel fontSize="sm">Secondary Action URL</FormLabel>
-          <Input
-            name="inAppSecondaryActionUrl"
-            value={notificationFormState.inAppSecondaryActionUrl}
-            onChange={handleNotificationFormChange}
-            placeholder="Secondary Action URL"
-            size="sm"
+              <Controller
+                name="inAppSecondaryActionUrl"
+                control={control}
+                render={({ field }) => (
+                  <FormControl>
+                    <FormLabel fontSize="sm">Secondary Action URL</FormLabel>
+                    <Input
+                      {...field}
+                      placeholder="Secondary Action URL"
+                      size="sm"
+                    />
+                  </FormControl>
+                )}
+              />
+            </Flex>
+          </>
+        )}
+        <Flex alignItems="center" justifyContent="space-between" gap={4}>
+          <Controller
+            name="showInAppAvatar"
+            control={control}
+            render={({ field }) => (
+              <FormControl display="flex" alignItems="center" width="auto">
+                <FormLabel fontSize="sm" mb="0" mr={2} whiteSpace="nowrap">
+                  Show Avatar
+                </FormLabel>
+                <Switch {...(field as any)} isChecked={field.value} size="sm" />
+              </FormControl>
+            )}
           />
-        </FormControl>
-      )}
-    </VStack>
+
+          <Controller
+            name="inAppAvatar"
+            control={control}
+            render={({ field }) => (
+              <FormControl flex={1}>
+                <Input
+                  {...field}
+                  placeholder="Avatar URL"
+                  size="sm"
+                  isDisabled={!watch("showInAppAvatar")}
+                />
+              </FormControl>
+            )}
+          />
+        </Flex>
+      </VStack>
+    </form>
   );
 };
 

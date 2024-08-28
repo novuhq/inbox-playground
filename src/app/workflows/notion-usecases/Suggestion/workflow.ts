@@ -11,41 +11,26 @@ import {
   delayControlSchema,
 } from './stepsControlSchema';
 
-
-// Define the name for your workflow 
-const workflowName = 'Inbox Demo';
+const workflowName = 'Notion Suggestion Notification';
 
 // Define the workflow
-export const inboxDemo = workflow(
+export const notionSuggestionNotification = workflow(
   workflowName,
-  async ({ step, payload, subscriber}) => {
+  async ({ step, payload, subscriber }) => {
     // Define the step for the workflow
     // -----------------------------------in-app step-------------------------------------------------------------------------
     await step.inApp(
       'In App Step',
       async () => {
         const result: any = {
-          subject: `Hello ${subscriber?.firstName} ${subscriber?.lastName}`,
-          body: payload.inAppBody,
+          subject: `${subscriber?.firstName} ${subscriber?.lastName} suggested in`,
+          body: payload.pageName,
         };
 
         if (payload.showInAppAvatar) {
-          result.avatar = payload.inAppAvatar;
+          result.avatar = payload.mainActorAvatar;
         }
-
-        if (payload.enablePrimaryAction) {
-          result.primaryAction = {
-            label: payload.inAppPrimaryActionLabel,
-            url: payload.inAppPrimaryActionUrl,
-          };
-        }
-
-        if (payload.enableSecondaryAction) {
-          result.secondaryAction = {
-            label: payload.inAppSecondaryActionLabel,
-            url: payload.inAppSecondaryActionUrl,
-          };
-        }
+        
         return result;
       }
     );
@@ -54,7 +39,7 @@ export const inboxDemo = workflow(
   },
   {
     payloadSchema: payloadSchema,
-  },
-  // -----------------------------------tags-------------------------------------------------------------------------
+    // -----------------------------------tags-------------------------------------------------------------------------
+    tags: ['Suggestion']
+  }
 );
-

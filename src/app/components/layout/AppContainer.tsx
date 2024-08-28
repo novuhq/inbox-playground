@@ -3,9 +3,24 @@
 import { Box, Flex } from "@chakra-ui/react";
 import Navbar from "../Navbar";
 import PlaygroundFormContainer from "../PlaygroundFormContainer";
-import NotificationFeed from "../NotificationFeed";
+import NotionTheme from "../inbox-themes/NotionTheme";
+import LinearTheme from "../inbox-themes/LinearTheme";
+import { ThemeProvider, useTheme } from "../../contexts/ThemeContext";
+import CustomTheme from "../inbox-themes/CustomTheme";
 
-const AppContainer = () => {
+const ThemeRenderer = () => {
+  const { selectedTheme } = useTheme();
+
+  return (
+    <>
+      {selectedTheme.id === "notion" && <NotionTheme />}
+      {selectedTheme.id === "linear" && <LinearTheme />}
+      {selectedTheme.id === "custom" && <CustomTheme />}
+    </>
+  );
+};
+
+const AppContent = () => {
   return (
     <Box height="100vh" bg="gray.100">
       <Navbar />
@@ -16,9 +31,17 @@ const AppContainer = () => {
         gap={4}
       >
         <PlaygroundFormContainer />
-        <NotificationFeed />
+        <ThemeRenderer />
       </Flex>
     </Box>
+  );
+};
+
+const AppContainer = () => {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 };
 
