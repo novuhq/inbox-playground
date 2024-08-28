@@ -34,7 +34,8 @@ import { NotionIcon } from "../icons/Notion";
 import React, { useState } from "react";
 
 export const novuConfig: any = {
-  applicationIdentifier: "QldXz8WKHsiP",
+  applicationIdentifier:
+    process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID || "QldXz8WKHsiP",
   subscriberId: "66ab924daa4218d126f9ba68",
   appearance: {
     variables: {},

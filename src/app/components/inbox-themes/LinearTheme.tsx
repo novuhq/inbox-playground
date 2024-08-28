@@ -32,7 +32,8 @@ import { TbFilePencil } from "react-icons/tb";
 import { SlPencil } from "react-icons/sl";
 
 export const novuConfig = {
-  applicationIdentifier: "QldXz8WKHsiP",
+  applicationIdentifier:
+    process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID || "QldXz8WKHsiP",
   subscriberId: "66ab924daa4218d126f9ba68",
   appearance: {
     variables: {

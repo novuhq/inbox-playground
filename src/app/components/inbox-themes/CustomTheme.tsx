@@ -16,7 +16,8 @@ import {
 import { Inbox, Notifications } from "@novu/react";
 
 export const novuConfig: any = {
-  applicationIdentifier: "QldXz8WKHsiP",
+  applicationIdentifier:
+    process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID || "QldXz8WKHsiP",
   subscriberId: "66ab924daa4218d126f9ba68_notion",
   appearance: {
     variables: {},

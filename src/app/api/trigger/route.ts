@@ -1,6 +1,6 @@
 import { Novu } from "@novu/node";
 
-const novu = new Novu(process.env.NOVU_API_KEY || "default_api_key");
+const novu = new Novu(process.env.NOVU_SECRET_KEY || "default_api_key");
 
 export async function POST(request: Request) {
   const body = await request.json();
