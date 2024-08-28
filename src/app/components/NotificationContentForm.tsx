@@ -29,12 +29,12 @@ interface NotificationFormState {
   inAppSubject: string;
   inAppBody: string;
   inAppAvatar: string;
-  showInAppAvatar: string;
+  showInAppAvatar: boolean;
   inAppPrimaryActionLabel: string;
-  enablePrimaryAction: string;
+  enablePrimaryAction: boolean;
   inAppPrimaryActionUrl: string;
   inAppSecondaryActionLabel: string;
-  enableSecondaryAction: string;
+  enableSecondaryAction: boolean;
   inAppSecondaryActionUrl: string;
   selectedWorkflow: string;
 }
@@ -75,14 +75,13 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
         inAppPrimaryActionUrl,
       } = selectedWorkflow.data;
 
+      console.log("inAppPrimaryActionLabel", selectedWorkflow);
+
       setValue("inAppSubject", inAppSubject as string);
       setValue("inAppBody", inAppBody as string);
       setValue("inAppPrimaryActionLabel", inAppPrimaryActionLabel as string);
       setValue("inAppPrimaryActionUrl", inAppPrimaryActionUrl as string);
-      setValue(
-        "enablePrimaryAction",
-        inAppPrimaryActionLabel ? "true" : "false"
-      );
+      setValue("enablePrimaryAction", !!inAppPrimaryActionLabel);
     }
   }, [selectedWorkflowId, selectedTheme.workflows, setValue]);
 
@@ -90,6 +89,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
   const enablePrimaryAction = watch("enablePrimaryAction");
   const enableSecondaryAction = watch("enableSecondaryAction");
 
+  console.log({ enablePrimaryAction });
   return (
     <form>
       <VStack spacing={4} alignItems="stretch">
@@ -179,36 +179,6 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
           )}
         />
 
-        <Flex alignItems="center" justifyContent="space-between" gap={4}>
-          <Controller
-            name="showInAppAvatar"
-            control={control}
-            render={({ field }) => (
-              <FormControl display="flex" alignItems="center" width="auto">
-                <FormLabel fontSize="sm" mb="0" mr={2} whiteSpace="nowrap">
-                  Show Avatar
-                </FormLabel>
-                <Switch {...field} size="sm" />
-              </FormControl>
-            )}
-          />
-
-          <Controller
-            name="inAppAvatar"
-            control={control}
-            render={({ field }) => (
-              <FormControl flex={1}>
-                <Input
-                  {...field}
-                  placeholder="Avatar URL"
-                  size="sm"
-                  isDisabled={!watch("showInAppAvatar")}
-                />
-              </FormControl>
-            )}
-          />
-        </Flex>
-
         <Controller
           name="enablePrimaryAction"
           control={control}
@@ -221,7 +191,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
               <FormLabel fontSize="sm" mb="0">
                 Enable Primary Action
               </FormLabel>
-              <Switch {...field} size="sm" />
+              <Switch {...field} isChecked={field.value} size="sm" />
             </FormControl>
           )}
         />
@@ -274,7 +244,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
               <FormLabel fontSize="sm" mb="0">
                 Enable Secondary Action
               </FormLabel>
-              <Switch {...field} size="sm" />
+              <Switch {...field} isChecked={field.value} size="sm" />
             </FormControl>
           )}
         />
@@ -314,6 +284,35 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
             </Flex>
           </>
         )}
+        <Flex alignItems="center" justifyContent="space-between" gap={4}>
+          <Controller
+            name="showInAppAvatar"
+            control={control}
+            render={({ field }) => (
+              <FormControl display="flex" alignItems="center" width="auto">
+                <FormLabel fontSize="sm" mb="0" mr={2} whiteSpace="nowrap">
+                  Show Avatar
+                </FormLabel>
+                <Switch {...field} isChecked={field.value} size="sm" />
+              </FormControl>
+            )}
+          />
+
+          <Controller
+            name="inAppAvatar"
+            control={control}
+            render={({ field }) => (
+              <FormControl flex={1}>
+                <Input
+                  {...field}
+                  placeholder="Avatar URL"
+                  size="sm"
+                  isDisabled={!watch("showInAppAvatar")}
+                />
+              </FormControl>
+            )}
+          />
+        </Flex>
       </VStack>
     </form>
   );

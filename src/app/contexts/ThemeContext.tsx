@@ -3,7 +3,6 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { NotionIcon } from "../components/icons/Notion";
 import { LinearIcon } from "../components/icons/Linear";
-import { HackerNewsIcon } from "../components/icons/HackerNews";
 import { FieldValues, useForm, UseFormReturn } from "react-hook-form";
 
 export interface Workflow {
@@ -71,12 +70,12 @@ interface NotificationFormState {
   inAppSubject: string;
   inAppBody: string;
   inAppAvatar: string;
-  showInAppAvatar: string;
+  showInAppAvatar: boolean | string;
   inAppPrimaryActionLabel: string;
-  enablePrimaryAction: string;
+  enablePrimaryAction: boolean | string;
   inAppPrimaryActionUrl: string;
   inAppSecondaryActionLabel: string;
-  enableSecondaryAction: string;
+  enableSecondaryAction: boolean | string;
   inAppSecondaryActionUrl: string;
   selectedWorkflow: string;
 }
@@ -130,12 +129,12 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       inAppSubject: "",
       inAppBody: "",
       inAppAvatar: "",
-      showInAppAvatar: "false",
+      showInAppAvatar: false,
       inAppPrimaryActionLabel: "",
-      enablePrimaryAction: "false",
+      enablePrimaryAction: false,
       inAppPrimaryActionUrl: "",
       inAppSecondaryActionLabel: "",
-      enableSecondaryAction: "false",
+      enableSecondaryAction: false,
       inAppSecondaryActionUrl: "",
       selectedWorkflow: themes[0].workflows[0].id,
     },
