@@ -203,6 +203,7 @@ const NotionTheme = () => {
                       isRead={notification.isRead || false}
                       isArchived={notification.isArchived || false}
                       replyAction={replyAction}
+                      replyActionLabel={notification.primaryAction?.label}
                     />
                   </div>
                 );
@@ -265,30 +266,10 @@ const InboxItem = ({
   sentTime,
   isRead,
   isArchived,
+  replyActionLabel,
   replyAction,
 }: any) => {
   const [isHovered, setIsHovered] = useState(false);
-
-  const dynamicTitle = () => {
-    const boldName = (
-      <Text as="span" fontWeight="bold">
-        {mainActorName}
-      </Text>
-    );
-
-    switch (notificationType) {
-      case "Invite":
-        return <>{boldName} invited you to a page</>;
-      case "Comment":
-        return <>{boldName} commented in</>;
-      case "Mention":
-        return <>{boldName} mentioned you in</>;
-      case "Suggestion":
-        return <>{boldName} suggested in</>;
-      default:
-        return title;
-    }
-  };
 
   return (
     <Box
@@ -325,7 +306,7 @@ const InboxItem = ({
         <VStack align="start" spacing={1} flex="1" ml={1}>
           <Flex justify="space-between" width="100%">
             <Text fontSize="md" color="gray.800">
-              {dynamicTitle()}
+              {title}
             </Text>
             <Text fontSize="xs" color="gray.400">
               {sentTime}
@@ -354,7 +335,7 @@ const InboxItem = ({
                 // Action to reply
               }}
             >
-              Reply
+              {replyActionLabel}
             </Button>
           )}
         </VStack>

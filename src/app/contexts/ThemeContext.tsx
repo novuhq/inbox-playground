@@ -47,20 +47,10 @@ const themes: Theme[] = [
     ],
   },
   {
-    id: "linear",
-    title: "Linear",
-    icon: <LinearIcon />,
-    workflows: [
-      { id: "1", title: "Mention in a Comment" },
-      { id: "2", title: "Project Updates" },
-      { id: "3", title: "Status Change" },
-    ],
-  },
-  {
     id: "custom",
     title: "Custom",
     icon: null,
-    workflows: [{ id: "1", title: "Workflow 1" }],
+    workflows: [{ id: "custom-workflow", title: "Custom Workflow" }],
   },
 ];
 
