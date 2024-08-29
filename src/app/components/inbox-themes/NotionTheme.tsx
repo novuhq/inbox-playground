@@ -178,6 +178,7 @@ const NotionTheme = () => {
           <Inbox {...novuConfig}>
             <Notifications
               renderNotification={(notification) => {
+                console.log(notification);
                 const type = notification.tags?.[0] || "Notification";
                 const mainAvatar =
                   notification.avatar ||
@@ -186,7 +187,7 @@ const NotionTheme = () => {
                 const mainLastName = notification.to.lastName || "User";
                 const subject = notification.subject || "No Subject";
                 const body = notification.body || "#";
-                const replyAction = notification.primaryAction !== undefined;
+                const replyAction = notification?.primaryAction !== undefined;
                 const createdAt =
                   notification.createdAt || new Date().toISOString();
                 const formattedTime = formatTime(createdAt);

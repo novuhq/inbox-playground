@@ -21,6 +21,10 @@ export const notionCommentNotification = workflow(
         },
       };
 
+      if (payload.enablePrimaryAction) {
+        result.enablePrimaryAction = payload.enablePrimaryAction;
+      }
+
       if (payload.showInAppAvatar) {
         result.avatar = payload.mainActorAvatar;
       }

@@ -40,6 +40,7 @@ const themes: Theme[] = [
         data: {
           inAppSubject: `Hi`,
           inAppBody: "Hello worldasda",
+          enablePrimaryAction: true,
           inAppPrimaryActionLabel: "Reply",
           inAppPrimaryActionUrl: "https://google.com",
         },
