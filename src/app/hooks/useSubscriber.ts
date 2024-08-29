@@ -5,7 +5,9 @@ import { createId } from "@paralleldrive/cuid2";
 
 export const useSubscriber = () => {
   const [subscriberId, setSubscriberId] = useState(
-    localStorage.getItem("inbox_demo_subscriberId")
+    typeof window !== "undefined"
+      ? window?.localStorage.getItem("inbox_demo_subscriberId")
+      : ""
   );
 
   useEffect(() => {
