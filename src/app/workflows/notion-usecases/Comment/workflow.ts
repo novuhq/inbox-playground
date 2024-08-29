@@ -15,16 +15,17 @@ export const notionCommentNotification = workflow(
       const result: any = {
         subject: payload.inAppSubject,
         body: payload.inAppBody,
-        primaryAction: {
-          label: payload.inAppPrimaryActionLabel,
-          url: payload.inAppPrimaryActionUrl,
-        },
       };
 
+      // Add primary action only if enabled
       if (payload.enablePrimaryAction) {
-        result.enablePrimaryAction = payload.enablePrimaryAction;
+        result.primaryAction = {
+          label: payload.inAppPrimaryActionLabel,
+          url: payload.inAppPrimaryActionUrl,
+        };
       }
 
+      // Add avatar if enabled
       if (payload.showInAppAvatar) {
         result.avatar = payload.mainActorAvatar;
       }

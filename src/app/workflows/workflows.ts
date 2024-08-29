@@ -7,6 +7,6 @@ export const workflows = [
     notionInviteNotification,
     notionMentionNotification,
     notionSuggestionNotification,
-    notionCommentNotification
+    notionCommentNotification,
 ]
 
