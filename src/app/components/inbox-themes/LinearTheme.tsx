@@ -34,12 +34,9 @@ import { TbFilePencil } from "react-icons/tb";
 import { SlPencil } from "react-icons/sl";
 
 const LinearTheme = () => {
-  const novuConfig = {
-    applicationIdentifier:
-      process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID || "QldXz8WKHsiP",
-    subscriberId:
-      localStorage.getItem("inbox_demo_subscriberId") ||
-      "66ab924daa4218d126f9ba68",
+  const novuConfig: any = {
+    applicationIdentifier: process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID,
+    subscriberId: window?.localStorage.getItem("inbox_demo_subscriberId"),
     appearance: {
       variables: {
         colorPrimary: "#0081F1",

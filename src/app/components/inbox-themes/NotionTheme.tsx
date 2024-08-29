@@ -37,7 +37,7 @@ import React, { useState } from "react";
 const NotionTheme = () => {
   const novuConfig: any = {
     applicationIdentifier: process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID,
-    subscriberId: localStorage.getItem("inbox_demo_subscriberId"),
+    subscriberId: window?.localStorage.getItem("inbox_demo_subscriberId"),
     appearance: {
       variables: {},
       elements: {
