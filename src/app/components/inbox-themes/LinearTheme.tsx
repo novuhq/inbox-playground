@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Box,
   Flex,
@@ -32,70 +33,70 @@ import { LinearIcon } from "../icons/Linear";
 import { TbFilePencil } from "react-icons/tb";
 import { SlPencil } from "react-icons/sl";
 
-export const novuConfig = {
-  applicationIdentifier:
-    process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID || "QldXz8WKHsiP",
-  subscriberId:
-    localStorage.getItem("inbox_demo_subscriberId") ||
-    "66ab924daa4218d126f9ba68",
-  appearance: {
-    variables: {
-      colorPrimary: "#0081F1",
-      colorPrimaryForeground: "white",
-      colorSecondary: "#F3F3F3",
-      colorSecondaryForeground: "#1A1523",
-      colorCounter: "#E5484D",
-      colorCounterForeground: "white",
-      colorBackground: "#FCFCFC",
-      colorForeground: "#1A1523",
-      colorNeutral: "black",
-      fontSize: "inherit",
-      borderRadius: "0.375rem",
-    },
-    elements: {
-      inboxStatus__title: {
-        color: "rgb(255, 255, 255)",
-        fontSize: "13px",
-      },
-      inboxHeader: {
-        paddingLeft: "0px",
-        paddingTop: "7px",
-        paddingBottom: "7px",
-      },
-      notificationImage: {
-        borderRadius: "50%",
-        width: "24px",
-        height: "24px",
-      },
-      notificationList: {},
-      notification: {
-        // ...notificationStyles,
-      },
-
-      notificationPrimaryAction__button: {
-        // cursor: "pointer",
-        // display: "inline-flex",
-        // alignItems: "center",
-        // whiteSpace: "nowrap",
-        // height: "26px",
-        // borderRadius: "4px",
-        // fontSize: "12px",
-        // lineHeight: "1.2",
-        // paddingLeft: "8px",
-        // paddingRight: "8px",
-        // // color: "#FFFFFF", // Dark text color
-        // boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 0px 1px",
-        // fontWeight: "500",
-        // backgroundColor: "#EDEEF3", // Light gray button background
-        // "&:hover": {
-        //     backgroundColor: "#475BA1", // Hover background color (blue)
-        // },
-      },
-    },
-  },
-};
-
 const LinearTheme = () => {
+  const novuConfig = {
+    applicationIdentifier:
+      process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID || "QldXz8WKHsiP",
+    subscriberId:
+      localStorage.getItem("inbox_demo_subscriberId") ||
+      "66ab924daa4218d126f9ba68",
+    appearance: {
+      variables: {
+        colorPrimary: "#0081F1",
+        colorPrimaryForeground: "white",
+        colorSecondary: "#F3F3F3",
+        colorSecondaryForeground: "#1A1523",
+        colorCounter: "#E5484D",
+        colorCounterForeground: "white",
+        colorBackground: "#FCFCFC",
+        colorForeground: "#1A1523",
+        colorNeutral: "black",
+        fontSize: "inherit",
+        borderRadius: "0.375rem",
+      },
+      elements: {
+        inboxStatus__title: {
+          color: "rgb(255, 255, 255)",
+          fontSize: "13px",
+        },
+        inboxHeader: {
+          paddingLeft: "0px",
+          paddingTop: "7px",
+          paddingBottom: "7px",
+        },
+        notificationImage: {
+          borderRadius: "50%",
+          width: "24px",
+          height: "24px",
+        },
+        notificationList: {},
+        notification: {
+          // ...notificationStyles,
+        },
+
+        notificationPrimaryAction__button: {
+          // cursor: "pointer",
+          // display: "inline-flex",
+          // alignItems: "center",
+          // whiteSpace: "nowrap",
+          // height: "26px",
+          // borderRadius: "4px",
+          // fontSize: "12px",
+          // lineHeight: "1.2",
+          // paddingLeft: "8px",
+          // paddingRight: "8px",
+          // // color: "#FFFFFF", // Dark text color
+          // boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 0px 1px",
+          // fontWeight: "500",
+          // backgroundColor: "#EDEEF3", // Light gray button background
+          // "&:hover": {
+          //     backgroundColor: "#475BA1", // Hover background color (blue)
+          // },
+        },
+      },
+    },
+  };
+
   return (
     <Flex
       width="100%"
