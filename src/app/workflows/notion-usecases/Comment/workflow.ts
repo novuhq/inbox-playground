@@ -10,6 +10,8 @@ export const notionCommentNotification = workflow(
     // Define the step for the workflow
     // -----------------------------------in-app step-------------------------------------------------------------------------
     await step.inApp("In App Step", async (controls) => {
+      console.log(payload, "PAYLOAD");
+
       const result: any = {
         subject: payload.inAppSubject,
         body: payload.inAppBody,

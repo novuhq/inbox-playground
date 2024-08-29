@@ -85,8 +85,6 @@ const NotionTheme = () => {
     },
   };
 
-  console.log(novuConfig, "NOVU CONFIG");
-
   return (
     <Flex
       width="100%"
@@ -177,12 +175,10 @@ const NotionTheme = () => {
           <Inbox {...novuConfig}>
             <Notifications
               renderNotification={(notification) => {
-                console.log(notification);
                 const type = notification.tags?.[0] || "Notification";
                 const mainAvatar =
                   notification.avatar ||
-                  notification.to.firstName?.charAt(0).toUpperCase() ||
-                  "A";
+                  notification.to.firstName?.charAt(0).toUpperCase();
                 const mainFirstName = notification.to.firstName || "Unknown";
                 const mainLastName = notification.to.lastName || "User";
                 const subject = notification.subject || "No Subject";
