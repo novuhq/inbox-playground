@@ -5,16 +5,13 @@ import {
   Box,
   Flex,
   Text,
-  HStack,
-  Link,
-  Icon,
   useColorModeValue,
   useBreakpointValue,
-  Popover,
   Stack,
 } from "@chakra-ui/react";
 
 import { Inbox } from "@novu/react";
+import { useSubscriber } from "../../hooks/useSubscriber";
 
 type LocalizationValue =
   | string
@@ -345,9 +342,10 @@ const typedLocalization: Record<
 > = localization;
 
 const CustomTheme = () => {
+  const { subscriberId } = useSubscriber();
   const novuConfig: any = {
     applicationIdentifier: process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID,
-    subscriberId: window?.localStorage.getItem("inbox_demo_subscriberId"),
+    subscriberId: subscriberId,
     appearance: {
       variables: {},
       elements: {

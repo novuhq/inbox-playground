@@ -33,11 +33,14 @@ import { FaUserFriends } from "react-icons/fa";
 import { Inbox, Notifications } from "@novu/react";
 import { NotionIcon } from "../icons/Notion";
 import React, { useState } from "react";
+import { useSubscriber } from "../../hooks/useSubscriber";
 
 const NotionTheme = () => {
+  const { subscriberId } = useSubscriber();
+
   const novuConfig: any = {
     applicationIdentifier: process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID,
-    subscriberId: window?.localStorage.getItem("inbox_demo_subscriberId"),
+    subscriberId: subscriberId,
     appearance: {
       variables: {},
       elements: {
