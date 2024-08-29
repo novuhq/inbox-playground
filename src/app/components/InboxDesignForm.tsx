@@ -30,8 +30,6 @@ export function InboxDesignForm() {
 
   function handleFormChange(values: any) {
     const val = getValues();
-
-    console.log({ val });
   }
 
   const availableLanguages = [
