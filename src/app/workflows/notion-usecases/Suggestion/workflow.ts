@@ -1,6 +1,7 @@
 import { workflow } from "@novu/framework";
 // import { renderEmail } from "./email-templates/react-email-template";
 import { payloadSchema } from "./payloadSchema";
+import { z } from "zod";
 
 const workflowName = "notion-suggestion-notification";
 
