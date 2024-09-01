@@ -1,17 +1,8 @@
 import { workflow } from "@novu/framework";
 // import { renderEmail } from "./email-templates/react-email-template";
-import { payloadSchema } from './payloadSchema';
-import {
-  emailControlSchema,
-  pushControlSchema,
-  inAppControlSchema,
-  smsControlSchema,
-  chatControlSchema,
-  digestControlSchema,
-  delayControlSchema,
-} from './stepsControlSchema';
-
-const workflowName = 'notion-mention-notification';
+import { payloadSchema } from "./payloadSchema";
+import { z } from "zod";
+const workflowName = "notion-mention-notification";
 
 // Define the workflow
 export const notionMentionNotification = workflow(
@@ -20,22 +11,37 @@ export const notionMentionNotification = workflow(
     // Define the step for the workflow
     // -----------------------------------in-app step-------------------------------------------------------------------------
     await step.inApp(
-      'In App Step',
+      "in-app-step",
       async (controls) => {
         const result: any = {
-          subject: `${subscriber?.firstName} ${subscriber?.lastName} mentioned you in`,
-          body: payload.pageName,
+          subject: controls.inAppSubject,
+          body: controls.pageName,
           primaryAction: {
             label: "Reply",
             url: controls.inAppPrimaryActionUrl,
           },
         };
 
-        if (payload.showInAppAvatar) {
-          result.avatar = payload.mainActorAvatar;
+        if (controls.showInAppAvatar) {
+          result.avatar = controls.mainActorAvatar;
         }
 
         return result;
+      },
+      {
+        controlSchema: z.object({
+          mainActorFirstName: z.string().default("John"),
+          mainActorLastName: z.string().default("Doe"),
+          inAppSubject: z.string().default("In-App Notification Subject!"),
+          pageName: z.string().default("Very Interesting Page"),
+          mainActorAvatar: z
+            .string()
+            .default("https://avatars.githubusercontent.com/u/63902456?v=4"),
+          showInAppAvatar: z.boolean().default(true),
+          inAppPrimaryActionLabel: z.string().default("Reply"),
+          enablePrimaryAction: z.boolean().default(true),
+          inAppPrimaryActionUrl: z.string().default("https://novu.com"),
+        }),
       }
     );
 
@@ -44,6 +50,6 @@ export const notionMentionNotification = workflow(
   {
     payloadSchema: payloadSchema,
     // -----------------------------------tags-------------------------------------------------------------------------
-    tags: ['Mention']
+    tags: ["Mention"],
   }
 );

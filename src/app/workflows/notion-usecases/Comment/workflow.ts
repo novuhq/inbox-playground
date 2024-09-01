@@ -30,8 +30,6 @@ export const notionCommentNotification = workflow(
           result.avatar = controls.mainActorAvatar;
         }
 
-        console.log({ result, subscriber, payload });
-
         return result;
       },
       {
