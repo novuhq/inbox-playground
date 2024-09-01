@@ -17,7 +17,10 @@ export const notionCommentNotification = workflow(
           body: controls.inAppBody,
         };
 
-        // Add primary action only if enabled
+        if (controls.showInAppAvatar) {
+          result.avatar = controls.inAppAvatar;
+        }
+
         if (controls.enablePrimaryAction) {
           result.primaryAction = {
             label: controls.inAppPrimaryActionLabel,
@@ -25,26 +28,34 @@ export const notionCommentNotification = workflow(
           };
         }
 
-        // Add avatar if enabled
-        if (controls.showInAppAvatar) {
-          result.avatar = controls.mainActorAvatar;
+        if (controls.enableSecondaryAction) {
+          result.secondaryAction = {
+            label: controls.inAppSecondaryActionLabel,
+            url: controls.inAppSecondaryActionUrl,
+          };
         }
-
         return result;
       },
       {
         controlSchema: z.object({
-          mainActorFirstName: z.string().default("John"),
-          mainActorLastName: z.string().default("Doe"),
-          inAppSubject: z.string().default("In-App Notification Subject!"),
+subscriberFirstName: z.string().default("John"),
+          subscriberLastName: z.string().default("Doe"),
+          inAppSubject: z
+            .string()
+            .default(
+              `${subscriber?.firstName} ${subscriber?.lastName} commented in`
+            ),
           inAppBody: z.string().default("Important Page"),
-          mainActorAvatar: z
+          inAppAvatar: z
             .string()
             .default("https://avatars.githubusercontent.com/u/63902456?v=4"),
           showInAppAvatar: z.boolean().default(true),
           inAppPrimaryActionLabel: z.string().default("Reply"),
           enablePrimaryAction: z.boolean().default(true),
           inAppPrimaryActionUrl: z.string().default("https://novu.com"),
+          inAppSecondaryActionLabel: z.string().default("Dismiss"),
+          enableSecondaryAction: z.boolean().default(false),
+          inAppSecondaryActionUrl: z.string().default("https://novu.com"),
         }),
       }
     );

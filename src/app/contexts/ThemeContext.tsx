@@ -30,6 +30,7 @@ const themes: Theme[] = [
         data: {
           inAppSubject: `{{subscriber.firstName | capitalize}} commented in`,
           inAppBody: "Important Page", //page name
+          inAppAvatar: "https://avatars.githubusercontent.com/u/63902456?v=4",
           inAppPrimaryActionLabel: "Reply",
           inAppPrimaryActionUrl: "https://google.com",
         },
