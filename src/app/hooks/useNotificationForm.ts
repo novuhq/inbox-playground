@@ -37,7 +37,7 @@ export const useNotificationForm = () => {
           payload: {},
           bridgeUrl: "https://inbox-playground.vercel.app/api/novu",
           controls: {
-            "In App Step": getValues(),
+            "in-app-step": getValues(),
           },
         }),
       });
