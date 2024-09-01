@@ -44,7 +44,7 @@ export const notionInviteNotification = workflow(
         controlSchema: z.object({
           subscriberFirstName: z.string().default("John"),
           subscriberLastName: z.string().default("Doe"),
-          inAppSubject: z.string().default(`${subscriber?.firstName} ${subscriber?.lastName} invited you to a meeting`),
+          inAppSubject: z.string().default(`${subscriber?.firstName} ${subscriber?.lastName} invited you to`),
           inAppBody: z.string().default("In-App Notification Body!"),
           inAppAvatar: z.string().default("https://avatars.githubusercontent.com/u/63902456?v=4"),
           showInAppAvatar: z.boolean().default(true),
