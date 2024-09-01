@@ -5,6 +5,8 @@ import { NotionIcon } from "../components/icons/Notion";
 import { LinearIcon } from "../components/icons/Linear";
 import { FieldValues, useForm, UseFormReturn } from "react-hook-form";
 
+
+
 export interface Workflow {
   id: string;
   title: string;
@@ -18,7 +20,12 @@ export interface Theme {
   workflows: Workflow[];
 }
 
+const subscriberFirstName = "John";
+const subscriberLastName = "Doe";
+
+
 const themes: Theme[] = [
+
   {
     id: "notion",
     title: "Notion",
@@ -28,21 +35,37 @@ const themes: Theme[] = [
         id: "notion-comment-notification",
         title: "Comment",
         data: {
-          inAppSubject: `{{subscriber.firstName}} {{subscriber.lastName}} commented in`,
-          inAppBody: "Hello world",
+          inAppSubject: `${subscriberFirstName} ${subscriberLastName} commented in`, //Main notification text (subject)
+          inAppBody: "Important Page", //page name
           inAppPrimaryActionLabel: "Reply",
           inAppPrimaryActionUrl: "https://google.com",
         },
       },
       {
-        id: "notion-comment-2",
-        title: "Another workflow",
+        id: "notion-invite-notification",
+        title: "Invite",
         data: {
-          inAppSubject: `Hi`,
-          inAppBody: "Hello worldasda",
+          inAppSubject: `${subscriberFirstName} ${subscriberLastName} invited you to a page`, //Main notification text (subject)
+          inAppBody: "Happy Hour Planning", //page name
+        },
+      },
+      {
+        id: "notion-mention-notification",
+        title: "Mention",
+        data: {
+          inAppSubject: `${subscriberFirstName} ${subscriberLastName} mentioned you in`, //Main notification text (subject)
+          inAppBody: "Very Intresting Project", //page name
           enablePrimaryAction: true,
           inAppPrimaryActionLabel: "Reply",
           inAppPrimaryActionUrl: "https://google.com",
+        },
+      },
+      {
+        id: "notion-suggestion-notification",
+        title: "Suggestion",
+        data: {
+          inAppSubject: `${subscriberFirstName} ${subscriberLastName} suggested in`, //Main notification text (subject)
+          inAppBody: "Top Secret Project", //page name
         },
       },
     ],
@@ -131,6 +154,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     },
   });
 
+
   const value: ThemeContextType = {
     themes,
     selectedTheme,
@@ -143,3 +167,5 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 }
+
+
