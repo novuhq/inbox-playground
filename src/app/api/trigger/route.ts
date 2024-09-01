@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const NOVU_API_KEY = process.env.NOVU_API_KEY;
+const NOVU_API_KEY = process.env.NOVU_SECRET_KEY;
 const NOVU_API_URL = "https://api.novu.co/v1/events/trigger";
 
 export async function POST(request: Request) {
