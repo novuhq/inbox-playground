@@ -2,7 +2,7 @@ import { workflow } from "@novu/framework";
 import { payloadSchema } from "./payloadSchema";
 
 // Define the name for your workflow
-const workflowName = "Notion Invite Notification";
+const workflowName = "notion-invite-notification";
 
 // Define the workflow
 export const notionInviteNotification = workflow(

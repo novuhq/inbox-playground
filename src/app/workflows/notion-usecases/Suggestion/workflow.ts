@@ -11,7 +11,7 @@ import {
   delayControlSchema,
 } from './stepsControlSchema';
 
-const workflowName = 'Notion Suggestion Notification';
+const workflowName = 'notion-suggestion-notification';
 
 // Define the workflow
 export const notionSuggestionNotification = workflow(
