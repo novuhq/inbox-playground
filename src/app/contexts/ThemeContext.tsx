@@ -16,6 +16,10 @@ export interface Theme {
   title: string;
   icon: JSX.Element | null;
   workflows: Workflow[];
+  appearance: {
+    variables: Record<string, unknown>;
+    elements: Record<string, unknown>;
+  };
 }
 
 const themes: Theme[] = [
@@ -23,6 +27,51 @@ const themes: Theme[] = [
     id: "notion",
     title: "Notion",
     icon: <NotionIcon />,
+    appearance: {
+      variables: {},
+      elements: {
+        notificationCustomActions: {
+          marginTop: "8px",
+        },
+        notificationImage: {
+          borderRadius: "50%",
+          width: "24px",
+          height: "24px",
+        },
+        notificationArchive__button: {
+          width: "24px",
+          height: "24px",
+          borderRadius: "4px",
+        },
+        notificationDefaultActions: {
+          gap: "0",
+          backgroundColor: "white",
+          borderRadius: "6px",
+          border: "1px solid rgba(22, 29, 27, 0.02)",
+        },
+        notificationUnread__button: {
+          width: "24px",
+          height: "24px",
+          borderRadius: "4px",
+        },
+        notificationPrimaryAction__button: {
+          cursor: "pointer",
+          display: "inline-flex",
+          alignItems: "center",
+          whiteSpace: "nowrap",
+          height: "26px",
+          borderRadius: "4px",
+          fontSize: "12px",
+          lineHeight: "1.2",
+          paddingLeft: "8px",
+          paddingRight: "8px",
+          color: "rgb(55, 53, 47)",
+          border: "1px solid rgba(15, 15, 15, 0.1)",
+          fontWeight: "500",
+          backgroundColor: "#ffffff", // Default background color
+        },
+      },
+    },
     workflows: [
       {
         id: "notion-comment-notification",
@@ -33,6 +82,7 @@ const themes: Theme[] = [
           inAppAvatar: "https://avatars.githubusercontent.com/u/63902456?v=4",
           inAppPrimaryActionLabel: "Reply",
           inAppPrimaryActionUrl: "https://google.com",
+          showInAppAvatar: true,
         },
       },
       {
@@ -69,6 +119,10 @@ const themes: Theme[] = [
     title: "Custom",
     icon: null,
     workflows: [{ id: "custom-workflow", title: "Custom Workflow" }],
+    appearance: {
+      variables: {},
+      elements: {},
+    },
   },
 ];
 

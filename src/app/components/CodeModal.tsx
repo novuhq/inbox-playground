@@ -20,6 +20,7 @@ interface CodeModalProps {
 
 function CodeModal({ isOpen, onClose }: CodeModalProps) {
   const {
+    selectedTheme,
     inboxThemeForm: {
       handleSubmit,
       register,
@@ -43,6 +44,8 @@ function CodeModal({ isOpen, onClose }: CodeModalProps) {
     borderRadius: formValues.borderRadius,
   };
 
+  const appearanceElements = selectedTheme?.appearance?.elements;
+
   const code = `
   function InboxComponent(){
     return <Inbox applicationIdentifier="YOUR_APP_ID" 
@@ -53,7 +56,13 @@ function CodeModal({ isOpen, onClose }: CodeModalProps) {
               .map((line, index) =>
                 index === 0 ? line : "    ".repeat(3) + line
               )
-              .join("\n")}
+              .join("\n")},
+            elements: ${JSON.stringify(appearanceElements, null, 4)
+              .split("\n")
+              .map((line, index) =>
+                index === 0 ? line : "    ".repeat(3) + line
+              )
+              .join("\n")},
         }} 
     />
   }
