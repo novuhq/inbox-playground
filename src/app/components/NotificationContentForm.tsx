@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Controller } from "react-hook-form";
 import {
   FormControl,
@@ -17,17 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { useTheme } from "../contexts/ThemeContext";
 
-
-export const useSubscriberInfo = () => {
-  const {
-    notificationForm: { watch },
-  } = useTheme();
-
-  const subscriberFirstName = watch("subscriberFirstName");
-  const subscriberLastName = watch("subscriberLastName");
-
-  return { subscriberFirstName, subscriberLastName };
-};
 
 interface Workflow {
   id: string;
