@@ -17,7 +17,7 @@ export const notionInviteNotification = workflow(
       "In App Step",
       async () => {
         const result: any = {
-          subject: payload.inAppSubject,
+          subject: payload.inAppSubject || `${subscriber?.firstName} ${subscriber?.lastName} invited you to a meeting`,
           body: payload.inAppBody,
         };
 
@@ -64,7 +64,7 @@ export const notionInviteNotification = workflow(
     payloadSchema: z.object({
       subscriberFirstName: z.string().default("John"),
       subscriberLastName: z.string().default("Doe"),
-      inAppSubject: z.string().default("In-App Notification Subject!"),
+      inAppSubject: z.string(),
       inAppBody: z.string().default("In-App Notification Body!"),
       inAppAvatar: z.string().default("https://avatars.githubusercontent.com/u/63902456?v=4"),
       showInAppAvatar: z.boolean().default(true),
