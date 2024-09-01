@@ -28,7 +28,7 @@ const themes: Theme[] = [
         id: "notion-comment-notification",
         title: "Comment",
         data: {
-          inAppSubject: `{{subscriber.firstName | capitalize}} {{subscriber.lastName | capitalize}} commented in`,
+          inAppSubject: `{{subscriber.firstName | capitalize}} commented in`,
           inAppBody: "Important Page", //page name
           inAppPrimaryActionLabel: "Reply",
           inAppPrimaryActionUrl: "https://google.com",
@@ -38,7 +38,7 @@ const themes: Theme[] = [
         id: "notion-invite-notification",
         title: "Invite",
         data: {
-          inAppSubject: `invited you to a page`, //Main notification text (subject)
+          inAppSubject: `{{subscriber.firstName | capitalize}} invited you to a page`, //Main notification text (subject)
           inAppBody: "Happy Hour Planning", //page name
         },
       },
@@ -46,7 +46,7 @@ const themes: Theme[] = [
         id: "notion-mention-notification",
         title: "Mention",
         data: {
-          inAppSubject: ` mentioned you in`, //Main notification text (subject)
+          inAppSubject: `{{subscriber.firstName | capitalize}} mentioned you in`, //Main notification text (subject)
           inAppBody: "Very Intresting Project", //page name
           enablePrimaryAction: true,
           inAppPrimaryActionLabel: "Reply",
@@ -57,7 +57,7 @@ const themes: Theme[] = [
         id: "notion-suggestion-notification",
         title: "Suggestion",
         data: {
-          inAppSubject: ` suggested in`, //Main notification text (subject)
+          inAppSubject: `{{subscriber.firstName | capitalize}} suggested in`, //Main notification text (subject)
           inAppBody: "Top Secret Project", //page name
         },
       },
