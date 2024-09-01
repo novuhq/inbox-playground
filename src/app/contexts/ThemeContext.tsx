@@ -5,8 +5,6 @@ import { NotionIcon } from "../components/icons/Notion";
 import { LinearIcon } from "../components/icons/Linear";
 import { FieldValues, useForm, UseFormReturn } from "react-hook-form";
 
-
-
 export interface Workflow {
   id: string;
   title: string;
@@ -21,7 +19,6 @@ export interface Theme {
 }
 
 const themes: Theme[] = [
-
   {
     id: "notion",
     title: "Notion",
@@ -31,7 +28,7 @@ const themes: Theme[] = [
         id: "notion-comment-notification",
         title: "Comment",
         data: {
-          inAppSubject: ` commented in`, //Main notification text (subject)
+          inAppSubject: `{{subscriber.firstName | capitalize}} {{subscriber.lastName | capitalize}} commented in`,
           inAppBody: "Important Page", //page name
           inAppPrimaryActionLabel: "Reply",
           inAppPrimaryActionUrl: "https://google.com",
@@ -150,7 +147,6 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     },
   });
 
-
   const value: ThemeContextType = {
     themes,
     selectedTheme,
@@ -163,5 +159,3 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 }
-
-

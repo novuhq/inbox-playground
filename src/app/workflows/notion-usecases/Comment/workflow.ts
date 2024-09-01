@@ -30,6 +30,8 @@ export const notionCommentNotification = workflow(
           result.avatar = controls.mainActorAvatar;
         }
 
+        console.log({ result, subscriber, payload });
+
         return result;
       },
       {
@@ -52,7 +54,6 @@ export const notionCommentNotification = workflow(
     // -----------------------------------payload schema-------------------------------------------------------------------------
   },
   {
-    payloadSchema: z.object({}),
     // -----------------------------------tags-------------------------------------------------------------------------
     tags: ["Comment"],
   }

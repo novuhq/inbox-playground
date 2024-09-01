@@ -21,7 +21,9 @@ export async function POST(request: Request) {
         name: workflowId,
         to,
         payload,
-        controls,
+        controls: {
+          steps: controls,
+        },
         bridgeUrl,
       },
       {
@@ -35,12 +37,7 @@ export async function POST(request: Request) {
     return Response.json(response.data, { status: 200 });
   } catch (error) {
     console.error("Error triggering Novu event:", error);
-    console.log({
-      name: workflowId,
-      to,
-      payload,
-      controls,
-    });
+
     return Response.json({ error: "Failed to trigger event" }, { status: 500 });
   }
 }
