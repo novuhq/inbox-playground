@@ -20,10 +20,6 @@ export interface Theme {
   workflows: Workflow[];
 }
 
-const subscriberFirstName = "John";
-const subscriberLastName = "Doe";
-
-
 const themes: Theme[] = [
 
   {
@@ -35,7 +31,7 @@ const themes: Theme[] = [
         id: "notion-comment-notification",
         title: "Comment",
         data: {
-          inAppSubject: `${subscriberFirstName} ${subscriberLastName} commented in`, //Main notification text (subject)
+          inAppSubject: ` commented in`, //Main notification text (subject)
           inAppBody: "Important Page", //page name
           inAppPrimaryActionLabel: "Reply",
           inAppPrimaryActionUrl: "https://google.com",
@@ -45,7 +41,7 @@ const themes: Theme[] = [
         id: "notion-invite-notification",
         title: "Invite",
         data: {
-          inAppSubject: `${subscriberFirstName} ${subscriberLastName} invited you to a page`, //Main notification text (subject)
+          inAppSubject: `invited you to a page`, //Main notification text (subject)
           inAppBody: "Happy Hour Planning", //page name
         },
       },
@@ -53,7 +49,7 @@ const themes: Theme[] = [
         id: "notion-mention-notification",
         title: "Mention",
         data: {
-          inAppSubject: `${subscriberFirstName} ${subscriberLastName} mentioned you in`, //Main notification text (subject)
+          inAppSubject: ` mentioned you in`, //Main notification text (subject)
           inAppBody: "Very Intresting Project", //page name
           enablePrimaryAction: true,
           inAppPrimaryActionLabel: "Reply",
@@ -64,7 +60,7 @@ const themes: Theme[] = [
         id: "notion-suggestion-notification",
         title: "Suggestion",
         data: {
-          inAppSubject: `${subscriberFirstName} ${subscriberLastName} suggested in`, //Main notification text (subject)
+          inAppSubject: ` suggested in`, //Main notification text (subject)
           inAppBody: "Top Secret Project", //page name
         },
       },
