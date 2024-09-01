@@ -34,57 +34,18 @@ import { Inbox, Notifications } from "@novu/react";
 import { NotionIcon } from "../icons/Notion";
 import React, { useState } from "react";
 import { useSubscriber } from "../../hooks/useSubscriber";
+import { useTheme } from "../../contexts/ThemeContext";
 
 const NotionTheme = () => {
   const { subscriberId } = useSubscriber();
+  const { selectedTheme } = useTheme();
 
   const novuConfig: any = {
     applicationIdentifier: process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID,
     subscriberId: subscriberId,
     appearance: {
-      variables: {},
-      elements: {
-        notificationCustomActions: {
-          marginTop: "8px",
-        },
-        notificationImage: {
-          borderRadius: "50%",
-          width: "24px",
-          height: "24px",
-        },
-        notificationArchive__button: {
-          width: "24px",
-          height: "24px",
-          borderRadius: "4px",
-        },
-        notificationDefaultActions: {
-          gap: "0",
-          backgroundColor: "white",
-          borderRadius: "6px",
-          border: "1px solid rgba(22, 29, 27, 0.02)",
-        },
-        notificationUnread__button: {
-          width: "24px",
-          height: "24px",
-          borderRadius: "4px",
-        },
-        notificationPrimaryAction__button: {
-          cursor: "pointer",
-          display: "inline-flex",
-          alignItems: "center",
-          whiteSpace: "nowrap",
-          height: "26px",
-          borderRadius: "4px",
-          fontSize: "12px",
-          lineHeight: "1.2",
-          paddingLeft: "8px",
-          paddingRight: "8px",
-          color: "rgb(55, 53, 47)",
-          border: "1px solid rgba(15, 15, 15, 0.1)",
-          fontWeight: "500",
-          backgroundColor: "#ffffff", // Default background color
-        },
-      },
+      variables: selectedTheme?.appearance?.variables,
+      elements: selectedTheme?.appearance?.elements,
     },
   };
 
@@ -297,20 +258,20 @@ const InboxItem = ({
               left={"10px"}
             />
           )}
-            {!isRead && (
-              <Box
-                width="8px"
-                height="8px"
-                bg="blue.500"
-                borderRadius="full"
-                position="absolute"
-                right="32px"
-                top="50%"
-                transform="translateY(-50%)"
-              />
-            )}
-          </Box>
-        
+          {!isRead && (
+            <Box
+              width="8px"
+              height="8px"
+              bg="blue.500"
+              borderRadius="full"
+              position="absolute"
+              right="32px"
+              top="50%"
+              transform="translateY(-50%)"
+            />
+          )}
+        </Box>
+
         {/* Main content with conditional margin based on avatar */}
         <VStack
           align="start"

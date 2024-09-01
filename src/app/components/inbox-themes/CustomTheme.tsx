@@ -346,54 +346,9 @@ const CustomTheme = () => {
   const novuConfig: any = {
     applicationIdentifier: process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID,
     subscriberId: subscriberId,
-    appearance: {
-      variables: {},
-      elements: {
-        notificationCustomActions: {
-          marginTop: "8px",
-        },
-        notificationImage: {
-          borderRadius: "50%",
-          width: "24px",
-          height: "24px",
-        },
-        notificationArchive__button: {
-          width: "24px",
-          height: "24px",
-          borderRadius: "4px",
-        },
-        notificationDefaultActions: {
-          gap: "0",
-          backgroundColor: "white",
-          borderRadius: "6px",
-          border: "1px solid rgba(22, 29, 27, 0.02)",
-        },
-        notificationUnread__button: {
-          width: "24px",
-          height: "24px",
-          borderRadius: "4px",
-        },
-        notificationPrimaryAction__button: {
-          cursor: "pointer",
-          display: "inline-flex",
-          alignItems: "center",
-          whiteSpace: "nowrap",
-          height: "26px",
-          borderRadius: "4px",
-          fontSize: "12px",
-          lineHeight: "1.2",
-          paddingLeft: "8px",
-          paddingRight: "8px",
-          color: "rgb(55, 53, 47)",
-          border: "1px solid rgba(15, 15, 15, 0.1)",
-          fontWeight: "500",
-          backgroundColor: "#ffffff", // Default background color
-        },
-      },
-    },
   };
 
-  const { inboxThemeForm } = useTheme();
+  const { inboxThemeForm, selectedTheme } = useTheme();
   const formValues = inboxThemeForm.watch();
 
   const appearanceVariables = {
@@ -472,6 +427,7 @@ const CustomTheme = () => {
               }
               appearance={{
                 variables: appearanceVariables,
+                elements: selectedTheme?.appearance?.elements,
               }}
             />
           </Stack>
