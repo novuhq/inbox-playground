@@ -17,7 +17,7 @@ export const notionInviteNotification = workflow(
       "In App Step",
       async () => {
         const result: any = {
-          subject: payload.inAppSubject || `${subscriber?.firstName} ${subscriber?.lastName} invited you to a meeting`,
+          subject: payload.inAppSubject || `${subscriber?.firstName} ${subscriber?.lastName} invited you to`,
           body: payload.inAppBody,
         };
 
