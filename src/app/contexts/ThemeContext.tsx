@@ -81,6 +81,7 @@ const themes: Theme[] = [
           inAppBody: "Important Page", //page name
           inAppPrimaryActionLabel: "Reply",
           inAppPrimaryActionUrl: "https://google.com",
+          showInAppAvatar: true,
         },
       },
       {

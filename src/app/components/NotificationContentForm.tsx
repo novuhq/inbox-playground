@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { useTheme } from "../contexts/ThemeContext";
 
-
 interface Workflow {
   id: string;
   title: string;
@@ -73,23 +72,21 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
         inAppBody,
         inAppPrimaryActionLabel,
         inAppPrimaryActionUrl,
+        showInAppAvatar,
       } = selectedWorkflow.data;
-
-      console.log("inAppPrimaryActionLabel", selectedWorkflow);
 
       setValue("inAppSubject", inAppSubject as string);
       setValue("inAppBody", inAppBody as string);
       setValue("inAppPrimaryActionLabel", inAppPrimaryActionLabel as string);
       setValue("inAppPrimaryActionUrl", inAppPrimaryActionUrl as string);
       setValue("enablePrimaryAction", !!inAppPrimaryActionLabel);
+      setValue("showInAppAvatar", !!showInAppAvatar);
     }
   }, [selectedWorkflowId, selectedTheme.workflows, setValue]);
 
-  const showInAppAvatar = watch("showInAppAvatar");
   const enablePrimaryAction = watch("enablePrimaryAction");
   const enableSecondaryAction = watch("enableSecondaryAction");
 
-  console.log({ enablePrimaryAction });
   return (
     <form>
       <VStack spacing={4} alignItems="stretch">
@@ -288,14 +285,20 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
           <Controller
             name="showInAppAvatar"
             control={control}
-            render={({ field }) => (
-              <FormControl display="flex" alignItems="center" width="auto">
-                <FormLabel fontSize="sm" mb="0" mr={2} whiteSpace="nowrap">
-                  Show Avatar
-                </FormLabel>
-                <Switch {...(field as any)} isChecked={field.value} size="sm" />
-              </FormControl>
-            )}
+            render={({ field }) => {
+              return (
+                <FormControl display="flex" alignItems="center" width="auto">
+                  <FormLabel fontSize="sm" mb="0" mr={2} whiteSpace="nowrap">
+                    Show Avatar
+                  </FormLabel>
+                  <Switch
+                    {...(field as any)}
+                    isChecked={field.value}
+                    size="sm"
+                  />
+                </FormControl>
+              );
+            }}
           />
 
           <Controller
