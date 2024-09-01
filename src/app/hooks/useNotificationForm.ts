@@ -10,10 +10,10 @@ export const useNotificationForm = () => {
     const { subscriberFirstName, subscriberLastName, selectedWorkflow } =
       getValues();
 
-    if (!subscriberFirstName || !subscriberLastName) {
+    if (!subscriberFirstName) {
       toast({
         title: "Missing Information",
-        description: "Please fill in both your first and last name.",
+        description: "Please fill in your first name.",
         status: "error",
         duration: 5000,
         isClosable: true,
