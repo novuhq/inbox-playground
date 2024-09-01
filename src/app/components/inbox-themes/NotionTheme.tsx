@@ -180,14 +180,13 @@ const NotionTheme = () => {
               renderNotification={(notification) => {
                 console.log(notification);
                 const type = notification.tags?.[0] || "Notification";
-                const mainAvatar =
-                  notification.avatar ||
-                  notification.to.firstName?.charAt(0).toUpperCase();
+                const avatar = notification?.avatar !== undefined;
                 const mainFirstName = notification.to.firstName || "Unknown";
                 const mainLastName = notification.to.lastName || "User";
                 const subject = notification.subject || "No Subject";
                 const body = notification.body || "#";
-                const replyAction = notification?.primaryAction !== undefined;
+                // const primaryAction = notification?.primaryAction !== undefined;
+                // const secondaryAction = notification?.secondaryAction !== undefined;
                 const createdAt =
                   notification.createdAt || new Date().toISOString();
                 const formattedTime = formatTime(createdAt);
@@ -196,15 +195,17 @@ const NotionTheme = () => {
                   <div>
                     <InboxItem
                       notificationType={type}
-                      mainActorAvatar={mainAvatar}
-                      mainActorName={`${mainFirstName} ${mainLastName}`}
+                      avatar={notification?.avatar}
+                      mainActorName={`${mainFirstName}`}
                       title={subject}
                       pageLink={body}
                       sentTime={formattedTime}
                       isRead={notification.isRead || false}
                       isArchived={notification.isArchived || false}
-                      replyAction={replyAction}
-                      replyActionLabel={notification.primaryAction?.label}
+                      primaryAction={notification.primaryAction?.label}
+                      secondaryAction={notification.secondaryAction?.label}
+                      primaryActionLabel={notification.primaryAction?.label}
+                      secondaryActionLabel={notification.secondaryAction?.label}
                     />
                   </div>
                 );
@@ -260,15 +261,17 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
 
 const InboxItem = ({
   notificationType,
-  mainActorAvatar,
+  avatar,
   mainActorName,
   title,
   pageLink,
   sentTime,
   isRead,
   isArchived,
-  replyActionLabel,
-  replyAction,
+  primaryActionLabel,
+  primaryAction,
+  secondaryAction,
+  secondaryActionLabel,
 }: any) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -282,29 +285,39 @@ const InboxItem = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       <Flex align="flex-start">
+        {/* Conditionally render the avatar box only if there is an avatar */}
         <Box position="relative" width="32px" height="24px" mr={2}>
-          <Avatar
-            width="24px"
-            height="24px"
-            name={mainActorAvatar}
-            src={mainActorAvatar}
-            position="absolute"
-            left={"10px"}
-          />
-          {!isRead && (
-            <Box
-              width="8px"
-              height="8px"
-              bg="blue.500"
-              borderRadius="full"
+          {avatar !== undefined && (
+            <Avatar
+              width="24px"
+              height="24px"
+              name={mainActorName}
+              src={avatar || undefined}
               position="absolute"
-              right="32px"
-              top="50%"
-              transform="translateY(-50%)"
+              left={"10px"}
             />
           )}
-        </Box>
-        <VStack align="start" spacing={1} flex="1" ml={1}>
+            {!isRead && (
+              <Box
+                width="8px"
+                height="8px"
+                bg="blue.500"
+                borderRadius="full"
+                position="absolute"
+                right="32px"
+                top="50%"
+                transform="translateY(-50%)"
+              />
+            )}
+          </Box>
+        
+        {/* Main content with conditional margin based on avatar */}
+        <VStack
+          align="start"
+          spacing={1}
+          flex="1"
+          ml={avatar !== undefined ? 1 : 0} // Adjust margin-left if no avatar
+        >
           <Flex justify="space-between" width="100%">
             <Text fontSize="md" color="gray.800">
               {title}
@@ -324,21 +337,38 @@ const InboxItem = ({
               {pageLink}
             </Button>
           </Link>
-          {replyAction && (
-            <Button
-              variant="outline"
-              size="sm"
-              colorScheme="gray"
-              borderRadius="md"
-              borderColor="gray.300"
-              _hover={{ bg: "gray.100" }}
-              onClick={() => {
-                // Action to reply
-              }}
-            >
-              {replyActionLabel}
-            </Button>
-          )}
+          <HStack spacing={3}>
+            {primaryAction && (
+              <Button
+                variant="outline"
+                size="sm"
+                colorScheme="gray"
+                borderRadius="md"
+                borderColor="gray.300"
+                _hover={{ bg: "gray.100" }}
+                onClick={() => {
+                  // Action to reply
+                }}
+              >
+                {primaryActionLabel}
+              </Button>
+            )}
+            {secondaryAction && (
+              <Button
+                variant="outline"
+                size="sm"
+                colorScheme="gray"
+                borderRadius="md"
+                borderColor="gray.300"
+                _hover={{ bg: "gray.100" }}
+                onClick={() => {
+                  // Action to reply
+                }}
+              >
+                {secondaryActionLabel}
+              </Button>
+            )}
+          </HStack>
         </VStack>
       </Flex>
     </Box>
