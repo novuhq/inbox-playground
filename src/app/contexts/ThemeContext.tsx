@@ -96,7 +96,7 @@ const themes: Theme[] = [
           inAppSubject: `{{subscriber.firstName | capitalize}} invited you to a page`, //Main notification text (subject)
           inAppBody: "Happy Hour Planning", //page name
           enablePrimaryAction: true,
-          inAppPrimaryActionLabel: "Accept",
+          inAppPrimaryActionLabel: "Reply",
           inAppPrimaryActionUrl: "https://google.com",
           enableSecondaryAction: false,
           inAppSecondaryActionLabel: "Dismiss",
