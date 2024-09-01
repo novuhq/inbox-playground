@@ -8,10 +8,13 @@ import {
   useColorModeValue,
   useBreakpointValue,
   Stack,
+  background,
 } from "@chakra-ui/react";
 
 import { Inbox } from "@novu/react";
 import { useSubscriber } from "../../hooks/useSubscriber";
+import { color } from "framer-motion";
+import { BsBackpack2Fill } from "react-icons/bs";
 
 type LocalizationValue =
   | string
@@ -33,8 +36,7 @@ const englishLocalization = {
   }: {
     notificationCount: number;
   }) =>
-    `${notificationCount > 99 ? "99+" : notificationCount} new ${
-      notificationCount === 1 ? "notification" : "notifications"
+    `${notificationCount > 99 ? "99+" : notificationCount} new ${notificationCount === 1 ? "notification" : "notifications"
     }`,
   "notification.actions.read.toolTip": "Mark as read",
   "notification.actions.unread.toolTip": "Mark as unread",
@@ -70,8 +72,7 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} ${
-        notificationCount === 1 ? "nueva notificación" : "nuevas notificaciones"
+      `${notificationCount > 99 ? "99+" : notificationCount} ${notificationCount === 1 ? "nueva notificación" : "nuevas notificaciones"
       }`,
     "notification.actions.read.toolTip": "Marcar como leído",
     "notification.actions.unread.toolTip": "Marcar como no leído",
@@ -98,10 +99,9 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} ${
-        notificationCount === 1
-          ? "nouvelle notification"
-          : "nouvelles notifications"
+      `${notificationCount > 99 ? "99+" : notificationCount} ${notificationCount === 1
+        ? "nouvelle notification"
+        : "nouvelles notifications"
       }`,
     "notification.actions.read.toolTip": "Marquer comme lu",
     "notification.actions.unread.toolTip": "Marquer comme non lu",
@@ -128,8 +128,7 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} neue ${
-        notificationCount === 1 ? "Benachrichtigung" : "Benachrichtigungen"
+      `${notificationCount > 99 ? "99+" : notificationCount} neue ${notificationCount === 1 ? "Benachrichtigung" : "Benachrichtigungen"
       }`,
     "notification.actions.read.toolTip": "Als gelesen markieren",
     "notification.actions.unread.toolTip": "Als ungelesen markieren",
@@ -156,8 +155,7 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} 条${
-        notificationCount === 1 ? "新通知" : "新通知"
+      `${notificationCount > 99 ? "99+" : notificationCount} 条${notificationCount === 1 ? "新通知" : "新通知"
       }`,
     "notification.actions.read.toolTip": "标记为已读",
     "notification.actions.unread.toolTip": "标记为未读",
@@ -184,8 +182,7 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} 件の${
-        notificationCount === 1 ? "新しい通知" : "新しい通知"
+      `${notificationCount > 99 ? "99+" : notificationCount} 件の${notificationCount === 1 ? "新しい通知" : "新しい通知"
       }`,
     "notification.actions.read.toolTip": "既読にする",
     "notification.actions.unread.toolTip": "未読にする",
@@ -212,8 +209,7 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} 개의 ${
-        notificationCount === 1 ? "새 알림" : "새 알림"
+      `${notificationCount > 99 ? "99+" : notificationCount} 개의 ${notificationCount === 1 ? "새 알림" : "새 알림"
       }`,
     "notification.actions.read.toolTip": "읽음으로 표시",
     "notification.actions.unread.toolTip": "읽지 않음으로 표시",
@@ -240,8 +236,7 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} новых ${
-        notificationCount === 1 ? "уведомление" : "уведомлений"
+      `${notificationCount > 99 ? "99+" : notificationCount} новых ${notificationCount === 1 ? "уведомление" : "уведомлений"
       }`,
     "notification.actions.read.toolTip": "Отметить как прочитанное",
     "notification.actions.unread.toolTip": "Отметить как непрочитанное",
@@ -268,8 +263,7 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} ${
-        notificationCount === 1 ? "nova notificação" : "novas notificações"
+      `${notificationCount > 99 ? "99+" : notificationCount} ${notificationCount === 1 ? "nova notificação" : "novas notificações"
       }`,
     "notification.actions.read.toolTip": "Marcar como lido",
     "notification.actions.unread.toolTip": "Marcar como não lido",
@@ -296,8 +290,7 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} nuove ${
-        notificationCount === 1 ? "notifica" : "notifiche"
+      `${notificationCount > 99 ? "99+" : notificationCount} nuove ${notificationCount === 1 ? "notifica" : "notifiche"
       }`,
     "notification.actions.read.toolTip": "Segna come letto",
     "notification.actions.unread.toolTip": "Segna come non letto",
@@ -324,8 +317,7 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} नई ${
-        notificationCount === 1 ? "सूचना" : "सूचनाएं"
+      `${notificationCount > 99 ? "99+" : notificationCount} नई ${notificationCount === 1 ? "सूचना" : "सूचनाएं"
       }`,
     "notification.actions.read.toolTip": "पढ़ा हुआ चिह्नित करें",
     "notification.actions.unread.toolTip": "अपठित चिह्नित करें",
@@ -366,6 +358,8 @@ const CustomTheme = () => {
     fontSize: formValues.fontSize,
     borderRadius: formValues.borderRadius,
   };
+
+
 
   return (
     <Flex
@@ -422,12 +416,22 @@ const CustomTheme = () => {
               subscriberId={novuConfig.subscriberId}
               localization={
                 typedLocalization[
-                  appearanceVariables.language as keyof typeof typedLocalization
+                appearanceVariables.language as keyof typeof typedLocalization
                 ] || typedLocalization["en-US"]
               }
               appearance={{
                 variables: appearanceVariables,
-                elements: selectedTheme?.appearance?.elements,
+                // elements: selectedTheme?.appearance?.elements,
+                elements: {
+                  bellIcon: {
+                    height: "30px",
+                    width: "30px",
+                  },
+                  popoverContent: {
+                    marginLeft: "-40px",
+                    marginTop: "15px",
+                  },
+                },
               }}
             />
           </Stack>
