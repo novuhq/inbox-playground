@@ -1,22 +1,46 @@
-import { Novu } from "@novu/node";
+import axios from "axios";
 
-const novu = new Novu(process.env.NOVU_SECRET_KEY || "default_api_key");
+const NOVU_API_KEY = process.env.NOVU_API_KEY;
+const NOVU_API_URL = "https://api.novu.co/v1/events/trigger";
 
 export async function POST(request: Request) {
   const body = await request.json();
+  const { workflowId, to, payload, controls, bridgeUrl } = body;
 
-  const { to, payload, workflowId } = body;
-
-  if (to.subscriberId === "") {
-    throw new Error("Subscriber id is required");
+  if (!to.subscriberId) {
+    return Response.json(
+      { error: "Subscriber id is required" },
+      { status: 400 }
+    );
   }
 
-  const response = await novu.trigger(workflowId, {
-    to,
-    payload,
-  });
+  try {
+    const response = await axios.post(
+      NOVU_API_URL,
+      {
+        name: workflowId,
+        to,
+        payload,
+        controls,
+        bridgeUrl,
+      },
+      {
+        headers: {
+          Authorization: `ApiKey ${NOVU_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-  return Response.json(response.data, {
-    status: 200,
-  });
+    return Response.json(response.data, { status: 200 });
+  } catch (error) {
+    console.error("Error triggering Novu event:", error);
+    console.log({
+      name: workflowId,
+      to,
+      payload,
+      controls,
+    });
+    return Response.json({ error: "Failed to trigger event" }, { status: 500 });
+  }
 }
