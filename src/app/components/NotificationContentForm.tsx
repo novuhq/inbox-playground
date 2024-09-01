@@ -70,17 +70,26 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
       const {
         inAppSubject,
         inAppBody,
+        enablePrimaryAction,
+        enableSecondaryAction,
         inAppPrimaryActionLabel,
+        inAppSecondaryActionLabel,
+        inAppSecondaryActionUrl,
         inAppPrimaryActionUrl,
         showInAppAvatar,
+        inAppAvatar,
       } = selectedWorkflow.data;
 
       setValue("inAppSubject", inAppSubject as string);
       setValue("inAppBody", inAppBody as string);
+      setValue("enablePrimaryAction", !!enablePrimaryAction);
       setValue("inAppPrimaryActionLabel", inAppPrimaryActionLabel as string);
       setValue("inAppPrimaryActionUrl", inAppPrimaryActionUrl as string);
-      setValue("enablePrimaryAction", !!inAppPrimaryActionLabel);
+      setValue("enableSecondaryAction", !!enableSecondaryAction);
+      setValue("inAppSecondaryActionLabel", inAppSecondaryActionLabel as string);
+      setValue("inAppSecondaryActionUrl", inAppSecondaryActionUrl as string);
       setValue("showInAppAvatar", !!showInAppAvatar);
+      setValue("inAppAvatar", inAppAvatar as string);
     }
   }, [selectedWorkflowId, selectedTheme.workflows, setValue]);
 

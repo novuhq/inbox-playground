@@ -79,10 +79,14 @@ const themes: Theme[] = [
         data: {
           inAppSubject: `{{subscriber.firstName | capitalize}} commented in`,
           inAppBody: "Important Page", //page name
-          inAppAvatar: "https://avatars.githubusercontent.com/u/63902456?v=4",
+          enablePrimaryAction: true,
           inAppPrimaryActionLabel: "Reply",
           inAppPrimaryActionUrl: "https://google.com",
+          enableSecondaryAction: false,
+          inAppSecondaryActionLabel: "Dismiss",
+          inAppSecondaryActionUrl: "https://google.com",
           showInAppAvatar: true,
+          inAppAvatar: "https://avatars.githubusercontent.com/u/63902456?v=4",
         },
       },
       {
@@ -91,6 +95,14 @@ const themes: Theme[] = [
         data: {
           inAppSubject: `{{subscriber.firstName | capitalize}} invited you to a page`, //Main notification text (subject)
           inAppBody: "Happy Hour Planning", //page name
+          enablePrimaryAction: true,
+          inAppPrimaryActionLabel: "Accept",
+          inAppPrimaryActionUrl: "https://google.com",
+          enableSecondaryAction: false,
+          inAppSecondaryActionLabel: "Dismiss",
+          inAppSecondaryActionUrl: "https://google.com",
+          showInAppAvatar: true,
+          inAppAvatar: "https://avatars.githubusercontent.com/u/63902456?v=4",
         },
       },
       {
@@ -102,6 +114,11 @@ const themes: Theme[] = [
           enablePrimaryAction: true,
           inAppPrimaryActionLabel: "Reply",
           inAppPrimaryActionUrl: "https://google.com",
+          enableSecondaryAction: false,
+          inAppSecondaryActionLabel: "Dismiss",
+          inAppSecondaryActionUrl: "https://google.com",
+          showInAppAvatar: true,
+          inAppAvatar: "https://avatars.githubusercontent.com/u/63902456?v=4",
         },
       },
       {
@@ -110,6 +127,14 @@ const themes: Theme[] = [
         data: {
           inAppSubject: `{{subscriber.firstName | capitalize}} suggested in`, //Main notification text (subject)
           inAppBody: "Top Secret Project", //page name
+          enablePrimaryAction: false,
+          inAppPrimaryActionLabel: "Reply",
+          inAppPrimaryActionUrl: "https://google.com",
+          enableSecondaryAction: false,
+          inAppSecondaryActionLabel: "Dismiss",
+          inAppSecondaryActionUrl: "https://google.com",
+          showInAppAvatar: true,
+          inAppAvatar: "https://avatars.githubusercontent.com/u/63902456?v=4",
         },
       },
     ],
