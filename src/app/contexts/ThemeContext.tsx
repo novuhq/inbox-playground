@@ -28,47 +28,80 @@ const themes: Theme[] = [
     title: "Notion",
     icon: <NotionIcon />,
     appearance: {
-      variables: {},
+      variables: {
+        colorPrimary: "#efefed",
+        colorPrimaryForeground: "white",
+        colorSecondary: "#efefed",
+        colorSecondaryForeground: "#1A1523",
+        colorCounter: "#E5484D",
+        colorCounterForeground: "white",
+        colorBackground: "#f5f5f4",
+        colorForeground: "#1A1523",
+        colorNeutral: "black",
+        fontSize: "inherit",
+        borderRadius: "0.375rem",
+      },
       elements: {
-        notificationCustomActions: {
-          marginTop: "8px",
+        bellContainer: {
+          display: "none",
+        },
+        preferences__button: {
+          display: "none",
+        },
+        popoverContent: {
+          width: "100%", // Relative width for responsiveness
+          maxWidth: "390px", // Maximum width for larger screens
+          height: "calc(100% - 136px)", // Let the height adjust based on content
+          maxHeight: "100%", // Maximum height relative to viewport
+          borderRadius: "0px", // Rounded corners
+          overflow: "auto", // Allows scrolling for overflow content
+          boxShadow:
+            "rgba(15, 15, 15, 0.04) 0px 0px 0px 1px, rgba(15, 15, 15, 0.03) 0px 3px 6px, rgba(15, 15, 15, 0.06) 0px 9px 24px",
+          backgroundColor: "#fff", // Background color
+          marginTop: "-64px", // Spacing from the top
+          marginLeft: "-32px", // Spacing from the left
+          fontSize: "14px", // Font size
+          fontWeight: "500",
         },
         notificationImage: {
           borderRadius: "50%",
           width: "24px",
           height: "24px",
         },
-        notificationArchive__button: {
-          width: "24px",
-          height: "24px",
-          borderRadius: "4px",
+        notificationDot: {
+          marginTop: "2px",
+          backgroundColor: "#0081F1",
         },
-        notificationDefaultActions: {
-          gap: "0",
-          backgroundColor: "white",
-          borderRadius: "6px",
-          border: "1px solid rgba(22, 29, 27, 0.02)",
+        notificationSubject: {
+          color: "black",
+          fontSize: "14px",
+          fontWeight: "600",
         },
-        notificationUnread__button: {
-          width: "24px",
-          height: "24px",
-          borderRadius: "4px",
-        },
+        notificationBody: {},
+
         notificationPrimaryAction__button: {
-          cursor: "pointer",
-          display: "inline-flex",
-          alignItems: "center",
-          whiteSpace: "nowrap",
-          height: "26px",
-          borderRadius: "4px",
-          fontSize: "12px",
-          lineHeight: "1.2",
+          variant: "outline",
           paddingLeft: "8px",
           paddingRight: "8px",
-          color: "rgb(55, 53, 47)",
-          border: "1px solid rgba(15, 15, 15, 0.1)",
+          height: "26px",
+          borderRadius: "4px",
+          border: "0.5px solid #dfdfdf", // Adding the border line
           fontWeight: "500",
-          backgroundColor: "#ffffff", // Default background color
+          backgroundColor: "transparent",
+          color: "black",
+          fontSize: "14px",
+        },
+        notificationSecondaryAction__button: {
+          variant: "outline",
+          paddingLeft: "8px",
+          paddingRight: "8px",
+          height: "26px",
+          borderRadius: "4px",
+          border: "0.5px solid #dfdfdf", // Adding the border line
+          fontWeight: "500",
+          backgroundColor: "transparent",
+          color: "black",
+          fontSize: "14px",
         },
       },
     },
@@ -96,11 +129,11 @@ const themes: Theme[] = [
           inAppSubject: `{{subscriber.firstName | capitalize}} invited you to a page`, //Main notification text (subject)
           inAppBody: "Happy Hour Planning", //page name
           enablePrimaryAction: true,
-          inAppPrimaryActionLabel: "Reply",
-          inAppPrimaryActionUrl: "https://google.com",
-          enableSecondaryAction: false,
+          inAppPrimaryActionLabel: "Accept",
+          inAppPrimaryActionUrl: "",
+          enableSecondaryAction: true,
           inAppSecondaryActionLabel: "Dismiss",
-          inAppSecondaryActionUrl: "https://google.com",
+          inAppSecondaryActionUrl: "",
           showInAppAvatar: true,
           inAppAvatar: "https://avatars.githubusercontent.com/u/63902456?v=4",
         },
@@ -111,22 +144,6 @@ const themes: Theme[] = [
         data: {
           inAppSubject: `{{subscriber.firstName | capitalize}} mentioned you in`, //Main notification text (subject)
           inAppBody: "Very Intresting Project", //page name
-          enablePrimaryAction: true,
-          inAppPrimaryActionLabel: "Reply",
-          inAppPrimaryActionUrl: "https://google.com",
-          enableSecondaryAction: false,
-          inAppSecondaryActionLabel: "Dismiss",
-          inAppSecondaryActionUrl: "https://google.com",
-          showInAppAvatar: true,
-          inAppAvatar: "https://avatars.githubusercontent.com/u/63902456?v=4",
-        },
-      },
-      {
-        id: "notion-suggestion-notification",
-        title: "Suggestion",
-        data: {
-          inAppSubject: `{{subscriber.firstName | capitalize}} suggested in`, //Main notification text (subject)
-          inAppBody: "Top Secret Project", //page name
           enablePrimaryAction: false,
           inAppPrimaryActionLabel: "Reply",
           inAppPrimaryActionUrl: "https://google.com",

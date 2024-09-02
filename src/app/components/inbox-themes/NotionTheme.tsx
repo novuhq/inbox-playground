@@ -31,7 +31,7 @@ import { BsFillFileTextFill, BsTrash } from "react-icons/bs";
 import { AiOutlineCalendar, AiOutlineCheck } from "react-icons/ai";
 import { GrDocumentText } from "react-icons/gr";
 import { FaUserFriends } from "react-icons/fa";
-import { Inbox, Notifications } from "@novu/react";
+import { Inbox, Notification, Notifications } from "@novu/react";
 import { NotionIcon } from "../icons/Notion";
 import React, { useState } from "react";
 import { useSubscriber } from "../../hooks/useSubscriber";
@@ -47,85 +47,7 @@ const NotionTheme = () => {
     applicationIdentifier: process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID,
     subscriberId: subscriberId,
     open: true,
-    appearance: {
-      variables: {
-        colorPrimary: '#efefed',
-        colorPrimaryForeground: 'white',
-        colorSecondary: '#efefed',
-        colorSecondaryForeground: '#1A1523',
-        colorCounter: '#E5484D',
-        colorCounterForeground: 'white',
-        colorBackground: '#f5f5f4',
-        colorForeground: '#1A1523',
-        colorNeutral: 'black',
-        fontSize: 'inherit',
-        borderRadius: '0.375rem',
-      },
-      elements: {
-        bellContainer: {
-          display: 'none'
-        },
-        preferences__button: {
-          display: 'none'
-        },
-        popoverContent: {
-          width: '100%', // Relative width for responsiveness
-          maxWidth: '680px', // Maximum width for larger screens
-          minWidth: '300px', // Minimum width to prevent too small popover
-          height: '100%', // Let the height adjust based on content
-          maxHeight: '694px', // Maximum height relative to viewport
-          borderRadius: '0px', // Rounded corners
-          overflow: 'auto', // Allows scrolling for overflow content
-          boxShadow: "10px 0 15px -3px rgb(0 0 0 / 0.1), 4px 0 6px -4px rgb(0 0 0 / 0.1);",
-          backgroundColor: '#fff', // Background color
-          marginTop: '-64px', // Spacing from the top
-          marginLeft: '-32px', // Spacing from the left
-          fontSize: '14px', // Font size
-          fontWeight: '500',
-        },
-        notificationImage: {
-          borderRadius: '50%',
-          width: '24px',
-          height: '24px',
-        },
-        notificationDot: {
-          marginTop: '2px',
-          backgroundColor: '#0081F1',
-        },
-        notificationSubject: {
-          color: 'black',
-          fontSize: '14px',
-          fontWeight: '600',
-        },
-        notificationBody: {
-        },
-
-        notificationPrimaryAction__button: {
-          variant: 'outline',
-          paddingLeft: '8px',
-          paddingRight: '8px',
-          height: '26px',
-          borderRadius: '4px',
-          border: '0.5px solid #dfdfdf', // Adding the border line
-          fontWeight: '500',
-          backgroundColor: 'transparent',
-          color: "black",
-          fontSize: '14px',
-        },
-        notificationSecondaryAction__button: {
-          variant: 'outline',
-          paddingLeft: '8px',
-          paddingRight: '8px',
-          height: '26px',
-          borderRadius: '4px',
-          border: '0.5px solid #dfdfdf', // Adding the border line
-          fontWeight: '500',
-          backgroundColor: 'transparent',
-          color: "black",
-          fontSize: '14px',
-        },
-      },
-    },
+    appearance: selectedTheme?.appearance,
   };
 
   return (
@@ -143,7 +65,7 @@ const NotionTheme = () => {
     >
       {/* Sidebar */}
       <Box
-        width={{ base: '100%', md: '240px' }}
+        width={{ base: "100%", md: "240px" }}
         bg="rgb(247, 247, 245)"
         boxShadow="lg"
         padding={"8px"}
@@ -215,8 +137,12 @@ const NotionTheme = () => {
           width="100%"
           maxW="900px"
         >
-          <Inbox {...novuConfig} />
-
+          <Inbox
+            {...novuConfig}
+            renderNotification={(notification) => {
+              return <InboxItem notification={notification} />;
+            }}
+          />
         </Box>
       </Box>
     </Flex>
@@ -264,151 +190,187 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   );
 };
 
-// const InboxItem = ({
-//   notificationType,
-//   avatar,
-//   mainActorName,
-//   title,
-//   pageLink,
-//   sentTime,
-//   isRead,
-//   isArchived,
-//   primaryActionLabel,
-//   primaryAction,
-//   secondaryAction,
-//   secondaryActionLabel,
-// }: any) => {
-//   const [isHovered, setIsHovered] = useState(false);
+const InboxItem = ({ notification }: { notification: Notification }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const notificationType = notification.tags?.[0];
 
-//   return (
-//     <Box
-//       p={2}
-//       ml={3}
-//       bg="white"
-//       position="relative"
-//       onMouseEnter={() => setIsHovered(true)}
-//       onMouseLeave={() => setIsHovered(false)}
-//     >
-//       <Flex align="flex-start">
-//         {/* Conditionally render the avatar box only if there is an avatar */}
-//         <Box position="relative" width="32px" height="24px" mr={2}>
-//           {avatar !== undefined && (
-//             <Avatar
-//               width="24px"
-//               height="24px"
-//               name={mainActorName}
-//               src={avatar || undefined}
-//               position="absolute"
-//               left={"10px"}
-//             />
-//           )}
-//           {!isRead && (
-//             <Box
-//               width="8px"
-//               height="8px"
-//               bg="blue.500"
-//               borderRadius="full"
-//               position="absolute"
-//               right="32px"
-//               top="50%"
-//               transform="translateY(-50%)"
-//             />
-//           )}
-//         </Box>
+  return (
+    <Box
+      p={2}
+      bg="white"
+      position="relative"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Flex align="flex-start">
+        {/* Conditionally render the avatar box only if there is an avatar */}
+        <Box
+          position="relative"
+          display="flex"
+          alignItems="center"
+          mr="8px"
+          height="26px"
+        >
+          {!notification.isRead && (
+            <Box>
+              <Box width="8px" height="8px" bg="blue.500" borderRadius="full" />
+            </Box>
+          )}
+          {notification.avatar !== undefined && (
+            <Avatar
+              width="24px"
+              height="24px"
+              marginLeft={"8px"}
+              name={notification.to.firstName}
+              src={notification.avatar || undefined}
+            />
+          )}
+        </Box>
 
-//         {/* Main content with conditional margin based on avatar */}
-//         <VStack
-//           align="start"
-//           spacing={1}
-//           flex="1"
-//           ml={avatar !== undefined ? 1 : 0} // Adjust margin-left if no avatar
-//         >
-//           <Flex justify="space-between" width="100%">
-//             <Text fontSize="md" color="gray.800">
-//               {title}
-//             </Text>
-//             <Text fontSize="xs" color="gray.400">
-//               {sentTime}
-//             </Text>
-//           </Flex>
-//           <Link href={pageLink} isExternal>
-//             <Button
-//               variant="ghost"
-//               size="sm"
-//               leftIcon={<GrDocumentText />}
-//               _hover={{ bg: "rgba(0, 0, 0, 0.03)" }}
-//               pl={0}
-//             >
-//               {pageLink}
-//             </Button>
-//           </Link>
-//           <HStack spacing={3}>
-//             {primaryAction && (
-//               <Button
-//                 variant="outline"
-//                 size="sm"
-//                 colorScheme="gray"
-//                 borderRadius="md"
-//                 borderColor="gray.300"
-//                 _hover={{ bg: "gray.100" }}
-//                 onClick={() => {
-//                   // Action to reply
-//                 }}
-//               >
-//                 {primaryActionLabel}
-//               </Button>
-//             )}
-//             {secondaryAction && (
-//               <Button
-//                 variant="outline"
-//                 size="sm"
-//                 colorScheme="gray"
-//                 borderRadius="md"
-//                 borderColor="gray.300"
-//                 _hover={{ bg: "gray.100" }}
-//                 onClick={() => {
-//                   // Action to reply
-//                 }}
-//               >
-//                 {secondaryActionLabel}
-//               </Button>
-//             )}
-//           </HStack>
-//         </VStack>
-//       </Flex>
-//     </Box>
-//   );
-// };
+        {/* Main content with conditional margin based on avatar */}
+        <VStack align="start" spacing={"8px"} flex="1" mt="3px">
+          <Flex justify="space-between" width="100%">
+            <Text fontSize="14px" color="gray.800" fontWeight="600">
+              {notification.subject}
+            </Text>
+            <Text fontSize="xs" color="gray.400">
+              {formatTime(notification.createdAt)}
+            </Text>
+          </Flex>
 
-// function formatTime(timestamp: any) {
-//   const date = new Date(timestamp);
-//   const now = new Date().getTime();
-//   const diffInSeconds = Math.floor((now - date.getTime()) / 1000);
+          {notificationType !== "Mention" &&
+            notificationType !== "Comment" &&
+            notificationType !== "Invite" && (
+              <Text fontSize="14px" color="gray.800">
+                {notification.body}
+              </Text>
+            )}
 
-//   // Time calculations
-//   const secondsInMinute = 60;
-//   const secondsInHour = secondsInMinute * 60;
-//   const secondsInDay = secondsInHour * 24;
-//   const secondsInWeek = secondsInDay * 7;
-//   const secondsInYear = secondsInDay * 365;
+          {(notificationType === "Mention" ||
+            notificationType === "Comment") && (
+            <Button
+              variant="ghost"
+              size="sm"
+              leftIcon={<GrDocumentText />}
+              _hover={{ bg: "rgba(0, 0, 0, 0.03)" }}
+              pl="2px"
+              pr="5px"
+              height="25px"
+            >
+              <Text
+                fontSize="14px"
+                color="gray.800"
+                fontWeight="500"
+                backgroundImage="linear-gradient(to right, rgba(55, 53, 47, 0.16) 0%, rgba(55, 53, 47, 0.16) 100%)"
+                backgroundRepeat={"repeat-x"}
+                backgroundSize={"100% 1px"}
+                backgroundPosition={"0 100%"}
+                mr="-2px"
+              >
+                {notification.body}
+              </Text>
+            </Button>
+          )}
 
-//   if (diffInSeconds < secondsInMinute) {
-//     return `${diffInSeconds} seconds`;
-//   } else if (diffInSeconds < secondsInHour) {
-//     const minutes = Math.floor(diffInSeconds / secondsInMinute);
-//     return `${minutes} minutes`;
-//   } else if (diffInSeconds < secondsInDay) {
-//     const hours = Math.floor(diffInSeconds / secondsInHour);
-//     return `${hours} hours`;
-//   } else if (diffInSeconds < secondsInWeek) {
-//     const days = Math.floor(diffInSeconds / secondsInDay);
-//     return `${days} days`;
-//   } else if (diffInSeconds < secondsInYear) {
-//     const options: any = { month: "short", day: "numeric" };
-//     return date.toLocaleDateString(undefined, options); // e.g., "Feb 26"
-//   } else {
-//     return date.getFullYear().toString(); // e.g., "2022"
-//   }
-// }
+          {notificationType === "Invite" && (
+            <Button
+              variant="outline"
+              size="md"
+              _hover={{ bg: "rgba(0, 0, 0, 0.03)" }}
+              padding="12px"
+              height="50px"
+              fontSize={"14px"}
+              width="100%"
+              borderRadius="8px"
+              textAlign={"left"}
+              border="1px solid rgba(227, 226, 224, 0.5)"
+              justifyContent={"space-between"}
+            >
+              {notification.body}
+            </Button>
+          )}
+
+          {notificationType === "Comment" && (
+            <Box>
+              <Text fontSize="12px" color="rgb(120, 119, 116)" fontWeight="400">
+                John Doe
+              </Text>
+              <Text fontSize="14px" color="rgb(55, 53, 47)" fontWeight="400">
+                This is a notification Comment made by John Doe and posted on
+                the page Top Secret Project
+              </Text>
+            </Box>
+          )}
+
+          <HStack spacing={3}>
+            {notification.primaryAction && (
+              <Button
+                variant="outline"
+                size="xs"
+                colorScheme="gray"
+                borderRadius="md"
+                borderColor="gray.300"
+                _hover={{ bg: "gray.100" }}
+                paddingRight={"8px"}
+                paddingLeft={"8px"}
+                lineHeight={"26px"}
+                height={"26px"}
+              >
+                {notification.primaryAction.label}
+              </Button>
+            )}
+            {notification.secondaryAction && (
+              <Button
+                variant="ghost"
+                size="xs"
+                colorScheme="gray"
+                borderRadius="md"
+                borderColor="gray.300"
+                _hover={{ bg: "gray.100" }}
+                paddingRight={"8px"}
+                paddingLeft={"8px"}
+                lineHeight={"26px"}
+                height={"26px"}
+              >
+                {notification.secondaryAction.label}
+              </Button>
+            )}
+          </HStack>
+        </VStack>
+      </Flex>
+    </Box>
+  );
+};
+
+function formatTime(timestamp: any) {
+  const date = new Date(timestamp);
+  const now = new Date().getTime();
+  const diffInSeconds = Math.floor((now - date.getTime()) / 1000);
+
+  // Time calculations
+  const secondsInMinute = 60;
+  const secondsInHour = secondsInMinute * 60;
+  const secondsInDay = secondsInHour * 24;
+  const secondsInWeek = secondsInDay * 7;
+  const secondsInYear = secondsInDay * 365;
+
+  if (diffInSeconds < secondsInMinute) {
+    return `${diffInSeconds} seconds`;
+  } else if (diffInSeconds < secondsInHour) {
+    const minutes = Math.floor(diffInSeconds / secondsInMinute);
+    return `${minutes} minutes`;
+  } else if (diffInSeconds < secondsInDay) {
+    const hours = Math.floor(diffInSeconds / secondsInHour);
+    return `${hours} hours`;
+  } else if (diffInSeconds < secondsInWeek) {
+    const days = Math.floor(diffInSeconds / secondsInDay);
+    return `${days} days`;
+  } else if (diffInSeconds < secondsInYear) {
+    const options: any = { month: "short", day: "numeric" };
+    return date.toLocaleDateString(undefined, options); // e.g., "Feb 26"
+  } else {
+    return date.getFullYear().toString(); // e.g., "2022"
+  }
+}
 
 export default NotionTheme;
