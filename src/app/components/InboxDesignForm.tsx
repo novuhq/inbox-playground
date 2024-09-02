@@ -36,14 +36,9 @@ export function InboxDesignForm() {
     { code: "en", label: "English" },
     { code: "es", label: "Spanish" },
     { code: "fr", label: "French" },
-    { code: "de", label: "German" },
-    { code: "zh-CN", label: "Chinese (Simplified)" },
     { code: "ja", label: "Japanese" },
-    { code: "ko", label: "Korean" },
+    { code: "de", label: "German" },
     { code: "ru", label: "Russian" },
-    { code: "pt", label: "Portuguese" },
-    { code: "it", label: "Italian" },
-    { code: "hi", label: "Hindi" },
   ];
 
   return (

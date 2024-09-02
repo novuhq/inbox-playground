@@ -8,13 +8,9 @@ import {
   useColorModeValue,
   useBreakpointValue,
   Stack,
-  background,
 } from "@chakra-ui/react";
 
 import { Inbox } from "@novu/react";
-import { useSubscriber } from "../../hooks/useSubscriber";
-import { color } from "framer-motion";
-import { BsBackpack2Fill } from "react-icons/bs";
 
 type LocalizationValue =
   | string
@@ -27,6 +23,7 @@ const englishLocalization = {
   "inbox.status.unread": "Unread",
   "inbox.status.unreadRead": "Inbox",
   "inbox.status.archived": "Archived",
+  "inbox.filters.labels.default": "Inbox",
   "notifications.emptyNotice": "No notifications",
   "notifications.actions.readAll": "Mark all as read",
   "notifications.actions.archiveAll": "Archive all",
@@ -56,36 +53,9 @@ const localization: Record<
   // English (Default)
   "en-US": englishLocalization,
 
-  // Spanish (es)
-  es: {
-    "inbox.status.options.unread": "Solo no leídos",
-    "inbox.status.options.unreadRead": "No leídos y leídos",
-    "inbox.status.options.archived": "Archivado",
-    "inbox.status.unread": "No leídos",
-    "inbox.status.unreadRead": "Bandeja de entrada",
-    "inbox.status.archived": "Archivado",
-    "notifications.emptyNotice": "No hay notificaciones",
-    "notifications.actions.readAll": "Marcar todo como leído",
-    "notifications.actions.archiveAll": "Archivar todo",
-    "notifications.actions.archiveRead": "Archivar leídos",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} ${
-        notificationCount === 1 ? "nueva notificación" : "nuevas notificaciones"
-      }`,
-    "notification.actions.read.toolTip": "Marcar como leído",
-    "notification.actions.unread.toolTip": "Marcar como no leído",
-    "notification.actions.archive.toolTip": "Archivar",
-    "notification.actions.unarchive.toolTip": "Desarchivar",
-    "preferences.title": "Preferencias de notificaciones",
-    "preferences.global": "Preferencias globales",
-  },
-
   // French (fr)
   fr: {
+    "inbox.filters.labels.default": "Boîte de réception",
     "inbox.status.options.unread": "Non lus seulement",
     "inbox.status.options.unreadRead": "Non lus et lus",
     "inbox.status.options.archived": "Archivé",
@@ -116,6 +86,7 @@ const localization: Record<
 
   // German (de)
   de: {
+    "inbox.filters.labels.default": "Posteingang",
     "inbox.status.options.unread": "Nur ungelesen",
     "inbox.status.options.unreadRead": "Ungelesen & gelesen",
     "inbox.status.options.archived": "Archiviert",
@@ -142,36 +113,9 @@ const localization: Record<
     "preferences.global": "Globale Einstellungen",
   },
 
-  // Chinese (Simplified) (zh-CN)
-  "zh-CN": {
-    "inbox.status.options.unread": "仅未读",
-    "inbox.status.options.unreadRead": "未读和已读",
-    "inbox.status.options.archived": "已归档",
-    "inbox.status.unread": "未读",
-    "inbox.status.unreadRead": "收件箱",
-    "inbox.status.archived": "已归档",
-    "notifications.emptyNotice": "没有通知",
-    "notifications.actions.readAll": "全部标记为已读",
-    "notifications.actions.archiveAll": "全部归档",
-    "notifications.actions.archiveRead": "归档已读",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} 条${
-        notificationCount === 1 ? "新通知" : "新通知"
-      }`,
-    "notification.actions.read.toolTip": "标记为已读",
-    "notification.actions.unread.toolTip": "标记为未读",
-    "notification.actions.archive.toolTip": "归档",
-    "notification.actions.unarchive.toolTip": "取消归档",
-    "preferences.title": "通知偏好",
-    "preferences.global": "全局偏好",
-  },
-
   // Japanese (ja)
   ja: {
+    "inbox.filters.labels.default": "受信トレイ",
     "inbox.status.options.unread": "未読のみ",
     "inbox.status.options.unreadRead": "未読と既読",
     "inbox.status.options.archived": "アーカイブ済み",
@@ -198,36 +142,9 @@ const localization: Record<
     "preferences.global": "グローバル設定",
   },
 
-  // Korean (ko)
-  ko: {
-    "inbox.status.options.unread": "읽지 않음만",
-    "inbox.status.options.unreadRead": "읽지 않음 및 읽음",
-    "inbox.status.options.archived": "보관됨",
-    "inbox.status.unread": "읽지 않음",
-    "inbox.status.unreadRead": "받은 편지함",
-    "inbox.status.archived": "보관됨",
-    "notifications.emptyNotice": "알림이 없습니다",
-    "notifications.actions.readAll": "모두 읽음으로 표시",
-    "notifications.actions.archiveAll": "모두 보관",
-    "notifications.actions.archiveRead": "읽은 것 보관",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} 개의 ${
-        notificationCount === 1 ? "새 알림" : "새 알림"
-      }`,
-    "notification.actions.read.toolTip": "읽음으로 표시",
-    "notification.actions.unread.toolTip": "읽지 않음으로 표시",
-    "notification.actions.archive.toolTip": "보관",
-    "notification.actions.unarchive.toolTip": "보관 취소",
-    "preferences.title": "알림 설정",
-    "preferences.global": "전역 설정",
-  },
-
   // Russian (ru)
   ru: {
+    "inbox.filters.labels.default": "Входящие",
     "inbox.status.options.unread": "Только непрочитанные",
     "inbox.status.options.unreadRead": "Непрочитанные и прочитанные",
     "inbox.status.options.archived": "В архиве",
@@ -252,90 +169,6 @@ const localization: Record<
     "notification.actions.unarchive.toolTip": "Разархивировать",
     "preferences.title": "Настройки уведомлений",
     "preferences.global": "Глобальные настройки",
-  },
-
-  // Portuguese (pt)
-  pt: {
-    "inbox.status.options.unread": "Apenas não lidos",
-    "inbox.status.options.unreadRead": "Não lidos e lidos",
-    "inbox.status.options.archived": "Arquivados",
-    "inbox.status.unread": "Não lidos",
-    "inbox.status.unreadRead": "Caixa de entrada",
-    "inbox.status.archived": "Arquivados",
-    "notifications.emptyNotice": "Nenhuma notificação",
-    "notifications.actions.readAll": "Marcar tudo como lido",
-    "notifications.actions.archiveAll": "Arquivar tudo",
-    "notifications.actions.archiveRead": "Arquivar lidos",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} ${
-        notificationCount === 1 ? "nova notificação" : "novas notificações"
-      }`,
-    "notification.actions.read.toolTip": "Marcar como lido",
-    "notification.actions.unread.toolTip": "Marcar como não lido",
-    "notification.actions.archive.toolTip": "Arquivar",
-    "notification.actions.unarchive.toolTip": "Desarquivar",
-    "preferences.title": "Preferências de Notificação",
-    "preferences.global": "Preferências Globais",
-  },
-
-  // Italian (it)
-  it: {
-    "inbox.status.options.unread": "Solo non letti",
-    "inbox.status.options.unreadRead": "Non letti e letti",
-    "inbox.status.options.archived": "Archiviati",
-    "inbox.status.unread": "Non letti",
-    "inbox.status.unreadRead": "Posta in arrivo",
-    "inbox.status.archived": "Archiviati",
-    "notifications.emptyNotice": "Nessuna notifica",
-    "notifications.actions.readAll": "Segna tutto come letto",
-    "notifications.actions.archiveAll": "Archivia tutto",
-    "notifications.actions.archiveRead": "Archivia letti",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} nuove ${
-        notificationCount === 1 ? "notifica" : "notifiche"
-      }`,
-    "notification.actions.read.toolTip": "Segna come letto",
-    "notification.actions.unread.toolTip": "Segna come non letto",
-    "notification.actions.archive.toolTip": "Archivia",
-    "notification.actions.unarchive.toolTip": "Annulla archiviazione",
-    "preferences.title": "Preferenze di Notifica",
-    "preferences.global": "Preferenze Globali",
-  },
-
-  // Hindi (hi)
-  hi: {
-    "inbox.status.options.unread": "केवल अपठित",
-    "inbox.status.options.unreadRead": "अपठित और पढ़े हुए",
-    "inbox.status.options.archived": "संग्रहित",
-    "inbox.status.unread": "अपठित",
-    "inbox.status.unreadRead": "इनबॉक्स",
-    "inbox.status.archived": "संग्रहित",
-    "notifications.emptyNotice": "कोई सूचनाएं नहीं",
-    "notifications.actions.readAll": "सभी को पढ़ा हुआ चिह्नित करें",
-    "notifications.actions.archiveAll": "सभी को संग्रहित करें",
-    "notifications.actions.archiveRead": "पढ़ा हुआ संग्रहित करें",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} नई ${
-        notificationCount === 1 ? "सूचना" : "सूचनाएं"
-      }`,
-    "notification.actions.read.toolTip": "पढ़ा हुआ चिह्नित करें",
-    "notification.actions.unread.toolTip": "अपठित चिह्नित करें",
-    "notification.actions.archive.toolTip": "संग्रहित करें",
-    "notification.actions.unarchive.toolTip": "संग्रहण रद्द करें",
-    "preferences.title": "सूचना प्राथमिकताएँ",
-    "preferences.global": "वैश्विक ���्राथमिकताएँ",
   },
 };
 
@@ -429,7 +262,6 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string }) => {
               }
               appearance={{
                 variables: appearanceVariables,
-                // elements: selectedTheme?.appearance?.elements,
                 elements: {
                   bellIcon: {
                     height: "30px",
@@ -439,6 +271,7 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string }) => {
                     marginLeft: "-40px",
                     marginTop: "15px",
                   },
+                  ...selectedTheme?.appearance?.elements,
                 },
               }}
             />
