@@ -12,16 +12,15 @@ import {
 import InboxDesignForm from "./InboxDesignForm";
 import NotificationContentForm from "./NotificationContentForm";
 import { useNotificationForm } from "../hooks/useNotificationForm";
-import { useDesignDashboard } from "../hooks/useDesignDashboard";
 import { useSubscriber } from "../hooks/useSubscriber";
 import { useTheme } from "../contexts/ThemeContext";
 
 const PlaygroundFormContainer = () => {
+  useSubscriber();
+
   const { themes, setSelectedTheme } = useTheme();
 
-  const { notificationForm, handleSubmit } = useNotificationForm();
-  const { showDesignDashboard } = useDesignDashboard();
-  useSubscriber();
+  const { handleSubmit, isLoading } = useNotificationForm();
 
   return (
     <Flex
@@ -37,49 +36,46 @@ const PlaygroundFormContainer = () => {
       direction="column"
     >
       <VStack spacing={4} alignItems="stretch" flexGrow={1} height="100%">
-        {showDesignDashboard ? (
-          <InboxDesignForm />
-        ) : (
-          <Tabs
-            height="calc(100% - 80px)"
-            onChange={(index) => setSelectedTheme(themes[index])}
-          >
-            <TabList>
-              {themes.map((theme) => (
-                <Tab
-                  key={theme.id}
-                  sx={{
-                    svg: {
-                      width: "20px",
-                      height: "20px",
-                    },
-                  }}
-                >
-                  <span
-                    style={{ marginRight: "10px", display: "inline-block" }}
-                  >
-                    {theme.icon}
-                  </span>
-                  {theme.title}
-                </Tab>
-              ))}
-            </TabList>
-            <TabPanels height="calc(100% - 30px)">
-              {themes.map((theme) => (
-                <TabPanel key={theme.id} height="100%" overflowY="auto">
-                  {theme.id === "custom" ? <InboxDesignForm /> : null}
-                  <NotificationContentForm workflows={theme.workflows} />
-                </TabPanel>
-              ))}
-            </TabPanels>
-          </Tabs>
-        )}
+        <Tabs
+          height="calc(100% - 80px)"
+          onChange={(index) => {
+            setSelectedTheme(themes[index]);
+          }}
+        >
+          <TabList>
+            {themes.map((theme) => (
+              <Tab
+                key={theme.id}
+                sx={{
+                  svg: {
+                    width: "20px",
+                    height: "20px",
+                  },
+                }}
+              >
+                <span style={{ marginRight: "10px", display: "inline-block" }}>
+                  {theme.icon}
+                </span>
+                {theme.title}
+              </Tab>
+            ))}
+          </TabList>
+          <TabPanels height="calc(100% - 30px)">
+            {themes.map((theme) => (
+              <TabPanel key={theme.id} height="100%" overflowY="auto">
+                {theme.id === "custom" ? <InboxDesignForm /> : null}
+                <NotificationContentForm workflows={theme.workflows} />
+              </TabPanel>
+            ))}
+          </TabPanels>
+        </Tabs>
 
         <Button
           colorScheme="blue"
           size="md"
           width="full"
           marginTop={4}
+          isLoading={isLoading}
           onClick={handleSubmit}
           alignSelf="flex-end"
         >

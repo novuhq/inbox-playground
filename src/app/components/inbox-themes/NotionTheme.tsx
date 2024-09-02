@@ -23,8 +23,6 @@ import {
   FiHome,
   FiInbox,
   FiSettings,
-  FiChevronRight,
-  FiFilter,
   FiChevronDown,
 } from "react-icons/fi";
 import { BsFillFileTextFill, BsTrash } from "react-icons/bs";
@@ -33,22 +31,23 @@ import { GrDocumentText } from "react-icons/gr";
 import { FaUserFriends } from "react-icons/fa";
 import { Inbox, Notification, Notifications } from "@novu/react";
 import { NotionIcon } from "../icons/Notion";
-import React, { useState } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useSubscriber } from "../../hooks/useSubscriber";
 import { useTheme } from "../../contexts/ThemeContext";
-import { root } from "postcss";
-import { color } from "framer-motion";
 
 const NotionTheme = () => {
   const { subscriberId } = useSubscriber();
   const { selectedTheme } = useTheme();
 
-  const novuConfig: any = {
-    applicationIdentifier: process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID,
-    subscriberId: subscriberId,
-    open: true,
-    appearance: selectedTheme?.appearance,
-  };
+  console.log({ subscriberId, selectedTheme });
+
+  useEffect(() => {
+    console.log("Mount");
+
+    return () => {
+      console.log("Unmount");
+    };
+  }, [selectedTheme]);
 
   return (
     <Flex
@@ -128,21 +127,31 @@ const NotionTheme = () => {
         display="flex"
         flexDirection="column"
         justifyContent="center"
-        p={{ base: 4, md: 8 }} // Responsive padding
+        p={0} // Responsive padding
       >
         <Box
           // bg="white"
           height="100%"
           overflowY="auto"
           width="100%"
-          maxW="900px"
+          maxW="300px"
+          boxShadow={
+            "rgba(15, 15, 15, 0.04) 0px 0px 0px 1px, rgba(15, 15, 15, 0.03) 0px 3px 6px, rgba(15, 15, 15, 0.06) 0px 9px 24px"
+          }
         >
           <Inbox
-            {...novuConfig}
-            renderNotification={(notification) => {
-              return <InboxItem notification={notification} />;
-            }}
-          />
+            subscriberId={subscriberId as string}
+            applicationIdentifier={
+              process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID as string
+            }
+            appearance={selectedTheme?.appearance}
+          >
+            <Notifications
+              renderNotification={(notification) => {
+                return <InboxItem notification={notification} />;
+              }}
+            />
+          </Inbox>
         </Box>
       </Box>
     </Flex>

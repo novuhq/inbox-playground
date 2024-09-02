@@ -1,8 +1,10 @@
 import { useToast } from "@chakra-ui/react";
 import { useTheme } from "../contexts/ThemeContext";
+import { useState } from "react";
 
 export const useNotificationForm = () => {
   const toast = useToast();
+  const [isLoading, setIsLoading] = useState(false);
   const { notificationForm } = useTheme();
   const { getValues } = notificationForm;
 
@@ -21,6 +23,7 @@ export const useNotificationForm = () => {
       return;
     }
 
+    setIsLoading(true);
     try {
       const response = await fetch("/api/trigger", {
         method: "POST",
@@ -68,11 +71,14 @@ export const useNotificationForm = () => {
         duration: 5000,
         isClosable: true,
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return {
     notificationForm,
     handleSubmit: onSubmit,
+    isLoading,
   };
 };

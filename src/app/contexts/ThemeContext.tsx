@@ -2,7 +2,6 @@
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { NotionIcon } from "../components/icons/Notion";
-import { LinearIcon } from "../components/icons/Linear";
 import { FieldValues, useForm, UseFormReturn } from "react-hook-form";
 
 export interface Workflow {
@@ -244,8 +243,8 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
   const notificationForm = useForm<NotificationFormState>({
     defaultValues: {
-      subscriberFirstName: "",
-      subscriberLastName: "",
+      subscriberFirstName: "John",
+      subscriberLastName: "Doe",
       inAppSubject: "",
       inAppBody: "",
       inAppAvatar: "",
