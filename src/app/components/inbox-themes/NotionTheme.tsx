@@ -6,30 +6,54 @@ import {
   IconButton,
   VStack,
   Avatar,
+  Divider,
+  Stack,
   HStack,
   Link,
   Icon,
   useColorModeValue,
+  Tooltip,
   Button,
+  background,
+  border,
 } from "@chakra-ui/react";
+import { FiArchive } from "react-icons/fi";
+import { CheckIcon } from "@chakra-ui/icons"; // Example icons from Chakra UI
+import { FaRegCheckSquare } from "react-icons/fa";
+import { PiNotificationFill } from "react-icons/pi";
 import {
   FiSearch,
   FiHome,
   FiInbox,
   FiSettings,
+  FiChevronRight,
+  FiFilter,
   FiChevronDown,
 } from "react-icons/fi";
 import { BsFillFileTextFill, BsTrash } from "react-icons/bs";
 import { AiOutlineCalendar, AiOutlineCheck } from "react-icons/ai";
+
+import { CiUnread, CiRead } from "react-icons/ci";
 import { GrDocumentText } from "react-icons/gr";
 import { FaUserFriends } from "react-icons/fa";
 import { Inbox, Notification, Notifications } from "@novu/react";
 import { NotionIcon } from "../icons/Notion";
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState } from "react";
+import { useSubscriber } from "../../hooks/useSubscriber";
 import { useTheme } from "../../contexts/ThemeContext";
+import { root } from "postcss";
+import { color } from "framer-motion";
 
-const NotionTheme = ({ subscriberId }: { subscriberId: string }) => {
+const NotionTheme = () => {
+  const { subscriberId } = useSubscriber();
   const { selectedTheme } = useTheme();
+
+  const novuConfig: any = {
+    applicationIdentifier: process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID,
+    subscriberId: subscriberId,
+    open: true,
+    appearance: selectedTheme?.appearance,
+  };
 
   return (
     <Flex
@@ -109,31 +133,21 @@ const NotionTheme = ({ subscriberId }: { subscriberId: string }) => {
         display="flex"
         flexDirection="column"
         justifyContent="center"
-        p={0} // Responsive padding
+        p={{ base: 4, md: 8 }} // Responsive padding
       >
         <Box
           // bg="white"
           height="100%"
           overflowY="auto"
           width="100%"
-          maxW="390px"
-          boxShadow={
-            "rgba(15, 15, 15, 0.04) 0px 0px 0px 1px, rgba(15, 15, 15, 0.03) 0px 3px 6px, rgba(15, 15, 15, 0.06) 0px 9px 24px"
-          }
+          maxW="900px"
         >
           <Inbox
-            subscriberId={subscriberId as string}
-            applicationIdentifier={
-              process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID as string
-            }
-            appearance={selectedTheme?.appearance}
-          >
-            <Notifications
-              renderNotification={(notification) => {
-                return <InboxItem notification={notification} />;
-              }}
-            />
-          </Inbox>
+            {...novuConfig}
+            renderNotification={(notification) => {
+              return <InboxItem notification={notification} />;
+            }}
+          />
         </Box>
       </Box>
     </Flex>
@@ -193,8 +207,50 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Flex align="flex-start">
+      <Flex align="flex-start" position="relative"
+      >
+        <VStack spacing={0} position="absolute" top="0" right="0">
+          {isHovered && (
+            <Box bg="white" display="flex" gap={1}>
+              {notification.isRead ? (
+                <IconButton
+                  aria-label="Mark as unread"
+                  icon={<PiNotificationFill />}
+                  onClick={() => notification.unread()}
+                  size="sm"
+                  variant="ghost"
+                />
+              ) : (
+                <IconButton
+                  aria-label="Mark as read"
+                  icon={<FaRegCheckSquare />}
+                  onClick={() => notification.read()}
+                  size="sm"
+                  variant="ghost"
+                />
+              )}
+              {notification.isArchived ? (
+                <IconButton
+                  aria-label="Unarchive"
+                  icon={<PiNotificationFill />}
+                  onClick={() => notification.unarchive()}
+                  size="sm"
+                  variant="ghost"
+                />
+              ) : (
+                <IconButton
+                  aria-label="Archive"
+                  icon={<FiArchive />}
+                  onClick={() => notification.archive()}
+                  size="sm"
+                  variant="ghost"
+                />
+              )}
+            </Box>
+          )}
+        </VStack>
         {/* Conditionally render the avatar box only if there is an avatar */}
+
         <Box
           position="relative"
           display="flex"
@@ -239,29 +295,29 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
 
           {(notificationType === "Mention" ||
             notificationType === "Comment") && (
-            <Button
-              variant="ghost"
-              size="sm"
-              leftIcon={<GrDocumentText />}
-              _hover={{ bg: "rgba(0, 0, 0, 0.03)" }}
-              pl="2px"
-              pr="5px"
-              height="25px"
-            >
-              <Text
-                fontSize="14px"
-                color="gray.800"
-                fontWeight="500"
-                backgroundImage="linear-gradient(to right, rgba(55, 53, 47, 0.16) 0%, rgba(55, 53, 47, 0.16) 100%)"
-                backgroundRepeat={"repeat-x"}
-                backgroundSize={"100% 1px"}
-                backgroundPosition={"0 100%"}
-                mr="-2px"
+              <Button
+                variant="ghost"
+                size="sm"
+                leftIcon={<GrDocumentText />}
+                _hover={{ bg: "rgba(0, 0, 0, 0.03)" }}
+                pl="2px"
+                pr="5px"
+                height="25px"
               >
-                {notification.body}
-              </Text>
-            </Button>
-          )}
+                <Text
+                  fontSize="14px"
+                  color="gray.800"
+                  fontWeight="500"
+                  backgroundImage="linear-gradient(to right, rgba(55, 53, 47, 0.16) 0%, rgba(55, 53, 47, 0.16) 100%)"
+                  backgroundRepeat={"repeat-x"}
+                  backgroundSize={"100% 1px"}
+                  backgroundPosition={"0 100%"}
+                  mr="-2px"
+                >
+                  {notification.body}
+                </Text>
+              </Button>
+            )}
 
           {notificationType === "Invite" && (
             <Button
