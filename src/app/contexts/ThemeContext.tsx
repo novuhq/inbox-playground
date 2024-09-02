@@ -130,7 +130,7 @@ const themes: Theme[] = [
         title: "Comment",
         data: {
           inAppSubject: `{{subscriber.firstName | capitalize}} commented in`,
-          inAppBody: "Project Launch 2024",
+          inAppBody: "Secret Project Launch 2024",
           enablePrimaryAction: true,
           inAppPrimaryActionLabel: "Reply",
           inAppPrimaryActionUrl: "https://google.com",
