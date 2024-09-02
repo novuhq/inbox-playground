@@ -42,6 +42,22 @@ const themes: Theme[] = [
         borderRadius: "0.375rem",
       },
       elements: {
+        notificationListContainer: {
+          paddingRight: "10px",
+        },
+        inboxHeader: {
+          padding: "8px 16px",
+        },
+        inboxStatus__dropdownTrigger: {
+          gap: "2px",
+        },
+        moreActionsContainer: {
+          marginRight: "-4px",
+        },
+        inboxStatus__title: {
+          fontSize: "14px",
+          fontWeight: "500",
+        },
         bellContainer: {
           display: "none",
         },
