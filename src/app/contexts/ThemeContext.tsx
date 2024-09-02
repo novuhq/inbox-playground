@@ -225,7 +225,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   const [selectedTheme, setSelectedTheme] = useState(themes[0]);
   const inboxThemeForm = useForm({
     defaultValues: {
-      open: false,
+      open: true,
       language: "en",
       colorPrimary: "#0081F1",
       colorPrimaryForeground: "white",
