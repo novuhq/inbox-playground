@@ -10,10 +10,12 @@ import CustomTheme from "../inbox-themes/CustomTheme";
 import { useSubscriber } from "../../hooks/useSubscriber";
 
 const ThemeRenderer = () => {
-  const { subscriberId } = useSubscriber();
+  const { subscriberId} = useSubscriber();
   const { selectedTheme } = useTheme();
+  
 
   if (!subscriberId) return null;
+  
 
   return (
     <>

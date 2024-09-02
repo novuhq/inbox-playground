@@ -6,19 +6,13 @@ import {
   IconButton,
   VStack,
   Avatar,
-  Divider,
-  Stack,
   HStack,
   Link,
   Icon,
   useColorModeValue,
-  Tooltip,
   Button,
-  background,
-  border,
 } from "@chakra-ui/react";
 import { FiArchive } from "react-icons/fi";
-import { CheckIcon } from "@chakra-ui/icons"; // Example icons from Chakra UI
 import { FaRegCheckSquare } from "react-icons/fa";
 import { PiNotificationFill } from "react-icons/pi";
 import {
@@ -26,26 +20,20 @@ import {
   FiHome,
   FiInbox,
   FiSettings,
-  FiChevronRight,
-  FiFilter,
   FiChevronDown,
 } from "react-icons/fi";
 import { BsFillFileTextFill, BsTrash } from "react-icons/bs";
 import { AiOutlineCalendar, AiOutlineCheck } from "react-icons/ai";
 
-import { CiUnread, CiRead } from "react-icons/ci";
 import { GrDocumentText } from "react-icons/gr";
 import { FaUserFriends } from "react-icons/fa";
-import { Inbox, Notification, Notifications } from "@novu/react";
+import { Inbox, Notification } from "@novu/react";
 import { NotionIcon } from "../icons/Notion";
 import React, { useState } from "react";
-import { useSubscriber } from "../../hooks/useSubscriber";
 import { useTheme } from "../../contexts/ThemeContext";
-import { root } from "postcss";
-import { color } from "framer-motion";
 
-const NotionTheme = () => {
-  const { subscriberId } = useSubscriber();
+
+const NotionTheme = ({ subscriberId }: { subscriberId: string }) => {
   const { selectedTheme } = useTheme();
 
   const novuConfig: any = {
