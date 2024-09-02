@@ -2,8 +2,7 @@
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { NotionIcon } from "../components/icons/Notion";
-import { FieldValues, useForm, UseFormReturn } from "react-hook-form";
-import { background } from "@chakra-ui/react";
+import { useForm, UseFormReturn } from "react-hook-form";
 
 export interface Workflow {
   id: string;
@@ -133,10 +132,10 @@ const themes: Theme[] = [
           inAppBody: "Secret Project Launch 2024",
           enablePrimaryAction: true,
           inAppPrimaryActionLabel: "Reply",
-          inAppPrimaryActionUrl: "https://google.com",
+          inAppPrimaryActionUrl: "",
           enableSecondaryAction: false,
           inAppSecondaryActionLabel: "Dismiss",
-          inAppSecondaryActionUrl: "https://google.com",
+          inAppSecondaryActionUrl: "",
           showInAppAvatar: true,
           inAppAvatar: "https://avatars.githubusercontent.com/u/63902456?v=4",
         },
@@ -162,13 +161,13 @@ const themes: Theme[] = [
         title: "Mention",
         data: {
           inAppSubject: `{{subscriber.firstName | capitalize}} mentioned you in`, //Main notification text (subject)
-          inAppBody: "Very Intresting Project", //page name
+          inAppBody: "Very Interesting Project", //page name
           enablePrimaryAction: false,
           inAppPrimaryActionLabel: "Reply",
-          inAppPrimaryActionUrl: "https://google.com",
+          inAppPrimaryActionUrl: "",
           enableSecondaryAction: false,
           inAppSecondaryActionLabel: "Dismiss",
-          inAppSecondaryActionUrl: "https://google.com",
+          inAppSecondaryActionUrl: "",
           showInAppAvatar: true,
           inAppAvatar: "https://avatars.githubusercontent.com/u/63902456?v=4",
         },
