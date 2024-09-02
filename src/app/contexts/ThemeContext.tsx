@@ -4,6 +4,8 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { NotionIcon } from "../components/icons/Notion";
 import { FieldValues, useForm, UseFormReturn } from "react-hook-form";
 import { background } from "@chakra-ui/react";
+import { tr } from "date-fns/locale";
+import { RedditIcon } from "../components/icons/Reddit";
 
 export interface Workflow {
   id: string;
@@ -184,6 +186,70 @@ const themes: Theme[] = [
       variables: {},
       elements: {},
     },
+  },
+{
+    id: "reddit",
+    title: "Reddit",
+  icon: <RedditIcon />,
+  appearance: {
+    variables: {},
+    elements: {
+      inboxHeader: {
+        display: "none",
+      },
+        
+      },
+  },
+    workflows: [
+      {
+        id: "reddit-reply-to-comment",
+        title: "Reply To Comment",
+        data: {
+          inAppSubject: `u/{{subscriber.firstName}} replied to your comment in r/ProgrammerHumor`,
+          inAppBody: "you thought you had edge cases covered..you thought",
+          enablePrimaryAction: true,
+          inAppPrimaryActionLabel: "Reply back",
+          inAppPrimaryActionUrl: "https://google.com",
+          enableSecondaryAction: false,
+          inAppSecondaryActionLabel: "Dismiss",
+          inAppSecondaryActionUrl: "https://google.com",
+          showInAppAvatar: true,
+          inAppAvatar: "https://i.redd.it/snoovatar/avatars/3c428706-19a9-48f3-b7ce-cb67f2773e7b.png",
+        },
+      },
+      {
+        id: "reddit-reply-to-post",
+        title: "Reply To Post",
+        data: {
+          inAppSubject: `u/{{subscriber.firstName}} replied to your post in r/reactjs`, //Main notification text (subject)
+          inAppBody: "Not everything needs to be broken down into an excalidraw diagram", //page name
+          enablePrimaryAction: false,
+          inAppPrimaryActionLabel: "Accept",
+          inAppPrimaryActionUrl: "",
+          enableSecondaryAction: false,
+          inAppSecondaryActionLabel: "Dismiss",
+          inAppSecondaryActionUrl: "",
+          showInAppAvatar: true,
+          inAppAvatar: "https://i.redd.it/snoovatar/avatars/aa71dd87-6310-46ae-9ba8-02f37e4271bc.png",
+        },
+      },
+      {
+        id: "reddit-upvote",
+        title: "Upvote",
+        data: {
+          inAppSubject: `⬆️ 1st upvote!`, //Main notification text (subject)
+          inAppBody: "Go see your post on r/novuhq: 'Novu is...'", //page name
+          enablePrimaryAction: false,
+          inAppPrimaryActionLabel: "Reply",
+          inAppPrimaryActionUrl: "https://google.com",
+          enableSecondaryAction: false,
+          inAppSecondaryActionLabel: "Dismiss",
+          inAppSecondaryActionUrl: "https://google.com",
+          showInAppAvatar: true,
+          inAppAvatar: "https://avatars.githubusercontent.com/u/77433905?s=200&v=4",
+        },
+      },
+    ],
   },
 ];
 
