@@ -7,15 +7,25 @@ import NotionTheme from "../inbox-themes/NotionTheme";
 import LinearTheme from "../inbox-themes/LinearTheme";
 import { ThemeProvider, useTheme } from "../../contexts/ThemeContext";
 import CustomTheme from "../inbox-themes/CustomTheme";
+import { useSubscriber } from "../../hooks/useSubscriber";
 
 const ThemeRenderer = () => {
+  const { subscriberId } = useSubscriber();
   const { selectedTheme } = useTheme();
+
+  if (!subscriberId) return null;
 
   return (
     <>
-      {selectedTheme.id === "notion" && <NotionTheme />}
-      {selectedTheme.id === "linear" && <LinearTheme />}
-      {selectedTheme.id === "custom" && <CustomTheme />}
+      {selectedTheme.id === "notion" && (
+        <NotionTheme subscriberId={subscriberId} />
+      )}
+      {selectedTheme.id === "linear" && (
+        <LinearTheme subscriberId={subscriberId} />
+      )}
+      {selectedTheme.id === "custom" && (
+        <CustomTheme subscriberId={subscriberId} />
+      )}
     </>
   );
 };

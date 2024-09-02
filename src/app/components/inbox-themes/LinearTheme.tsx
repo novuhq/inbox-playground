@@ -34,9 +34,7 @@ import { TbFilePencil } from "react-icons/tb";
 import { SlPencil } from "react-icons/sl";
 import { useSubscriber } from "../../hooks/useSubscriber";
 
-const LinearTheme = () => {
-  const { subscriberId } = useSubscriber();
-
+const LinearTheme = ({ subscriberId }: { subscriberId: string }) => {
   const novuConfig: any = {
     applicationIdentifier: process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID,
     subscriberId: subscriberId,

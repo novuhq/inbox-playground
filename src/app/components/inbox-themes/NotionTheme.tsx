@@ -6,18 +6,12 @@ import {
   IconButton,
   VStack,
   Avatar,
-  Divider,
-  Stack,
   HStack,
   Link,
   Icon,
   useColorModeValue,
-  Tooltip,
   Button,
-  background,
-  border,
 } from "@chakra-ui/react";
-import { CheckIcon } from "@chakra-ui/icons"; // Example icons from Chakra UI
 import {
   FiSearch,
   FiHome,
@@ -32,22 +26,10 @@ import { FaUserFriends } from "react-icons/fa";
 import { Inbox, Notification, Notifications } from "@novu/react";
 import { NotionIcon } from "../icons/Notion";
 import React, { useState, useMemo, useEffect } from "react";
-import { useSubscriber } from "../../hooks/useSubscriber";
 import { useTheme } from "../../contexts/ThemeContext";
 
-const NotionTheme = () => {
-  const { subscriberId } = useSubscriber();
+const NotionTheme = ({ subscriberId }: { subscriberId: string }) => {
   const { selectedTheme } = useTheme();
-
-  console.log({ subscriberId, selectedTheme });
-
-  useEffect(() => {
-    console.log("Mount");
-
-    return () => {
-      console.log("Unmount");
-    };
-  }, [selectedTheme]);
 
   return (
     <Flex
