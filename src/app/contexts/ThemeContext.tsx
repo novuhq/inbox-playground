@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { NotionIcon } from "../components/icons/Notion";
 import { FieldValues, useForm, UseFormReturn } from "react-hook-form";
+import { background } from "@chakra-ui/react";
 
 export interface Workflow {
   id: string;
@@ -41,6 +42,9 @@ const themes: Theme[] = [
         borderRadius: "0.375rem",
       },
       elements: {
+        notificationListNewNotificationsNotice__button: {
+          background: "#2b6cb0",
+        },
         notificationListContainer: {
           paddingRight: "10px",
         },
