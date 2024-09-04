@@ -5,6 +5,7 @@ import { NotionIcon } from "../components/icons/Notion";
 import { useForm, UseFormReturn } from "react-hook-form";
 import { RedditIcon } from "../components/icons/Reddit";
 
+
 export interface Workflow {
   id: string;
   title: string;
@@ -133,10 +134,10 @@ const themes: Theme[] = [
           inAppBody: "Secret Project Launch 2024",
           enablePrimaryAction: true,
           inAppPrimaryActionLabel: "Reply",
-          inAppPrimaryActionUrl: "https://google.com",
+          inAppPrimaryActionUrl: "",
           enableSecondaryAction: false,
           inAppSecondaryActionLabel: "Dismiss",
-          inAppSecondaryActionUrl: "https://google.com",
+          inAppSecondaryActionUrl: "",
           showInAppAvatar: true,
           inAppAvatar: "https://avatars.githubusercontent.com/u/63902456?v=4",
         },
@@ -162,13 +163,13 @@ const themes: Theme[] = [
         title: "Mention",
         data: {
           inAppSubject: `{{subscriber.firstName | capitalize}} mentioned you in`, //Main notification text (subject)
-          inAppBody: "Very Intresting Project", //page name
+          inAppBody: "Very Interesting Project", //page name
           enablePrimaryAction: false,
           inAppPrimaryActionLabel: "Reply",
-          inAppPrimaryActionUrl: "https://google.com",
+          inAppPrimaryActionUrl: "",
           enableSecondaryAction: false,
           inAppSecondaryActionLabel: "Dismiss",
-          inAppSecondaryActionUrl: "https://google.com",
+          inAppSecondaryActionUrl: "",
           showInAppAvatar: true,
           inAppAvatar: "https://avatars.githubusercontent.com/u/63902456?v=4",
         },
