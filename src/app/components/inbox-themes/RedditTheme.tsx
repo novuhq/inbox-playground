@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Image from 'next/image'; // Import the Image component
+// import Image from 'next/image'; // Import the Image component
 import { Inbox, Notification, Notifications } from "@novu/react";
 import { useTheme } from "../../contexts/ThemeContext";
 import { FaReddit, FaRegCommentDots } from 'react-icons/fa';
@@ -10,6 +10,7 @@ import { BiMessageSquareDetail, BiHash, BiStar, BiCompass } from 'react-icons/bi
 import { TbClick } from 'react-icons/tb'; // Click icon (or similar)
 import { BsBellFill,BsArrowUp, BsFillChatLeftTextFill } from 'react-icons/bs'; // Dot icon
 import { FiSettings, FiMoreHorizontal } from "react-icons/fi";
+import { FaBell } from "react-icons/fa";
 
 
 const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
@@ -56,13 +57,14 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
           <FiPlus size={25} className="cursor-pointer hover:bg-gray-200 rounded-full p-1" />
           <span className="text-sm font-medium cursor-pointer hover:bg-gray-200 rounded-full p-1">Create</span>
           {/* Bell Icon with Click Event */}
-          <FiBell
+          <FaBell
+            
             size={25}
-            className="cursor-pointer hover:bg-gray-200 rounded-full p-1"
+            className="cursor-pointer hover:bg-gray-200 rounded-full p-1 text-red-500"
             onClick={toggleNotifications}
           />
           {/* Avatar Image */}
-          <Image
+          <img
             src="https://styles.redditmedia.com/t5_4hy1ad/styles/profileIcon_snooaa71dd87-6310-46ae-9ba8-02f37e4271bc-headshot.png?width=128&height=128&frame=1&auto=webp&crop=128:128,smart&s=23622e6012eab57c189c8586ca7c8f2f7ef2c3ae"
             alt="User Avatar"
             className="cursor-pointer rounded-full hover:bg-gray-200 p-1"
@@ -258,7 +260,7 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
             <div className="p-4 bg-gray-50 rounded-md mb-2">
               <h3 className="font-semibold">Excited to share my new web app!</h3>
               <p className="text-sm text-gray-600">
-                I've been working on a side project for the last 3 months, and it&apos;s finally live! It&apos;s a tool to help freelancers manage their time more efficiently.
+                I&apos;ve been working on a side project for the last 3 months, and it&apos;s finally live! It&apos;s a tool to help freelancers manage their time more efficiently.
               </p>
               <p className="text-sm text-gray-600">
                 Would love any feedback or suggestions. Check it out at mywebsite.com!
@@ -293,7 +295,7 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
             {/* Post 1 */}
             <li className="flex flex-col hover:bg-gray-100 p-2 rounded-lg cursor-pointer">
               <p className="text-gray-500 text-xs">Posted in r/javascript</p>
-              <p className="font-medium">Found an open-source codebase that's similar to Skool (Learning Management...)</p>
+              <p className="font-medium">Found an open-source codebase that&apos;s similar to Skool (Learning Management...)</p>
               <p className="text-xs text-gray-500">250 upvotes · 42 comments</p>
             </li>
 
@@ -321,14 +323,14 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
             {/* Post 5 */}
             <li className="flex flex-col hover:bg-gray-100 p-2 rounded-lg cursor-pointer">
               <p className="text-gray-500 text-xs">Posted in r/reactjs</p>
-              <p className="font-medium">The "Wrong Way" To Use React</p>
+              <p className="font-medium">The &apos;Wrong Way&apos; To Use React</p>
               <p className="text-xs text-gray-500">7 comments</p>
             </li>
 
             {/* Post 6 */}
             <li className="flex flex-col hover:bg-gray-100 p-2 rounded-lg cursor-pointer">
               <p className="text-gray-500 text-xs">Posted in r/nextjs</p>
-              <p className="font-medium">The "Wrong Way" To Use React</p>
+              <p className="font-medium">The &apos;Wrong Way&apos; To Use React</p>
               <p className="text-xs text-gray-500">9 comments</p>
             </li>
           </ul>
@@ -349,14 +351,15 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
 
   // Function to determine the icon based on the notification tag
   const getNotificationIcon = () => {
-    if (notification.tags === 'Upvote') {
-      return <BsArrowUp size={10} className="text-green-500" />;
-    } else if (notification.tags === 'ReplyToPost' || notification.tags === 'ReplyToComment') {
-      return <BsFillChatLeftTextFill size={10} className="text-red-500" />;
-    } else {
-      return <BsBellFill size={10} className="text-blue-500" />;
-    }
-  };
+  if (notification.tags?.includes('Upvote')) {
+    return <BsArrowUp size={10} className="text-green-500" />;
+  } else if (notification.tags?.includes('ReplyToPost') || notification.tags?.includes('ReplyToComment')) {
+    return <BsFillChatLeftTextFill size={10} className="text-red-500" />;
+  } else {
+    // Return a default icon or handle the case where no tags match
+    return <BsBellFill size={10} />;
+  }
+};
 
   return (
     <div
@@ -367,7 +370,7 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
     >
       {/* Avatar with Notification Type Icon */}
       <div className="relative">
-        <Image
+        <img
           src={
             notification.avatar ||
             'https://styles.redditmedia.com/t5_4hy1ad/styles/profileIcon_snooaa71dd87-6310-46ae-9ba8-02f37e4271bc-headshot.png?width=128&height=128&frame=1&auto=webp&crop=128:128,smart&s=23622e6012eab57c189c8586ca7c8f2f7ef2c3ae'
@@ -449,7 +452,7 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
 };
 
 // Helper function to format time
-function formatTime(timestamp) {
+function formatTime(timestamp: string) {
   const date = new Date(timestamp);
   const now = new Date().getTime();
   const diffInSeconds = Math.floor((now - date.getTime()) / 1000);
@@ -473,7 +476,7 @@ function formatTime(timestamp) {
     const days = Math.floor(diffInSeconds / secondsInDay);
     return `${days} days`;
   } else if (diffInSeconds < secondsInYear) {
-    const options = { month: "short", day: "numeric" };
+    const options: Intl.DateTimeFormatOptions = { month: "short", day: "numeric" }; // Corrected type
     return date.toLocaleDateString(undefined, options); // e.g., "Feb 26"
   } else {
     return date.getFullYear().toString(); // e.g., "2022"
