@@ -5,17 +5,18 @@ import Navbar from "../Navbar";
 import PlaygroundFormContainer from "../PlaygroundFormContainer";
 import NotionTheme from "../inbox-themes/NotionTheme";
 import LinearTheme from "../inbox-themes/LinearTheme";
+import RedditTheme from "../inbox-themes/RedditTheme";
 import { ThemeProvider, useTheme } from "../../contexts/ThemeContext";
 import CustomTheme from "../inbox-themes/CustomTheme";
 import { useSubscriber } from "../../hooks/useSubscriber";
 
 const ThemeRenderer = () => {
-  const { subscriberId} = useSubscriber();
+  const { subscriberId } = useSubscriber();
   const { selectedTheme } = useTheme();
-  
+
 
   if (!subscriberId) return null;
-  
+
 
   return (
     <>
@@ -25,9 +26,13 @@ const ThemeRenderer = () => {
       {selectedTheme.id === "linear" && (
         <LinearTheme subscriberId={subscriberId} />
       )}
+      {selectedTheme.id === "reddit" && (
+        <RedditTheme subscriberId={subscriberId} />
+      )}
       {selectedTheme.id === "custom" && (
         <CustomTheme subscriberId={subscriberId} />
       )}
+
     </>
   );
 };
