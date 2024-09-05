@@ -33,8 +33,7 @@ const englishLocalization = {
   }: {
     notificationCount: number;
   }) =>
-    `${notificationCount > 99 ? "99+" : notificationCount} new ${
-      notificationCount === 1 ? "notification" : "notifications"
+    `${notificationCount > 99 ? "99+" : notificationCount} new ${notificationCount === 1 ? "notification" : "notifications"
     }`,
   "notification.actions.read.toolTip": "Mark as read",
   "notification.actions.unread.toolTip": "Mark as unread",
@@ -71,10 +70,9 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} ${
-        notificationCount === 1
-          ? "nouvelle notification"
-          : "nouvelles notifications"
+      `${notificationCount > 99 ? "99+" : notificationCount} ${notificationCount === 1
+        ? "nouvelle notification"
+        : "nouvelles notifications"
       }`,
     "notification.actions.read.toolTip": "Marquer comme lu",
     "notification.actions.unread.toolTip": "Marquer comme non lu",
@@ -102,8 +100,7 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} neue ${
-        notificationCount === 1 ? "Benachrichtigung" : "Benachrichtigungen"
+      `${notificationCount > 99 ? "99+" : notificationCount} neue ${notificationCount === 1 ? "Benachrichtigung" : "Benachrichtigungen"
       }`,
     "notification.actions.read.toolTip": "Als gelesen markieren",
     "notification.actions.unread.toolTip": "Als ungelesen markieren",
@@ -131,8 +128,7 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} 件の${
-        notificationCount === 1 ? "新しい通知" : "新しい通知"
+      `${notificationCount > 99 ? "99+" : notificationCount} 件の${notificationCount === 1 ? "新しい通知" : "新しい通知"
       }`,
     "notification.actions.read.toolTip": "既読にする",
     "notification.actions.unread.toolTip": "未読にする",
@@ -160,8 +156,7 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} новых ${
-        notificationCount === 1 ? "уведомление" : "уведомлений"
+      `${notificationCount > 99 ? "99+" : notificationCount} новых ${notificationCount === 1 ? "уведомление" : "уведомлений"
       }`,
     "notification.actions.read.toolTip": "Отметить как прочитанное",
     "notification.actions.unread.toolTip": "Отметить как непрочитанное",
@@ -185,6 +180,7 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string }) => {
 
   const { inboxThemeForm, selectedTheme } = useTheme();
   const formValues = inboxThemeForm.watch();
+
 
   const appearanceVariables = {
     open: formValues.open,
@@ -214,6 +210,7 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string }) => {
         fontFamily:
           'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
       }}
+      position="relative"
     >
       {/* Main Content Area */}
       <Box width="100%">
@@ -257,7 +254,7 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string }) => {
               subscriberId={novuConfig.subscriberId}
               localization={
                 typedLocalization[
-                  appearanceVariables.language as keyof typeof typedLocalization
+                appearanceVariables.language as keyof typeof typedLocalization
                 ] || typedLocalization["en-US"]
               }
               appearance={{
@@ -268,7 +265,8 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string }) => {
                     width: "30px",
                   },
                   popoverContent: {
-                    marginLeft: "-40px",
+                    position: "absolute",
+                    marginLeft: "-80px", // Adjust the position of the popover
                     marginTop: "15px",
                   },
                   ...selectedTheme?.appearance?.elements,

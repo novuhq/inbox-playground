@@ -8,7 +8,7 @@ import { AiOutlineSearch, AiOutlineArrowUp, AiOutlineArrowDown, AiOutlineShareAl
 import { FiBell, FiPlus, FiMail } from 'react-icons/fi';
 import { BiMessageSquareDetail, BiHash, BiStar, BiCompass } from 'react-icons/bi';
 import { TbClick } from 'react-icons/tb'; // Click icon (or similar)
-import { BsBellFill,BsArrowUp, BsFillChatLeftTextFill } from 'react-icons/bs'; // Dot icon
+import { BsBellFill, BsArrowUp, BsFillChatLeftTextFill } from 'react-icons/bs'; // Dot icon
 import { FiSettings, FiMoreHorizontal } from "react-icons/fi";
 import { FaBell } from "react-icons/fa";
 
@@ -16,7 +16,7 @@ import { FaBell } from "react-icons/fa";
 const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
   const { selectedTheme } = useTheme();
 
-  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(true);
 
   // Toggle notification window visibility
   const toggleNotifications = () => {
@@ -31,11 +31,11 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
   };
 
   return (
-    <div className="w-full max-w-[1200px] h-full min-h-[400px] max-h-[800px] bg-white mx-auto rounded-lg shadow-md p-4 overflow-hidden ">
+    <div className="w-full max-w-[1200px] h-screen min-h-[400px] max-h-[100%] bg-white rounded-lg shadow-md p-4 overflow-hidden font-sans">
       {/* Navbar */}
       <div className="flex items-center justify-between mb-4 border-b pb-2">
         {/* Left side of Navbar */}
-        <div className="flex items-center" >
+        <div className="flex items-center">
           <FaReddit size={32} className="text-red-500 mr-1" />
           <h1 className="text-lg font-bold text-red-500">reddit</h1>
         </div>
@@ -57,12 +57,50 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
           <FiPlus size={25} className="cursor-pointer hover:bg-gray-200 rounded-full p-1" />
           <span className="text-sm font-medium cursor-pointer hover:bg-gray-200 rounded-full p-1">Create</span>
           {/* Bell Icon with Click Event */}
-          <FaBell
-            
-            size={25}
-            className="cursor-pointer hover:bg-gray-200 rounded-full p-1 text-red-500"
-            onClick={toggleNotifications}
-          />
+          <div className="relative">
+            <FaBell
+              size={25}
+              className="cursor-pointer hover:bg-gray-200 rounded-full p-1"
+              onClick={toggleNotifications}
+            />
+
+            {/* Notification Window */}
+            {isNotificationsOpen && (
+              <div className="absolute right-0 top-full mt-2 w-[400px] h-[472px] bg-white border rounded-lg shadow-lg z-10 flex flex-col">
+                {/* Tabs */}
+                <div className="flex justify-between items-center border-b p-3">
+                  <div className="flex flex-grow space-x-4 justify-center">
+                    <button className="w-1/2 font-semibold text-center">
+                      Notifications
+                    </button>
+                    <div className="w-1/2 text-gray-500 text-center">Messages</div>
+                  </div>
+                </div>
+
+                {/* Mark all as read and Settings */}
+                <div className="flex justify-between items-center mb-4 mt-4">
+                  <span className="text-sm font-normal ml-3">TODAY</span>
+                  <div className="flex items-center space-x-4 mr-3">
+                    <button className="text-sm font-bold">
+                      Mark all as read
+                    </button>
+                    <FiSettings className="text-gray-500 cursor-pointer" size={18} />
+                  </div>
+                </div>
+
+                {/* Notifications List using Novu Inbox */}
+                <Inbox
+                  {...novuConfig}
+                >
+                  <Notifications
+                    renderNotification={(notification) => (
+                      <InboxItem notification={notification} />
+                    )}
+                  />
+                </Inbox>
+              </div>
+            )}
+          </div>
           {/* Avatar Image */}
           <img
             src="https://styles.redditmedia.com/t5_4hy1ad/styles/profileIcon_snooaa71dd87-6310-46ae-9ba8-02f37e4271bc-headshot.png?width=128&height=128&frame=1&auto=webp&crop=128:128,smart&s=23622e6012eab57c189c8586ca7c8f2f7ef2c3ae"
@@ -73,47 +111,6 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
           />
         </div>
       </div>
-
-      {/* Notification Window */}
-      {isNotificationsOpen && (
-        <div className="absolute right-9 top-40 w-[400px] max-h-[472px] bg-white border rounded-lg shadow-lg z-10 overflow-y-auto">
-          {/* Tabs */}
-          <div className="flex justify-between items-center border-b mb-4 p-3">
-            <div className="flex flex-grow space-x-4 justify-center ">
-              <button className="w-1/2 font-semibold ">
-                Notifications
-              </button>
-              <button className="w-1/2 text-gray-500 focus:outline-none">Messages</button>
-            </div>
-          </div>
-
-          {/* Mark all as read and Settings */}
-          <div className="flex justify-between items-center mb-4">
-            <span className="text-sm font-normal ml-3">TODAY</span>
-            <div className="flex items-center space-x-4 mr-3">
-              <button className="text-sm font-bold">Mark all as read</button>
-              <FiSettings className="text-gray-500 cursor-pointer" size={18} />
-            </div>
-          </div>
-
-          {/* Notifications List using Novu Inbox */}
-          <Inbox
-            {...novuConfig}
-          >
-            <Notifications
-              renderNotification={(notification) => (
-                <InboxItem notification={notification} />
-              )}
-            >
-            </Notifications>
-          </Inbox>
-          {/* See All Button */}
-          <button className="w-full mt-2 mb-4 p-2 bg-gray-100 font-semibold rounded-full hover:bg-gray-200">
-            See All
-          </button>
-        </div>
-      )
-      }
 
       {/* Main Content Layout */}
       <div className="flex h-[calc(100%-48px)]">
@@ -212,7 +209,7 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
           <div className="p-4 bg-white rounded-lg border border-gray-200 mb-4 hover:bg-gray-100">
             <div className="flex items-center mb-2">
               <div className="flex items-center space-x-2">
-                <FaReddit size={20} className="text-gray-400" />
+                <FaReddit size={20} className="text-yellow-400" />
                 <span className="text-sm font-medium">r/SideProject</span>
                 <span className="text-xs text-gray-500">1 hr. ago</span>
               </div>
@@ -227,7 +224,6 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
                 Your first payout for this payment of $29.00 (minus any fees) should land in your bank account on 9/7/24.
               </p>
             </div>
-
 
             {/* Post Action Buttons */}
             <div className="flex items-center mt-4 space-x-4">
@@ -251,7 +247,7 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
           <div className="p-4 bg-white rounded-lg border border-gray-200 mb-4 hover:bg-gray-100">
             <div className="flex items-center mb-2">
               <div className="flex items-center space-x-2">
-                <FaReddit size={20} className="text-gray-400" />
+                <FaReddit size={20} className="text-pink-400" />
                 <span className="text-sm font-medium">r/Nextjs</span>
                 <span className="text-xs text-gray-500">2 hrs. ago</span>
               </div>
@@ -283,6 +279,44 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
               </button>
             </div>
           </div>
+
+          {/* Third Post */}
+          <div className="p-4 bg-white rounded-lg border border-gray-200 mb-4 hover:bg-gray-100">
+            <div className="flex items-center mb-2">
+              <div className="flex items-center space-x-2">
+                <FaReddit size={20} className="text-blue-400" />
+                <span className="text-sm font-medium">Novu Updates</span>
+                <span className="text-xs text-gray-500">2 hrs. ago</span>
+              </div>
+            </div>
+            <h2 className="text-lg font-bold mb-2">New Novu Feature: Multi-channel Notifications! 🚀</h2>
+            <div className="p-4 bg-gray-50 rounded-md mb-2">
+              <h3 className="font-semibold">Exciting update to our notification infrastructure!</h3>
+              <p className="text-sm text-gray-600">
+                We&apos;ve just released a new feature that allows you to send notifications across multiple channels simultaneously. Now you can reach your users via email, SMS, and push notifications with a single API call!
+              </p>
+              <p className="text-sm text-gray-600">
+                Check out our documentation at docs.novu.co for integration details and best practices.
+              </p>
+            </div>
+            {/* Post Action Buttons */}
+            <div className="flex items-center mt-4 space-x-4">
+              <button className="flex items-center space-x-1 bg-blue-100 px-2 py-1 rounded-full">
+                <AiOutlineArrowUp />
+                <span>42</span>
+                <AiOutlineArrowDown />
+              </button>
+              <button className="flex items-center space-x-1 bg-blue-100 px-2 py-1 rounded-full">
+                <FaRegCommentDots />
+                <span>15</span>
+              </button>
+              <button className="flex items-center space-x-1 bg-blue-100 px-2 py-1 rounded-full">
+                <AiOutlineShareAlt />
+                <span>Share</span>
+              </button>
+            </div>
+          </div>
+
         </div>
 
         {/* Right Sidebar (Recent Posts) */}
@@ -343,6 +377,8 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
 const InboxItem = ({ notification }: { notification: Notification }) => {
   const [showOptions, setShowOptions] = useState(false);
 
+
+
   const handleMarkAsRead = () => {
     if (!notification.isRead) {
       notification.read();
@@ -351,21 +387,20 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
 
   // Function to determine the icon based on the notification tag
   const getNotificationIcon = () => {
-  if (notification.tags?.includes('Upvote')) {
-    return <BsArrowUp size={10} className="text-green-500" />;
-  } else if (notification.tags?.includes('ReplyToPost') || notification.tags?.includes('ReplyToComment')) {
-    return <BsFillChatLeftTextFill size={10} className="text-red-500" />;
-  } else {
-    // Return a default icon or handle the case where no tags match
-    return <BsBellFill size={10} />;
-  }
-};
+    if (notification.tags?.includes('Upvote')) {
+      return <BsArrowUp size={10} className="text-green-500" />;
+    } else if (notification.tags?.includes('ReplyToPost') || notification.tags?.includes('ReplyToComment')) {
+      return <BsFillChatLeftTextFill size={10} className="text-red-500" />;
+    } else {
+      // Return a default icon or handle the case where no tags match
+      return <BsBellFill size={10} />;
+    }
+  };
 
   return (
     <div
-      className={`flex items-start px-4 py-2 border-b border-gray-200 ${
-        notification.isRead ? 'bg-white' : 'bg-blue-50'
-      } hover:bg-gray-100 relative`}
+      className={`flex items-start px-4 py-2 border-b border-gray-200 ${notification.isRead ? 'bg-white' : 'bg-blue-50'
+        } hover:bg-gray-100 relative`}
       onClick={handleMarkAsRead} // Add click handler here
     >
       {/* Avatar with Notification Type Icon */}
