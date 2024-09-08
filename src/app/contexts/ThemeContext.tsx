@@ -176,16 +176,6 @@ const themes: Theme[] = [
       },
     ],
   },
-  {
-    id: "custom",
-    title: "Custom",
-    icon: null,
-    workflows: [{ id: "custom-workflow", title: "Custom Workflow" }],
-    appearance: {
-      variables: {},
-      elements: {},
-    },
-  },
 {
     id: "reddit",
     title: "Reddit",
@@ -249,6 +239,16 @@ const themes: Theme[] = [
         },
       },
     ],
+  },
+  {
+    id: "default-theme",
+    title: "Default Theme",
+    icon: null,
+    workflows: [{ id: "custom-workflow", title: "Custom Workflow" }],
+    appearance: {
+      variables: {},
+      elements: {},
+    },
   },
 ];
 

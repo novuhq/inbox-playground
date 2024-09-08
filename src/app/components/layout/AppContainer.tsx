@@ -29,7 +29,7 @@ const ThemeRenderer = () => {
       {selectedTheme.id === "reddit" && (
         <RedditTheme subscriberId={subscriberId} />
       )}
-      {selectedTheme.id === "custom" && (
+      {selectedTheme.id === "default-theme" && (
         <CustomTheme subscriberId={subscriberId} />
       )}
 

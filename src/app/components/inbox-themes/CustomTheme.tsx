@@ -1,16 +1,10 @@
 "use client";
 import React from "react";
 import { useTheme } from "../../contexts/ThemeContext";
-import {
-  Box,
-  Flex,
-  Text,
-  useColorModeValue,
-  useBreakpointValue,
-  Stack,
-} from "@chakra-ui/react";
-
+import { Box, Flex, Text, useColorModeValue, useBreakpointValue, Stack, position } from "@chakra-ui/react";
 import { Inbox } from "@novu/react";
+import { min } from "date-fns";
+
 
 type LocalizationValue =
   | string
@@ -210,7 +204,6 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string }) => {
         fontFamily:
           'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
       }}
-      position="relative"
     >
       {/* Main Content Area */}
       <Box width="100%">
@@ -232,6 +225,8 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string }) => {
               lineHeight={"40px"}
               fontWeight={"bold"}
               color={useColorModeValue("gray.800", "white")}
+              position="relative"
+
             >
               Acme
             </Text>
@@ -241,13 +236,15 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string }) => {
             </Flex>
           </Flex>
 
-          <Stack
-            flex={{ base: 1, md: 0 }}
-            justify={"flex-end"}
-            direction={"row"}
-            spacing={6}
-            mt={"5px"}
+          <Flex
+            justify="flex-end"
+            align="center"
+            width="100%"
+            maxW="600px"
+            minW="300px"
+            height="30%"
           >
+            {/* Inbox Component */}
             <Inbox
               open={appearanceVariables.open === true ? true : undefined}
               applicationIdentifier={novuConfig.applicationIdentifier}
@@ -265,15 +262,14 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string }) => {
                     width: "30px",
                   },
                   popoverContent: {
-                    position: "absolute",
-                    marginLeft: "-80px", // Adjust the position of the popover
-                    marginTop: "15px",
+                    marginTop: '15px !important',
+                    marginLeft: '-6.5% !important',
                   },
                   ...selectedTheme?.appearance?.elements,
                 },
               }}
             />
-          </Stack>
+          </Flex>
         </Flex>
       </Box>
     </Flex>
