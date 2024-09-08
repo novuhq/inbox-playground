@@ -1,11 +1,13 @@
 import { useToast } from "@chakra-ui/react";
 import { useTheme } from "../contexts/ThemeContext";
 import { useState } from "react";
+import { useSubscriber } from "./useSubscriber";
 
 export const useNotificationForm = () => {
+  const { subscriberId } = useSubscriber();
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const { notificationForm } = useTheme();
+  const { notificationForm, selectedTheme } = useTheme();
   const { getValues } = notificationForm;
 
   const onSubmit = async () => {
@@ -33,7 +35,7 @@ export const useNotificationForm = () => {
         body: JSON.stringify({
           workflowId: selectedWorkflow,
           to: {
-            subscriberId: localStorage.getItem("inbox_demo_subscriberId"),
+            subscriberId: subscriberId + "_" + selectedTheme.id,
             firstName: subscriberFirstName,
             lastName: subscriberLastName,
           },

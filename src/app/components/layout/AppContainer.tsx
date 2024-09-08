@@ -14,25 +14,22 @@ const ThemeRenderer = () => {
   const { subscriberId } = useSubscriber();
   const { selectedTheme } = useTheme();
 
-
   if (!subscriberId) return null;
-
 
   return (
     <>
       {selectedTheme.id === "notion" && (
-        <NotionTheme subscriberId={subscriberId} />
+        <NotionTheme subscriberId={subscriberId + "_" + selectedTheme.id} />
       )}
       {selectedTheme.id === "linear" && (
-        <LinearTheme subscriberId={subscriberId} />
+        <LinearTheme subscriberId={subscriberId + "_" + selectedTheme.id} />
       )}
       {selectedTheme.id === "reddit" && (
-        <RedditTheme subscriberId={subscriberId} />
+        <RedditTheme subscriberId={subscriberId + "_" + selectedTheme.id} />
       )}
       {selectedTheme.id === "default-theme" && (
-        <CustomTheme subscriberId={subscriberId} />
+        <CustomTheme subscriberId={subscriberId + "_" + selectedTheme.id} />
       )}
-
     </>
   );
 };
