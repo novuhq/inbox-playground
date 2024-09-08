@@ -24,11 +24,13 @@ const Navbar = () => {
       alignItems="center"
       boxShadow="md"
     >
-      <HStack spacing={4} alignItems="center">
+      <HStack spacing={1} alignItems="center">
         <Image
-          src="https://avatars.githubusercontent.com/u/77433905?s=200&v=4"
+          src="/novuLogo.svg"
           alt="Novu Logo"
-          boxSize="50px"
+          height={50}
+          width={210}
+          onClick={() => window.open("https://novu.co?utm_source=sourceInboxPlayground", "_blank")}
         />
         <VStack alignItems="flex-start" spacing={0}>
           <Text fontSize="xl" fontWeight="bold">

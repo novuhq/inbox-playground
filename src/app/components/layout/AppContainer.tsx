@@ -1,5 +1,4 @@
 "use client";
-
 import { Box, Flex } from "@chakra-ui/react";
 import Navbar from "../Navbar";
 import PlaygroundFormContainer from "../PlaygroundFormContainer";
@@ -38,6 +37,7 @@ const ThemeRenderer = () => {
 };
 
 const AppContent = () => {
+
   return (
     <Box height="100vh" bg="gray.100">
       <Navbar />
