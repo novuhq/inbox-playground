@@ -186,7 +186,9 @@ const themes: Theme[] = [
       inboxHeader: {
         display: "none",
       },
-        
+      preferencesHeader: {
+        display: "none",
+      },
       },
   },
     workflows: [

@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
 // import Image from 'next/image'; // Import the Image component
-import { Inbox, Notification, Notifications } from "@novu/react";
+import { Inbox, Notification, Notifications, Preferences } from "@novu/react";
 import { useTheme } from "../../contexts/ThemeContext";
 import { FaReddit, FaRegCommentDots } from 'react-icons/fa';
-import { AiOutlineSearch, AiOutlineArrowUp, AiOutlineArrowDown, AiOutlineShareAlt, AiOutlineHome } from 'react-icons/ai';
+import { AiOutlineSearch, AiOutlineArrowUp, AiOutlineArrowDown, AiOutlineShareAlt, AiOutlineArrowLeft, AiOutlineHome } from 'react-icons/ai';
 import { FiBell, FiPlus, FiMail } from 'react-icons/fi';
 import { BiMessageSquareDetail, BiHash, BiStar, BiCompass } from 'react-icons/bi';
 import { TbClick } from 'react-icons/tb'; // Click icon (or similar)
@@ -15,12 +15,17 @@ import { FaBell } from "react-icons/fa";
 
 const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
   const { selectedTheme } = useTheme();
-
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(true);
+  const [currentView, setCurrentView] = useState('notifications');
 
-  // Toggle notification window visibility
+
   const toggleNotifications = () => {
     setIsNotificationsOpen(!isNotificationsOpen);
+    setCurrentView('notifications');
+  };
+
+  const showPreferences = () => {
+    setCurrentView('preferences');
   };
 
   const novuConfig: any = {
@@ -71,32 +76,55 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
                 <div className="flex justify-between items-center border-b p-3">
                   <div className="flex flex-grow space-x-4 justify-center">
                     <button className="w-1/2 font-semibold text-center">
-                      Notifications
+                      {currentView === 'preferences' ? 'Preferences' : 'Notifications'}
                     </button>
-                    <div className="w-1/2 text-gray-500 text-center">Messages</div>
+                    {currentView === 'notifications' && (
+                      <div className="w-1/2 text-gray-500 text-center">Messages</div>
+                    )}
                   </div>
                 </div>
 
                 {/* Mark all as read and Settings */}
                 <div className="flex justify-between items-center mb-4 mt-4">
-                  <span className="text-sm font-normal ml-3">TODAY</span>
-                  <div className="flex items-center space-x-4 mr-3">
-                    <button className="text-sm font-bold">
-                      Mark all as read
-                    </button>
-                    <FiSettings className="text-gray-500 cursor-pointer" size={18} />
-                  </div>
+                  {currentView === 'notifications' ? (
+                    <>
+                      <span className="text-sm font-normal ml-3">TODAY</span>
+                      <div className="flex items-center space-x-4 mr-3">
+                        <button className="text-sm font-bold">
+                          Mark all as read
+                        </button>
+                        <FiSettings 
+                          className="text-gray-500 cursor-pointer" 
+                          size={18} 
+                          onClick={showPreferences}
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <div className="flex items-center space-x-4 ml-3">
+                      <AiOutlineArrowLeft 
+                        className="text-gray-500 cursor-pointer" 
+                        size={18} 
+                        onClick={() => setCurrentView('notifications')}
+                      />
+                      <span className="text-sm font-semibold">Back to Notifications</span>
+                    </div>
+                  )}
                 </div>
 
-                {/* Notifications List using Novu Inbox */}
+                {/* Notifications List or Preferences using Novu Inbox */}
                 <Inbox
                   {...novuConfig}
                 >
-                  <Notifications
-                    renderNotification={(notification) => (
-                      <InboxItem notification={notification} />
-                    )}
-                  />
+                  {currentView === 'notifications' ? (
+                    <Notifications
+                      renderNotification={(notification) => (
+                        <InboxItem notification={notification} />
+                      )}
+                    />
+                  ) : (
+                    <Preferences />
+                  )}
                 </Inbox>
               </div>
             )}
@@ -500,16 +528,16 @@ function formatTime(timestamp: string) {
   const secondsInYear = secondsInDay * 365;
 
   if (diffInSeconds < secondsInMinute) {
-    return `${diffInSeconds} seconds`;
+    return `${diffInSeconds}s`;
   } else if (diffInSeconds < secondsInHour) {
     const minutes = Math.floor(diffInSeconds / secondsInMinute);
-    return `${minutes} minutes`;
+    return `${minutes}m`;
   } else if (diffInSeconds < secondsInDay) {
     const hours = Math.floor(diffInSeconds / secondsInHour);
     return `${hours}h`;
   } else if (diffInSeconds < secondsInWeek) {
     const days = Math.floor(diffInSeconds / secondsInDay);
-    return `${days} days`;
+    return `${days}d`;
   } else if (diffInSeconds < secondsInYear) {
     const options: Intl.DateTimeFormatOptions = { month: "short", day: "numeric" }; // Corrected type
     return date.toLocaleDateString(undefined, options); // e.g., "Feb 26"
