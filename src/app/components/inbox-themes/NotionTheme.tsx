@@ -27,11 +27,10 @@ import { AiOutlineCalendar, AiOutlineCheck } from "react-icons/ai";
 
 import { GrDocumentText } from "react-icons/gr";
 import { FaUserFriends } from "react-icons/fa";
-import { Inbox, Notification } from "@novu/react";
+import { Inbox, Notification, Notifications } from "@novu/react";
 import { NotionIcon } from "../icons/Notion";
 import React, { useState } from "react";
 import { useTheme } from "../../contexts/ThemeContext";
-
 
 const NotionTheme = ({ subscriberId }: { subscriberId: string }) => {
   const { selectedTheme } = useTheme();
@@ -121,21 +120,31 @@ const NotionTheme = ({ subscriberId }: { subscriberId: string }) => {
         display="flex"
         flexDirection="column"
         justifyContent="center"
-        p={{ base: 4, md: 8 }} // Responsive padding
+        p={0} // Responsive padding
       >
         <Box
           // bg="white"
           height="100%"
           overflowY="auto"
           width="100%"
-          maxW="900px"
+          maxW="390px"
+          boxShadow={
+            "rgba(15, 15, 15, 0.04) 0px 0px 0px 1px, rgba(15, 15, 15, 0.03) 0px 3px 6px, rgba(15, 15, 15, 0.06) 0px 9px 24px"
+          }
         >
           <Inbox
-            {...novuConfig}
-            renderNotification={(notification) => {
-              return <InboxItem notification={notification} />;
-            }}
-          />
+            subscriberId={subscriberId as string}
+            applicationIdentifier={
+              process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID as string
+            }
+            appearance={selectedTheme?.appearance}
+          >
+            <Notifications
+              renderNotification={(notification) => {
+                return <InboxItem notification={notification} />;
+              }}
+            />
+          </Inbox>
         </Box>
       </Box>
     </Flex>
@@ -195,8 +204,7 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Flex align="flex-start" position="relative"
-      >
+      <Flex align="flex-start" position="relative">
         <VStack spacing={0} position="absolute" top="0" right="0">
           {isHovered && (
             <Box bg="white" display="flex" gap={1}>
@@ -283,29 +291,29 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
 
           {(notificationType === "Mention" ||
             notificationType === "Comment") && (
-              <Button
-                variant="ghost"
-                size="sm"
-                leftIcon={<GrDocumentText />}
-                _hover={{ bg: "rgba(0, 0, 0, 0.03)" }}
-                pl="2px"
-                pr="5px"
-                height="25px"
+            <Button
+              variant="ghost"
+              size="sm"
+              leftIcon={<GrDocumentText />}
+              _hover={{ bg: "rgba(0, 0, 0, 0.03)" }}
+              pl="2px"
+              pr="5px"
+              height="25px"
+            >
+              <Text
+                fontSize="14px"
+                color="gray.800"
+                fontWeight="500"
+                backgroundImage="linear-gradient(to right, rgba(55, 53, 47, 0.16) 0%, rgba(55, 53, 47, 0.16) 100%)"
+                backgroundRepeat={"repeat-x"}
+                backgroundSize={"100% 1px"}
+                backgroundPosition={"0 100%"}
+                mr="-2px"
               >
-                <Text
-                  fontSize="14px"
-                  color="gray.800"
-                  fontWeight="500"
-                  backgroundImage="linear-gradient(to right, rgba(55, 53, 47, 0.16) 0%, rgba(55, 53, 47, 0.16) 100%)"
-                  backgroundRepeat={"repeat-x"}
-                  backgroundSize={"100% 1px"}
-                  backgroundPosition={"0 100%"}
-                  mr="-2px"
-                >
-                  {notification.body}
-                </Text>
-              </Button>
-            )}
+                {notification.body}
+              </Text>
+            </Button>
+          )}
 
           {notificationType === "Invite" && (
             <Button
