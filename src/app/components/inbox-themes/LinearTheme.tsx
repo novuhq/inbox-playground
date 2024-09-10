@@ -9,17 +9,12 @@ import {
   HStack,
   Link,
   Icon,
-  useColorModeValue,
-  background,
   Avatar,
 } from "@chakra-ui/react";
 import {
   FiSearch,
   FiHome,
   FiInbox,
-  FiSettings,
-  FiChevronDown,
-  FiFilter,
   FiXCircle,
   FiCheckCircle,
 } from "react-icons/fi";
@@ -27,14 +22,12 @@ import { BsFillFileTextFill, BsTrash, BsArrowRepeat } from "react-icons/bs";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { FaUserFriends } from "react-icons/fa";
 import { Inbox, Notifications } from "@novu/react";
-import { formatDistanceToNow } from "date-fns";
-import { color } from "framer-motion";
 import { LinearIcon } from "../icons/Linear";
-import { TbFilePencil } from "react-icons/tb";
 import { SlPencil } from "react-icons/sl";
-import { useSubscriber } from "../../hooks/useSubscriber";
 
-const LinearTheme = ({ subscriberId }: { subscriberId: string }) => {
+const LinearTheme = ({ subscriberId }: { subscriberId: string | null }) => {
+  if (!subscriberId) return null;
+
   const novuConfig: any = {
     applicationIdentifier: process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID,
     subscriberId: subscriberId,
@@ -186,9 +179,11 @@ const LinearTheme = ({ subscriberId }: { subscriberId: string }) => {
         justifyContent="center"
       >
         <Box height="100%" overflowY="auto" width="100%" maxW="900px">
-          <Inbox {...novuConfig}>
-            <Notifications />
-          </Inbox>
+          {subscriberId && (
+            <Inbox {...novuConfig}>
+              <Notifications />
+            </Inbox>
+          )}
         </Box>
       </Box>
     </Flex>

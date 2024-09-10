@@ -1,4 +1,3 @@
-"use client";
 import {
   Box,
   Flex,
@@ -32,15 +31,9 @@ import { NotionIcon } from "../icons/Notion";
 import React, { useState } from "react";
 import { useTheme } from "../../contexts/ThemeContext";
 
-const NotionTheme = ({ subscriberId }: { subscriberId: string }) => {
+const NotionTheme = ({ subscriberId }: { subscriberId: string | null }) => {
   const { selectedTheme } = useTheme();
-
-  const novuConfig: any = {
-    applicationIdentifier: process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID,
-    subscriberId: subscriberId,
-    open: true,
-    appearance: selectedTheme?.appearance,
-  };
+  const borderColor = useColorModeValue("gray.200", "gray.700");
 
   return (
     <Flex
@@ -63,7 +56,7 @@ const NotionTheme = ({ subscriberId }: { subscriberId: string }) => {
         padding={"8px"}
         display="flex"
         flexDirection="column"
-        borderColor={useColorModeValue("gray.200", "gray.700")}
+        borderColor={borderColor}
       >
         <Flex alignItems="center" mb={"4px"}>
           <Text fontSize="14px" fontWeight="bold" color="rgb(55, 53, 47)">
@@ -132,19 +125,21 @@ const NotionTheme = ({ subscriberId }: { subscriberId: string }) => {
             "rgba(15, 15, 15, 0.04) 0px 0px 0px 1px, rgba(15, 15, 15, 0.03) 0px 3px 6px, rgba(15, 15, 15, 0.06) 0px 9px 24px"
           }
         >
-          <Inbox
-            subscriberId={subscriberId as string}
-            applicationIdentifier={
-              process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID as string
-            }
-            appearance={selectedTheme?.appearance}
-          >
-            <Notifications
-              renderNotification={(notification) => {
-                return <InboxItem notification={notification} />;
-              }}
-            />
-          </Inbox>
+          {subscriberId && (
+            <Inbox
+              subscriberId={subscriberId as string}
+              applicationIdentifier={
+                process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID as string
+              }
+              appearance={selectedTheme?.appearance}
+            >
+              <Notifications
+                renderNotification={(notification) => {
+                  return <InboxItem notification={notification} />;
+                }}
+              />
+            </Inbox>
+          )}
         </Box>
       </Box>
     </Flex>

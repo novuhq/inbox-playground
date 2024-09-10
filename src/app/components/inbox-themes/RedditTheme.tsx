@@ -3,29 +3,39 @@ import React, { useState } from "react";
 // import Image from 'next/image'; // Import the Image component
 import { Inbox, Notification, Notifications, Preferences } from "@novu/react";
 import { useTheme } from "../../contexts/ThemeContext";
-import { FaReddit, FaRegCommentDots } from 'react-icons/fa';
-import { AiOutlineSearch, AiOutlineArrowUp, AiOutlineArrowDown, AiOutlineShareAlt, AiOutlineArrowLeft, AiOutlineHome } from 'react-icons/ai';
-import { FiBell, FiPlus, FiMail } from 'react-icons/fi';
-import { BiMessageSquareDetail, BiHash, BiStar, BiCompass } from 'react-icons/bi';
-import { TbClick } from 'react-icons/tb'; // Click icon (or similar)
-import { BsBellFill, BsArrowUp, BsFillChatLeftTextFill } from 'react-icons/bs'; // Dot icon
+import { FaReddit, FaRegCommentDots } from "react-icons/fa";
+import {
+  AiOutlineSearch,
+  AiOutlineArrowUp,
+  AiOutlineArrowDown,
+  AiOutlineShareAlt,
+  AiOutlineArrowLeft,
+  AiOutlineHome,
+} from "react-icons/ai";
+import { FiBell, FiPlus, FiMail } from "react-icons/fi";
+import {
+  BiMessageSquareDetail,
+  BiHash,
+  BiStar,
+  BiCompass,
+} from "react-icons/bi";
+import { TbClick } from "react-icons/tb"; // Click icon (or similar)
+import { BsBellFill, BsArrowUp, BsFillChatLeftTextFill } from "react-icons/bs"; // Dot icon
 import { FiSettings, FiMoreHorizontal } from "react-icons/fi";
 import { FaBell } from "react-icons/fa";
 
-
-const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
+const RedditTheme = ({ subscriberId }: { subscriberId: string | null }) => {
   const { selectedTheme } = useTheme();
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(true);
-  const [currentView, setCurrentView] = useState('notifications');
-
+  const [currentView, setCurrentView] = useState("notifications");
 
   const toggleNotifications = () => {
     setIsNotificationsOpen(!isNotificationsOpen);
-    setCurrentView('notifications');
+    setCurrentView("notifications");
   };
 
   const showPreferences = () => {
-    setCurrentView('preferences');
+    setCurrentView("preferences");
   };
 
   const novuConfig: any = {
@@ -34,6 +44,8 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
     open: true,
     appearance: selectedTheme?.appearance,
   };
+
+  if (!subscriberId) return null;
 
   return (
     <div className="w-full max-w-[1200px] h-screen min-h-[400px] max-h-[100%] bg-white rounded-lg shadow-md p-4 overflow-hidden font-sans">
@@ -57,10 +69,21 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
 
         {/* Right side of Navbar */}
         <div className="flex items-center space-x-1">
-          <TbClick size={25} className="cursor-pointer hover:bg-gray-200 rounded-full p-1" />
-          <BiMessageSquareDetail size={25} className="cursor-pointer hover:bg-gray-200 rounded-full p-1" />
-          <FiPlus size={25} className="cursor-pointer hover:bg-gray-200 rounded-full p-1" />
-          <span className="text-sm font-medium cursor-pointer hover:bg-gray-200 rounded-full p-1">Create</span>
+          <TbClick
+            size={25}
+            className="cursor-pointer hover:bg-gray-200 rounded-full p-1"
+          />
+          <BiMessageSquareDetail
+            size={25}
+            className="cursor-pointer hover:bg-gray-200 rounded-full p-1"
+          />
+          <FiPlus
+            size={25}
+            className="cursor-pointer hover:bg-gray-200 rounded-full p-1"
+          />
+          <span className="text-sm font-medium cursor-pointer hover:bg-gray-200 rounded-full p-1">
+            Create
+          </span>
           {/* Bell Icon with Click Event */}
           <div className="relative">
             <FaBell
@@ -76,56 +99,62 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
                 <div className="flex justify-between items-center border-b p-3">
                   <div className="flex flex-grow space-x-4 justify-center">
                     <button className="w-1/2 font-semibold text-center">
-                      {currentView === 'preferences' ? 'Preferences' : 'Notifications'}
+                      {currentView === "preferences"
+                        ? "Preferences"
+                        : "Notifications"}
                     </button>
-                    {currentView === 'notifications' && (
-                      <div className="w-1/2 text-gray-500 text-center">Messages</div>
+                    {currentView === "notifications" && (
+                      <div className="w-1/2 text-gray-500 text-center">
+                        Messages
+                      </div>
                     )}
                   </div>
                 </div>
 
                 {/* Mark all as read and Settings */}
                 <div className="flex justify-between items-center mb-4 mt-4">
-                  {currentView === 'notifications' ? (
+                  {currentView === "notifications" ? (
                     <>
                       <span className="text-sm font-normal ml-3">TODAY</span>
                       <div className="flex items-center space-x-4 mr-3">
                         <button className="text-sm font-bold">
                           Mark all as read
                         </button>
-                        <FiSettings 
-                          className="text-gray-500 cursor-pointer" 
-                          size={18} 
+                        <FiSettings
+                          className="text-gray-500 cursor-pointer"
+                          size={18}
                           onClick={showPreferences}
                         />
                       </div>
                     </>
                   ) : (
                     <div className="flex items-center space-x-4 ml-3">
-                      <AiOutlineArrowLeft 
-                        className="text-gray-500 cursor-pointer" 
-                        size={18} 
-                        onClick={() => setCurrentView('notifications')}
+                      <AiOutlineArrowLeft
+                        className="text-gray-500 cursor-pointer"
+                        size={18}
+                        onClick={() => setCurrentView("notifications")}
                       />
-                      <span className="text-sm font-semibold">Back to Notifications</span>
+                      <span className="text-sm font-semibold">
+                        Back to Notifications
+                      </span>
                     </div>
                   )}
                 </div>
 
                 {/* Notifications List or Preferences using Novu Inbox */}
-                <Inbox
-                  {...novuConfig}
-                >
-                  {currentView === 'notifications' ? (
-                    <Notifications
-                      renderNotification={(notification) => (
-                        <InboxItem notification={notification} />
-                      )}
-                    />
-                  ) : (
-                    <Preferences />
-                  )}
-                </Inbox>
+                {subscriberId && (
+                  <Inbox {...novuConfig}>
+                    {currentView === "notifications" ? (
+                      <Notifications
+                        renderNotification={(notification) => (
+                          <InboxItem notification={notification} />
+                        )}
+                      />
+                    ) : (
+                      <Preferences />
+                    )}
+                  </Inbox>
+                )}
               </div>
             )}
           </div>
@@ -170,7 +199,9 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
 
           {/* Moderation Section */}
           <div className="mb-4">
-            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Moderation</h3>
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+              Moderation
+            </h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-md cursor-pointer">
                 <BiMessageSquareDetail className="text-lg" />
@@ -196,7 +227,9 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
 
           {/* Custom Feeds Section */}
           <div className="mb-4">
-            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Custom Feeds</h3>
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+              Custom Feeds
+            </h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-md cursor-pointer">
                 <FiPlus className="text-lg" />
@@ -209,7 +242,9 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
 
           {/* Recent Section */}
           <div className="mb-4">
-            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Recent</h3>
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+              Recent
+            </h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-md cursor-pointer">
                 <BiHash className="text-lg" />
@@ -242,14 +277,19 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
                 <span className="text-xs text-gray-500">1 hr. ago</span>
               </div>
             </div>
-            <h2 className="text-lg font-bold mb-2">Just made my first sale!! 🥳</h2>
+            <h2 className="text-lg font-bold mb-2">
+              Just made my first sale!! 🥳
+            </h2>
             <div className="p-4 bg-gray-50 rounded-md mb-2">
-              <h3 className="font-semibold">Congratulations VideoFaceSwap AI!</h3>
+              <h3 className="font-semibold">
+                Congratulations VideoFaceSwap AI!
+              </h3>
               <p className="text-sm text-gray-600">
                 You&apos;ve just received your first payment through Stripe.
               </p>
               <p className="text-sm text-gray-600">
-                Your first payout for this payment of $29.00 (minus any fees) should land in your bank account on 9/7/24.
+                Your first payout for this payment of $29.00 (minus any fees)
+                should land in your bank account on 9/7/24.
               </p>
             </div>
 
@@ -280,14 +320,21 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
                 <span className="text-xs text-gray-500">2 hrs. ago</span>
               </div>
             </div>
-            <h2 className="text-lg font-bold mb-2">Launching my first web app! 🚀</h2>
+            <h2 className="text-lg font-bold mb-2">
+              Launching my first web app! 🚀
+            </h2>
             <div className="p-4 bg-gray-50 rounded-md mb-2">
-              <h3 className="font-semibold">Excited to share my new web app!</h3>
+              <h3 className="font-semibold">
+                Excited to share my new web app!
+              </h3>
               <p className="text-sm text-gray-600">
-                I&apos;ve been working on a side project for the last 3 months, and it&apos;s finally live! It&apos;s a tool to help freelancers manage their time more efficiently.
+                I&apos;ve been working on a side project for the last 3 months,
+                and it&apos;s finally live! It&apos;s a tool to help freelancers
+                manage their time more efficiently.
               </p>
               <p className="text-sm text-gray-600">
-                Would love any feedback or suggestions. Check it out at mywebsite.com!
+                Would love any feedback or suggestions. Check it out at
+                mywebsite.com!
               </p>
             </div>
             {/* Post Action Buttons */}
@@ -317,14 +364,22 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
                 <span className="text-xs text-gray-500">2 hrs. ago</span>
               </div>
             </div>
-            <h2 className="text-lg font-bold mb-2">New Novu Feature: Multi-channel Notifications! 🚀</h2>
+            <h2 className="text-lg font-bold mb-2">
+              New Novu Feature: Multi-channel Notifications! 🚀
+            </h2>
             <div className="p-4 bg-gray-50 rounded-md mb-2">
-              <h3 className="font-semibold">Exciting update to our notification infrastructure!</h3>
+              <h3 className="font-semibold">
+                Exciting update to our notification infrastructure!
+              </h3>
               <p className="text-sm text-gray-600">
-                We&apos;ve just released a new feature that allows you to send notifications across multiple channels simultaneously. Now you can reach your users via email, SMS, and push notifications with a single API call!
+                We&apos;ve just released a new feature that allows you to send
+                notifications across multiple channels simultaneously. Now you
+                can reach your users via email, SMS, and push notifications with
+                a single API call!
               </p>
               <p className="text-sm text-gray-600">
-                Check out our documentation at docs.novu.co for integration details and best practices.
+                Check out our documentation at docs.novu.co for integration
+                details and best practices.
               </p>
             </div>
             {/* Post Action Buttons */}
@@ -344,7 +399,6 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
               </button>
             </div>
           </div>
-
         </div>
 
         {/* Right Sidebar (Recent Posts) */}
@@ -357,14 +411,19 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
             {/* Post 1 */}
             <li className="flex flex-col hover:bg-gray-100 p-2 rounded-lg cursor-pointer">
               <p className="text-gray-500 text-xs">Posted in r/javascript</p>
-              <p className="font-medium">Found an open-source codebase that&apos;s similar to Skool (Learning Management...)</p>
+              <p className="font-medium">
+                Found an open-source codebase that&apos;s similar to Skool
+                (Learning Management...)
+              </p>
               <p className="text-xs text-gray-500">250 upvotes · 42 comments</p>
             </li>
 
             {/* Post 2 */}
             <li className="flex flex-col hover:bg-gray-100 p-2 rounded-lg cursor-pointer">
               <p className="text-gray-500 text-xs">Posted in r/javascript</p>
-              <p className="font-medium">70% of npm packages from the last 6 months are spam</p>
+              <p className="font-medium">
+                70% of npm packages from the last 6 months are spam
+              </p>
               <p className="text-xs text-gray-500">250 upvotes · 42 comments</p>
             </li>
 
@@ -377,35 +436,41 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string }) => {
 
             {/* Post 4 */}
             <li className="flex flex-col hover:bg-gray-100 p-2 rounded-lg cursor-pointer">
-              <p className="text-gray-500 text-xs">Posted in r/learnprogramming</p>
-              <p className="font-medium">Extensive use of Foo Bar in examples</p>
+              <p className="text-gray-500 text-xs">
+                Posted in r/learnprogramming
+              </p>
+              <p className="font-medium">
+                Extensive use of Foo Bar in examples
+              </p>
               <p className="text-xs text-gray-500">161 upvotes · 64 comments</p>
             </li>
 
             {/* Post 5 */}
             <li className="flex flex-col hover:bg-gray-100 p-2 rounded-lg cursor-pointer">
               <p className="text-gray-500 text-xs">Posted in r/reactjs</p>
-              <p className="font-medium">The &apos;Wrong Way&apos; To Use React</p>
+              <p className="font-medium">
+                The &apos;Wrong Way&apos; To Use React
+              </p>
               <p className="text-xs text-gray-500">7 comments</p>
             </li>
 
             {/* Post 6 */}
             <li className="flex flex-col hover:bg-gray-100 p-2 rounded-lg cursor-pointer">
               <p className="text-gray-500 text-xs">Posted in r/nextjs</p>
-              <p className="font-medium">The &apos;Wrong Way&apos; To Use React</p>
+              <p className="font-medium">
+                The &apos;Wrong Way&apos; To Use React
+              </p>
               <p className="text-xs text-gray-500">9 comments</p>
             </li>
           </ul>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 
 const InboxItem = ({ notification }: { notification: Notification }) => {
   const [showOptions, setShowOptions] = useState(false);
-
-
 
   const handleMarkAsRead = () => {
     if (!notification.isRead) {
@@ -415,9 +480,12 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
 
   // Function to determine the icon based on the notification tag
   const getNotificationIcon = () => {
-    if (notification.tags?.includes('Upvote')) {
+    if (notification.tags?.includes("Upvote")) {
       return <BsArrowUp size={10} className="text-green-500" />;
-    } else if (notification.tags?.includes('ReplyToPost') || notification.tags?.includes('ReplyToComment')) {
+    } else if (
+      notification.tags?.includes("ReplyToPost") ||
+      notification.tags?.includes("ReplyToComment")
+    ) {
       return <BsFillChatLeftTextFill size={10} className="text-red-500" />;
     } else {
       // Return a default icon or handle the case where no tags match
@@ -427,8 +495,9 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
 
   return (
     <div
-      className={`flex items-start px-4 py-2 border-b border-gray-200 ${notification.isRead ? 'bg-white' : 'bg-blue-50'
-        } hover:bg-gray-100 relative`}
+      className={`flex items-start px-4 py-2 border-b border-gray-200 ${
+        notification.isRead ? "bg-white" : "bg-blue-50"
+      } hover:bg-gray-100 relative`}
       onClick={handleMarkAsRead} // Add click handler here
     >
       {/* Avatar with Notification Type Icon */}
@@ -436,7 +505,7 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
         <img
           src={
             notification.avatar ||
-            'https://styles.redditmedia.com/t5_4hy1ad/styles/profileIcon_snooaa71dd87-6310-46ae-9ba8-02f37e4271bc-headshot.png?width=128&height=128&frame=1&auto=webp&crop=128:128,smart&s=23622e6012eab57c189c8586ca7c8f2f7ef2c3ae'
+            "https://styles.redditmedia.com/t5_4hy1ad/styles/profileIcon_snooaa71dd87-6310-46ae-9ba8-02f37e4271bc-headshot.png?width=128&height=128&frame=1&auto=webp&crop=128:128,smart&s=23622e6012eab57c189c8586ca7c8f2f7ef2c3ae"
           }
           alt="User Avatar"
           className="w-10 h-10 rounded-full"
@@ -497,7 +566,7 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
               className="text-blue-500 text-sm mr-2"
               onClick={(e) => e.stopPropagation()} // Prevent parent click handler
             >
-              {notification.primaryAction.label || 'Reply'}
+              {notification.primaryAction.label || "Reply"}
             </button>
           )}
           {notification.secondaryAction && (
@@ -505,7 +574,7 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
               className="text-gray-500 text-sm"
               onClick={(e) => e.stopPropagation()} // Prevent parent click handler
             >
-              {notification.secondaryAction.label || 'Dismiss'}
+              {notification.secondaryAction.label || "Dismiss"}
             </button>
           )}
         </div>
@@ -539,7 +608,10 @@ function formatTime(timestamp: string) {
     const days = Math.floor(diffInSeconds / secondsInDay);
     return `${days}d`;
   } else if (diffInSeconds < secondsInYear) {
-    const options: Intl.DateTimeFormatOptions = { month: "short", day: "numeric" }; // Corrected type
+    const options: Intl.DateTimeFormatOptions = {
+      month: "short",
+      day: "numeric",
+    }; // Corrected type
     return date.toLocaleDateString(undefined, options); // e.g., "Feb 26"
   } else {
     return date.getFullYear().toString(); // e.g., "2022"

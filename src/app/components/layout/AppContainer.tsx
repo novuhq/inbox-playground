@@ -12,29 +12,29 @@ import { useSubscriber } from "../../hooks/useSubscriber";
 const ThemeRenderer = () => {
   const { subscriberId } = useSubscriber();
   const { selectedTheme } = useTheme();
-
-  if (!subscriberId) return null;
+  const inboxSubscriberId = subscriberId
+    ? subscriberId + "_" + selectedTheme.id
+    : null;
 
   return (
     <>
-      {selectedTheme.id === "notion" && (
-        <NotionTheme subscriberId={subscriberId + "_" + selectedTheme.id} />
-      )}
-      {selectedTheme.id === "linear" && (
-        <LinearTheme subscriberId={subscriberId + "_" + selectedTheme.id} />
-      )}
-      {selectedTheme.id === "reddit" && (
-        <RedditTheme subscriberId={subscriberId + "_" + selectedTheme.id} />
-      )}
-      {selectedTheme.id === "default-theme" && (
-        <CustomTheme subscriberId={subscriberId + "_" + selectedTheme.id} />
-      )}
+      {selectedTheme.id === "notion" ? (
+        <NotionTheme subscriberId={inboxSubscriberId} />
+      ) : null}
+      {selectedTheme.id === "linear" ? (
+        <LinearTheme subscriberId={inboxSubscriberId} />
+      ) : null}
+      {selectedTheme.id === "reddit" ? (
+        <RedditTheme subscriberId={inboxSubscriberId} />
+      ) : null}
+      {selectedTheme.id === "default-theme" ? (
+        <CustomTheme subscriberId={inboxSubscriberId} />
+      ) : null}
     </>
   );
 };
 
 const AppContent = () => {
-
   return (
     <Box height="100vh" bg="gray.100">
       <Navbar />

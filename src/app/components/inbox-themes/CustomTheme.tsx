@@ -1,10 +1,17 @@
 "use client";
 import React from "react";
 import { useTheme } from "../../contexts/ThemeContext";
-import { Box, Flex, Text, useColorModeValue, useBreakpointValue, Stack, position } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Text,
+  useColorModeValue,
+  useBreakpointValue,
+  Stack,
+  position,
+} from "@chakra-ui/react";
 import { Inbox } from "@novu/react";
 import { min } from "date-fns";
-
 
 type LocalizationValue =
   | string
@@ -27,7 +34,8 @@ const englishLocalization = {
   }: {
     notificationCount: number;
   }) =>
-    `${notificationCount > 99 ? "99+" : notificationCount} new ${notificationCount === 1 ? "notification" : "notifications"
+    `${notificationCount > 99 ? "99+" : notificationCount} new ${
+      notificationCount === 1 ? "notification" : "notifications"
     }`,
   "notification.actions.read.toolTip": "Mark as read",
   "notification.actions.unread.toolTip": "Mark as unread",
@@ -64,9 +72,10 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} ${notificationCount === 1
-        ? "nouvelle notification"
-        : "nouvelles notifications"
+      `${notificationCount > 99 ? "99+" : notificationCount} ${
+        notificationCount === 1
+          ? "nouvelle notification"
+          : "nouvelles notifications"
       }`,
     "notification.actions.read.toolTip": "Marquer comme lu",
     "notification.actions.unread.toolTip": "Marquer comme non lu",
@@ -94,7 +103,8 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} neue ${notificationCount === 1 ? "Benachrichtigung" : "Benachrichtigungen"
+      `${notificationCount > 99 ? "99+" : notificationCount} neue ${
+        notificationCount === 1 ? "Benachrichtigung" : "Benachrichtigungen"
       }`,
     "notification.actions.read.toolTip": "Als gelesen markieren",
     "notification.actions.unread.toolTip": "Als ungelesen markieren",
@@ -122,7 +132,8 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} 件の${notificationCount === 1 ? "新しい通知" : "新しい通知"
+      `${notificationCount > 99 ? "99+" : notificationCount} 件の${
+        notificationCount === 1 ? "新しい通知" : "新しい通知"
       }`,
     "notification.actions.read.toolTip": "既読にする",
     "notification.actions.unread.toolTip": "未読にする",
@@ -150,7 +161,8 @@ const localization: Record<
     }: {
       notificationCount: number;
     }) =>
-      `${notificationCount > 99 ? "99+" : notificationCount} новых ${notificationCount === 1 ? "уведомление" : "уведомлений"
+      `${notificationCount > 99 ? "99+" : notificationCount} новых ${
+        notificationCount === 1 ? "уведомление" : "уведомлений"
       }`,
     "notification.actions.read.toolTip": "Отметить как прочитанное",
     "notification.actions.unread.toolTip": "Отметить как непрочитанное",
@@ -166,7 +178,7 @@ const typedLocalization: Record<
   Record<LocalizationKey, any>
 > = localization;
 
-const CustomTheme = ({ subscriberId }: { subscriberId: string }) => {
+const CustomTheme = ({ subscriberId }: { subscriberId: string | null }) => {
   const novuConfig: any = {
     applicationIdentifier: process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID,
     subscriberId: subscriberId,
@@ -174,7 +186,6 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string }) => {
 
   const { inboxThemeForm, selectedTheme } = useTheme();
   const formValues = inboxThemeForm.watch();
-
 
   const appearanceVariables = {
     open: formValues.open,
@@ -191,6 +202,8 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string }) => {
     fontSize: formValues.fontSize,
     borderRadius: formValues.borderRadius,
   };
+
+  if (!subscriberId) return null;
 
   return (
     <Flex
@@ -226,7 +239,6 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string }) => {
               fontWeight={"bold"}
               color={useColorModeValue("gray.800", "white")}
               position="relative"
-
             >
               Acme
             </Text>
@@ -245,30 +257,32 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string }) => {
             height="30%"
           >
             {/* Inbox Component */}
-            <Inbox
-              open={appearanceVariables.open === true ? true : undefined}
-              applicationIdentifier={novuConfig.applicationIdentifier}
-              subscriberId={novuConfig.subscriberId}
-              localization={
-                typedLocalization[
-                appearanceVariables.language as keyof typeof typedLocalization
-                ] || typedLocalization["en-US"]
-              }
-              appearance={{
-                variables: appearanceVariables,
-                elements: {
-                  bellIcon: {
-                    height: "30px",
-                    width: "30px",
+            {subscriberId && (
+              <Inbox
+                open={appearanceVariables.open === true ? true : undefined}
+                applicationIdentifier={novuConfig.applicationIdentifier}
+                subscriberId={novuConfig.subscriberId}
+                localization={
+                  typedLocalization[
+                    appearanceVariables.language as keyof typeof typedLocalization
+                  ] || typedLocalization["en-US"]
+                }
+                appearance={{
+                  variables: appearanceVariables,
+                  elements: {
+                    bellIcon: {
+                      height: "30px",
+                      width: "30px",
+                    },
+                    popoverContent: {
+                      marginTop: "15px !important",
+                      marginLeft: "-6.5% !important",
+                    },
+                    ...selectedTheme?.appearance?.elements,
                   },
-                  popoverContent: {
-                    marginTop: '15px !important',
-                    marginLeft: '-6.5% !important',
-                  },
-                  ...selectedTheme?.appearance?.elements,
-                },
-              }}
-            />
+                }}
+              />
+            )}
           </Flex>
         </Flex>
       </Box>
