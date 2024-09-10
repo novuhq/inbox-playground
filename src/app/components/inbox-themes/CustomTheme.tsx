@@ -11,7 +11,6 @@ import {
   position,
 } from "@chakra-ui/react";
 import { Inbox } from "@novu/react";
-import { min } from "date-fns";
 
 type LocalizationValue =
   | string
@@ -202,8 +201,6 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string | null }) => {
     fontSize: formValues.fontSize,
     borderRadius: formValues.borderRadius,
   };
-
-  if (!subscriberId) return null;
 
   return (
     <Flex

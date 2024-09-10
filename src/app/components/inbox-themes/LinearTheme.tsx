@@ -26,8 +26,6 @@ import { LinearIcon } from "../icons/Linear";
 import { SlPencil } from "react-icons/sl";
 
 const LinearTheme = ({ subscriberId }: { subscriberId: string | null }) => {
-  if (!subscriberId) return null;
-
   const novuConfig: any = {
     applicationIdentifier: process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID,
     subscriberId: subscriberId,

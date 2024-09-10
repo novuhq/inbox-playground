@@ -45,8 +45,6 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string | null }) => {
     appearance: selectedTheme?.appearance,
   };
 
-  if (!subscriberId) return null;
-
   return (
     <div className="w-full max-w-[1200px] h-screen min-h-[400px] max-h-[100%] bg-white rounded-lg shadow-md p-4 overflow-hidden font-sans">
       {/* Navbar */}
