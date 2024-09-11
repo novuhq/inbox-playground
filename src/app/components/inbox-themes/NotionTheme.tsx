@@ -30,10 +30,12 @@ import { Inbox, Notification, Notifications } from "@novu/react";
 import { NotionIcon } from "../icons/Notion";
 import React, { useState } from "react";
 import { useTheme } from "../../contexts/ThemeContext";
+import { useInitialNotifications } from "../../hooks/useInitialNotifications";
 
 const NotionTheme = ({ subscriberId }: { subscriberId: string | null }) => {
   const { selectedTheme } = useTheme();
   const borderColor = useColorModeValue("gray.200", "gray.700");
+  useInitialNotifications();
 
   return (
     <Flex

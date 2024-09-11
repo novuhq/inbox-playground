@@ -4,21 +4,26 @@ import { useEffect, useState } from "react";
 import { createId } from "@paralleldrive/cuid2";
 
 export const useSubscriber = () => {
-  const [subscriberId, setSubscriberId] = useState(
-    typeof window !== "undefined"
-      ? window?.localStorage.getItem("inbox_demo_subscriberId")
-      : ""
-  );
+  const [subscriberId, setSubscriberId] = useState<string | null>(null);
+  const [isNewSubscriber, setIsNewSubscriber] = useState(false);
 
   useEffect(() => {
-    if (!subscriberId) {
+    const storedSubscriberId = localStorage.getItem("inbox_demo_subscriberId");
+    const workflowsTriggered = localStorage.getItem("workflows_triggered");
+
+    if (!storedSubscriberId) {
       const newSubscriberId = createId();
       localStorage.setItem("inbox_demo_subscriberId", newSubscriberId);
       setSubscriberId(newSubscriberId);
+      setIsNewSubscriber(true);
+    } else {
+      setSubscriberId(storedSubscriberId);
     }
 
-    // Note: We're not using the first and last name here, but keeping them for potential future use
+    if (!workflowsTriggered) {
+      setIsNewSubscriber(true);
+    }
   }, []);
 
-  return { subscriberId };
+  return { subscriberId, isNewSubscriber };
 };
