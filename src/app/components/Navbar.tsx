@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import {
+  Box,
   Flex,
   Text,
   HStack,
@@ -9,55 +10,73 @@ import {
   Image,
   VStack,
   useDisclosure,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import CodeModal from "./CodeModal";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const bgColor = useColorModeValue("white", "gray.800");
+  const textColor = useColorModeValue("gray.700", "gray.200");
 
   return (
-    <Flex
+    <Box
       as="nav"
-      width="100%"
-      padding={2}
-      justifyContent="space-between"
-      alignItems="center"
-      boxShadow="md"
+      position="sticky"
+      top={0}
+      zIndex={10}
+      bg={bgColor}
+      boxShadow="sm"
+      transition="box-shadow 0.2s"
+      _hover={{ boxShadow: "md" }}
     >
-      <HStack spacing={1} alignItems="center">
-        <Image
-          src="/novuLogo.svg"
-          alt="Novu Logo"
-          height={50}
-          width={210}
-          onClick={() => window.open("https://novu.co?utm_source=sourceInboxPlayground", "_blank")}
-        />
-        <VStack alignItems="flex-start" spacing={0}>
-          <Text fontSize="xl" fontWeight="bold">
-            Inbox Component Playground
-          </Text>
-          <Text fontSize="sm">
-            This is an example application to show in-app notifications powered
-            by Novu.
-          </Text>
-        </VStack>
-      </HStack>
-      <HStack spacing={4}>
-        <Button
-          variant="outline"
-          colorScheme="teal"
-          onClick={() =>
-            window.open("https://docs.novu.co/inbox/introduction", "_blank")
-          }
-        >
-          Docs
-        </Button>
-        <Button variant="solid" colorScheme="teal" onClick={onOpen}>
-          Get Code
-        </Button>
-      </HStack>
+      <Flex
+        mx="auto"
+        px={4}
+        py={3}
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <HStack spacing={4} alignItems="center">
+          <Image
+            src="/novuLogo.svg"
+            alt="Novu Logo"
+            height={10}
+            width={42}
+            onClick={() =>
+              window.open(
+                "https://novu.co?utm_source=sourceInboxPlayground",
+                "_blank"
+              )
+            }
+            cursor="pointer"
+          />
+          <VStack alignItems="flex-start" spacing={0}>
+            <Text fontSize="lg" fontWeight="bold" color={textColor}>
+              Inbox Component Playground
+            </Text>
+            <Text fontSize="sm" color="gray.500">
+              In-app notifications powered by Novu
+            </Text>
+          </VStack>
+        </HStack>
+        <HStack spacing={4}>
+          <Button
+            variant="ghost"
+            colorScheme="teal"
+            onClick={() =>
+              window.open("https://docs.novu.co/inbox/introduction", "_blank")
+            }
+          >
+            Docs
+          </Button>
+          <Button variant="solid" colorScheme="teal" onClick={onOpen}>
+            Get Code
+          </Button>
+        </HStack>
+      </Flex>
       <CodeModal isOpen={isOpen} onClose={onClose} />
-    </Flex>
+    </Box>
   );
 };
 
