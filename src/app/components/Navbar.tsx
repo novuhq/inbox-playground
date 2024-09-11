@@ -32,7 +32,7 @@ const Navbar = () => {
     >
       <Flex
         mx="auto"
-        px={4}
+        px={10}
         py={3}
         alignItems="center"
         justifyContent="space-between"
