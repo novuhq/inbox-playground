@@ -10,6 +10,10 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
+  Text,
+  Box,
+  VStack,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { useCopyToClipboard } from "react-use";
 import { useTheme } from "../contexts/ThemeContext";
@@ -47,25 +51,26 @@ function CodeModal({ isOpen, onClose }: CodeModalProps) {
   const appearanceElements = selectedTheme?.appearance?.elements;
 
   const code = `
-  function InboxComponent(){
-    return <Inbox applicationIdentifier="YOUR_APP_ID" 
-        subscriberId="subscriberId"
-        appearance={{
-            variables: ${JSON.stringify(appearanceVariables, null, 4)
-              .split("\n")
-              .map((line, index) =>
-                index === 0 ? line : "    ".repeat(3) + line
-              )
-              .join("\n")},
-            elements: ${JSON.stringify(appearanceElements, null, 4)
-              .split("\n")
-              .map((line, index) =>
-                index === 0 ? line : "    ".repeat(3) + line
-              )
-              .join("\n")},
-        }} 
+import { Inbox } from "@novu/react";
+
+function InboxComponent() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APP_ID"
+      subscriberId="subscriberId"
+      appearance={{
+        variables: ${JSON.stringify(appearanceVariables, null, 2)
+          .split("\n")
+          .map((line, index) => (index === 0 ? line : "        " + line))
+          .join("\n")},
+        elements: ${JSON.stringify(appearanceElements, null, 2)
+          .split("\n")
+          .map((line, index) => (index === 0 ? line : "        " + line))
+          .join("\n")}
+      }}
     />
-  }
+  );
+}
   `;
   const [, copyToClipboard] = useCopyToClipboard();
   const [isCopied, setIsCopied] = useState(false);
@@ -84,40 +89,87 @@ function CodeModal({ isOpen, onClose }: CodeModalProps) {
     return () => clearTimeout(timeoutId);
   }, [isCopied]);
 
+  const bgColor = useColorModeValue("gray.50", "gray.800");
+  const textColor = useColorModeValue("gray.800", "gray.100");
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="6xl">
       <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Get Code</ModalHeader>
+      <ModalContent bg={bgColor} color={textColor}>
+        <ModalHeader fontSize="2xl" fontWeight="bold">
+          Get Code
+        </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <CodeBlock code={code} language={"tsx"}>
-            <div className="relative">
-              <CodeBlock.Code className="bg-gray-900 !p-6 rounded-xl shadow-lg">
-                <div className="table-row">
-                  <CodeBlock.LineNumber className="table-cell pr-4 text-sm text-gray-500 text-right select-none" />
-                  <CodeBlock.LineContent className="table-cell">
-                    <CodeBlock.Token />
-                  </CodeBlock.LineContent>
-                </div>
-              </CodeBlock.Code>
+          <VStack spacing={6} align="stretch">
+            <Box>
+              <Text fontSize="md" fontWeight="semibold" mb={2}>
+                1. Install the package
+              </Text>
+              <Box position="relative">
+                <CodeBlock code={"npm install @novu/react"} language={"bash"}>
+                  <CodeBlock.Code
+                    style={{
+                      background: "#1A202C",
+                      color: "#E2E8F0",
+                      padding: "1.5rem",
+                      borderRadius: "0.5rem",
+                      boxShadow: "lg",
+                    }}
+                  >
+                    <div className="table-row">
+                      <CodeBlock.LineNumber className="table-cell pr-4 text-sm text-gray-500 text-right select-none" />
+                      <CodeBlock.LineContent className="table-cell">
+                        <CodeBlock.Token />
+                      </CodeBlock.LineContent>
+                    </div>
+                  </CodeBlock.Code>
+                </CodeBlock>
+              </Box>
+            </Box>
 
-              <Button
-                size="xs"
-                onClick={copyCode}
-                sx={{
-                  position: "absolute",
-                  top: 2,
-                  right: 2,
-                }}
-              >
-                {isCopied ? "Copied!" : "Copy code"}
-              </Button>
-            </div>
-          </CodeBlock>
+            <Box>
+              <Text fontSize="md" fontWeight="semibold" mb={2}>
+                2. Add and import the Inbox component
+              </Text>
+              <Box position="relative">
+                <CodeBlock code={code} language={"tsx"}>
+                  <CodeBlock.Code
+                    style={{
+                      background: "#1A202C",
+                      color: "#E2E8F0",
+                      padding: "1.5rem",
+                      borderRadius: "0.5rem",
+                      boxShadow: "lg",
+                      maxHeight: "400px",
+                      overflow: "auto",
+                    }}
+                  >
+                    <div className="table-row">
+                      <CodeBlock.LineNumber className="table-cell pr-4 text-sm text-gray-500 text-right select-none" />
+                      <CodeBlock.LineContent className="table-cell">
+                        <CodeBlock.Token />
+                      </CodeBlock.LineContent>
+                    </div>
+                  </CodeBlock.Code>
+                  <Button
+                    size="sm"
+                    colorScheme="blue"
+                    onClick={copyCode}
+                    position="absolute"
+                    top={2}
+                    right={2}
+                    zIndex="1"
+                  >
+                    {isCopied ? "Copied!" : "Copy code"}
+                  </Button>
+                </CodeBlock>
+              </Box>
+            </Box>
+          </VStack>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose}>
+          <Button colorScheme="blue" onClick={onClose}>
             Close
           </Button>
         </ModalFooter>
