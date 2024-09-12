@@ -23,8 +23,8 @@ export const useInitialNotifications = () => {
               workflowId: workflow.id,
               to: {
                 subscriberId: `${subscriberId}_${selectedTheme.id}`,
-                firstName: "New",
-                lastName: "User",
+                firstName: "John",
+                lastName: "Doe",
               },
               payload: {},
               bridgeUrl: "https://inbox-playground.vercel.app/api/novu",
