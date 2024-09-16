@@ -43,7 +43,7 @@ subscriberFirstName: z.string().default("John"),
           inAppSubject: z
             .string()
             .default(
-              `${subscriber?.firstName} ${subscriber?.lastName} commented in`
+              `*${subscriber?.firstName} ${subscriber?.lastName} commented in*`
             ),
           inAppBody: z.string().default("Important Page"),
           inAppAvatar: z
