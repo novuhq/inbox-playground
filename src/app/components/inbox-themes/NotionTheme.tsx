@@ -270,7 +270,7 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
         {/* Main content with conditional margin based on avatar */}
         <VStack align="start" spacing={"8px"} flex="1" mt="3px">
           <Flex justify="space-between" width="100%">
-            <Text fontSize="14px" color="gray.800" > { /*fontWeight="600" */}
+            <Text fontSize="14px" color="gray.800" fontWeight="600" >
               {notification.subject}
             </Text>
             <Text fontSize="xs" color="gray.400">
