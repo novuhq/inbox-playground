@@ -24,7 +24,7 @@ export async function POST(request: Request) {
         controls: {
           steps: controls,
         },
-        bridgeUrl,
+        // bridgeUrl,
       },
       {
         headers: {
