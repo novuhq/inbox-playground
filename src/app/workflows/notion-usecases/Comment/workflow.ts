@@ -11,34 +11,34 @@ export const notionCommentNotification = workflow(
     // -----------------------------------in-app step-------------------------------------------------------------------------
     await step.inApp(
       "in-app-step",
-      async (controls) => {
+      async (payload) => {
         const result: any = {
-          subject: controls.inAppSubject,
-          body: controls.inAppBody,
+          subject: payload.inAppSubject,
+          body: payload.inAppBody,
         };
 
-        if (controls.showInAppAvatar) {
-          result.avatar = controls.inAppAvatar;
+        if (payload.showInAppAvatar) {
+          result.avatar = payload.inAppAvatar;
         }
 
-        if (controls.enablePrimaryAction) {
+        if (payload.enablePrimaryAction) {
           result.primaryAction = {
-            label: controls.inAppPrimaryActionLabel,
-            url: controls.inAppPrimaryActionUrl,
+            label: payload.inAppPrimaryActionLabel,
+            url: payload.inAppPrimaryActionUrl,
           };
         }
 
-        if (controls.enableSecondaryAction) {
+        if (payload.enableSecondaryAction) {
           result.secondaryAction = {
-            label: controls.inAppSecondaryActionLabel,
-            url: controls.inAppSecondaryActionUrl,
+            label: payload.inAppSecondaryActionLabel,
+            url: payload.inAppSecondaryActionUrl,
           };
         }
         return result;
       },
       {
         controlSchema: z.object({
-subscriberFirstName: z.string().default("John"),
+          subscriberFirstName: z.string().default("John"),
           subscriberLastName: z.string().default("Doe"),
           inAppSubject: z
             .string()
@@ -59,7 +59,7 @@ subscriberFirstName: z.string().default("John"),
         }),
       }
     );
-
+    
     // -----------------------------------payload schema-------------------------------------------------------------------------
   },
   {
