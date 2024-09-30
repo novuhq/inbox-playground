@@ -46,7 +46,7 @@ export const notionInviteNotification = workflow(
           inAppSubject: z
             .string()
             .default(
-              `${subscriber?.firstName} ${subscriber?.lastName} invited you to`
+              `{{subscriber.firstName | capitalize}} {{subscriber.lastName | capitalize}} invited you to`
             ),
           inAppBody: z.string().default("In-App Notification Body!"),
           inAppAvatar: z

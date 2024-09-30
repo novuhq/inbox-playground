@@ -45,7 +45,7 @@ export const notionSuggestionNotification = workflow(
           inAppSubject: z
             .string()
             .default(
-              `${subscriber?.firstName} ${subscriber?.lastName} suggested in`
+              `{{subscriber.firstName | capitalize}} {{subscriber.lastName | capitalize}} suggested in`
             ),
           inAppBody: z.string().default("In-App Notification Body!"),
           inAppAvatar: z
