@@ -38,12 +38,12 @@ export const notionCommentNotification = workflow(
       },
       {
         controlSchema: z.object({
-subscriberFirstName: z.string().default("John"),
+          subscriberFirstName: z.string().default("John"),
           subscriberLastName: z.string().default("Doe"),
           inAppSubject: z
             .string()
             .default(
-              `**${subscriber?.firstName} ${subscriber?.lastName} commented in**`
+              `{{subscriber.firstName | capitalize}} {{subscriber.lastName | capitalize}} commented in`
             ),
           inAppBody: z.string().default("Important Page"),
           inAppAvatar: z
