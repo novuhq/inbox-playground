@@ -11,7 +11,7 @@ export const notionCommentNotification = workflow(
     // -----------------------------------in-app step-------------------------------------------------------------------------
     await step.inApp(
       "in-app-step",
-      async () => {
+      async (payload) => {
         const result: any = {
           subject: payload.inAppSubject,
           body: payload.inAppBody,
@@ -37,7 +37,7 @@ export const notionCommentNotification = workflow(
         return result;
       },
       {
-        payloadSchema: z.object({
+        controlSchema: z.object({
           subscriberFirstName: z.string().default("John"),
           subscriberLastName: z.string().default("Doe"),
           inAppSubject: z
