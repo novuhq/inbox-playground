@@ -131,7 +131,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
           />
         </Flex>
 
-        <Divider />
+        <Divider borderColor="#DEE2E6" opacity={0.6} />
 
         <Controller
           name="selectedWorkflow"
