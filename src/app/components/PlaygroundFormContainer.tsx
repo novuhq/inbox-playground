@@ -92,9 +92,6 @@ const PlaygroundFormContainer = () => {
           onClick={handleSubmit}
           alignSelf="flex-end"
           variant="gradient-solid"
-          _hover={{
-            bg: "linear-gradient(90deg, rgba(222, 37, 116, 0.80) 0%, rgba(253, 79, 50, 0.80) 100%)",
-          }}
         >
           Send Notification
         </Button>
