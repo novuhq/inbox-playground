@@ -92,7 +92,7 @@ const PlaygroundFormContainer = () => {
           paddingY={2.5}
           width="full"
           marginTop={4}
-          bg="linear-gradient(90deg, #DE2573 0%, #FC4E32 100%)"
+          bgGradient="linear-gradient(90deg, #DE2573 0%, #FC4E32 100%)"
           onClick={handleSubmit}
           alignSelf="flex-end"
           borderRadius={10}
