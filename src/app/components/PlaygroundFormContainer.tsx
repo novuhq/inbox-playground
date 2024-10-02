@@ -26,7 +26,8 @@ const PlaygroundFormContainer = () => {
       width="100%"
       maxW="600px"
       borderWidth="1px"
-      borderRadius="lg"
+      borderColor="gray.200"
+      borderRadius="18px"
       padding={3}
       boxShadow="lg"
       bg="white"
