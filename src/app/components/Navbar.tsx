@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Box,
   Flex,
@@ -17,7 +16,7 @@ import CodeModal from "./CodeModal";
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bgColor = useColorModeValue("white", "gray.800");
-  const textColor = useColorModeValue("gray.700", "gray.200");
+  const textColor = useColorModeValue("gray.10", "gray.200");
 
   return (
     <Box
@@ -42,7 +41,8 @@ const Navbar = () => {
             src="/novuLogo.svg"
             alt="Novu Logo"
             height={10}
-            width={42}
+            width={116}
+            objectFit="contain"
             onClick={() =>
               window.open(
                 "https://novu.co?utm_source=sourceInboxPlayground",
@@ -51,11 +51,11 @@ const Navbar = () => {
             }
             cursor="pointer"
           />
-          <VStack alignItems="flex-start" spacing={0}>
-            <Text fontSize="lg" fontWeight="bold" color={textColor}>
+          <VStack alignItems="flex-start" spacing={2.5}>
+            <Text fontSize="lg" fontWeight="bold" color={textColor} lineHeight={1}>
               Inbox Component Playground
             </Text>
-            <Text fontSize="sm" color="gray.500">
+            <Text fontSize="sm" color={textColor} lineHeight={1}>
               In-app notifications powered by Novu
             </Text>
           </VStack>
@@ -63,14 +63,19 @@ const Navbar = () => {
         <HStack spacing={4}>
           <Button
             variant="ghost"
-            colorScheme="teal"
+            colorScheme="gray"
+            color={textColor}
             onClick={() =>
               window.open("https://docs.novu.co/inbox/introduction", "_blank")
             }
           >
             Docs
           </Button>
-          <Button variant="solid" colorScheme="teal" onClick={onOpen}>
+          <Button
+            onClick={onOpen}
+            color={textColor}
+            variant="gradient-outline"
+          >
             Get Code
           </Button>
         </HStack>

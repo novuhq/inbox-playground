@@ -101,7 +101,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
       <VStack spacing={4} alignItems="stretch">
         <div>
           <Heading size="sm">Subscriber</Heading>
-          <Text fontSize="sm" color="gray.600" mb={2}>
+          <Text fontSize="sm" color="gray.20" mb={2}>
             The recipient of the notification, change the details to customize.
           </Text>
         </div>
@@ -125,7 +125,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
             render={({ field }) => (
               <FormControl flex={1}>
                 <FormLabel fontSize="sm">Last Name</FormLabel>
-                <Input {...field} placeholder="Last Name" size="sm" />
+                  <Input {...field} placeholder="Last Name" size="sm" />
               </FormControl>
             )}
           />
@@ -140,7 +140,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
           render={({ field }) => (
             <FormControl>
               <Heading size="sm">Workflow</Heading>
-              <Text fontSize="sm" color="gray.600" mb={2}>
+              <Text fontSize="sm" color="gray.20" mb={2}>
                 Select a workflow to customize the notification content.
               </Text>
               <Select {...field} size="sm">
@@ -197,7 +197,11 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
               <FormLabel fontSize="sm" mb="0">
                 Enable Primary Action
               </FormLabel>
-              <Switch {...(field as any)} isChecked={field.value} size="sm" />
+              <Switch
+                {...(field as any)}
+                isChecked={field.value}
+                size="sm"
+              />
             </FormControl>
           )}
         />
