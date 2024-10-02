@@ -86,12 +86,24 @@ const theme = extendTheme({
           },
         },
         'gradient-solid': {
-          bg: 'linear-gradient(90deg, #DE2574, #FD4F32)',
+          position: 'relative',
           color: 'white',
           borderRadius: '11px',
-          transition: 'opacity 0.2s',
+          transition: 'all 0.2s',
+          isolation: 'isolate',
+          _before: {
+            content: '""',
+            position: 'absolute',
+            inset: 0,
+            borderRadius: 'inherit',
+            background: 'linear-gradient(90deg, #DE2574, #FD4F32)',
+            zIndex: -1,
+            transition: 'opacity 0.2s',
+          },
           _hover: {
-            opacity: 0.8,
+            _before: {
+              opacity: 0.8,
+            },
           },
         },
       },

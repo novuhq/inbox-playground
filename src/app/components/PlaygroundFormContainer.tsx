@@ -86,31 +86,17 @@ const PlaygroundFormContainer = () => {
           </TabPanels>
         </Tabs>
 
-        <Box
-          as="button"
-          height={10}
-          paddingY={2.5}
+        <Button
+          size="md"
           width="full"
           marginTop={4}
-          bgGradient="linear-gradient(90deg, #DE2573 0%, #FC4E32 100%)"
+          isLoading={isLoading}
           onClick={handleSubmit}
           alignSelf="flex-end"
-          borderRadius={10}
-          color="white"
-          fontWeight={600}
-          lineHeight={1.2}
-          fontSize={16}
-          transition="opacity 0.2s"
-          _hover={{
-            opacity: 0.8,
-          }}
+          variant="gradient-solid"
         >
-          {isLoading ? (
-            <Spinner size="sm" color="white" />
-          ) : (
-            "Send Notification"
-          )}
-        </Box>
+          Send Notification
+        </Button>
       </VStack>
     </Flex>
   );
