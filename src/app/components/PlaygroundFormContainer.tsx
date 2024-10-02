@@ -9,6 +9,8 @@ import {
   TabPanels,
   TabPanel,
   TabIndicator,
+  Box,
+  Spinner,
 } from "@chakra-ui/react";
 import InboxDesignForm from "./InboxDesignForm";
 import NotificationContentForm from "./NotificationContentForm";
@@ -84,17 +86,31 @@ const PlaygroundFormContainer = () => {
           </TabPanels>
         </Tabs>
 
-        <Button
-          size="md"
+        <Box
+          as="button"
+          height={10}
+          paddingY={2.5}
           width="full"
           marginTop={4}
-          isLoading={isLoading}
+          bg="linear-gradient(90deg, #DE2573 0%, #FC4E32 100%)"
           onClick={handleSubmit}
           alignSelf="flex-end"
-          variant="gradient-solid"
+          borderRadius={10}
+          color="white"
+          fontWeight={600}
+          lineHeight={1.2}
+          fontSize={16}
+          transition="opacity 0.2s"
+          _hover={{
+            opacity: 0.8,
+          }}
         >
-          Send Notification
-        </Button>
+          {isLoading ? (
+            <Spinner size="sm" color="white" />
+          ) : (
+            "Send Notification"
+          )}
+        </Box>
       </VStack>
     </Flex>
   );
