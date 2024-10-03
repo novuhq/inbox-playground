@@ -87,7 +87,7 @@ const PlaygroundFormContainer = () => {
         </Tabs>
 
         <Button
-          variant="gradient-solid"
+          variant="gradient"
           size="md"
           width="full"
           marginTop={4}

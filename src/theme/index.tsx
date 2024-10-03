@@ -85,7 +85,7 @@ const theme = extendTheme({
             },
           },
         },
-        'gradient-solid': {
+        'gradient': {
           background: 'linear-gradient(90deg, #DE2574, #FD4F32)',
           color: 'white',
           borderRadius: '11px',
