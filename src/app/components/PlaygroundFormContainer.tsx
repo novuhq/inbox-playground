@@ -87,13 +87,14 @@ const PlaygroundFormContainer = () => {
         </Tabs>
 
         <Button
+          variant="gradient-solid"
           size="md"
           width="full"
           marginTop={4}
+          alignSelf="flex-end"
+          color="white"
           isLoading={isLoading}
           onClick={handleSubmit}
-          alignSelf="flex-end"
-          variant="gradient-solid"
         >
           Send Notification
         </Button>
