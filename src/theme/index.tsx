@@ -86,12 +86,12 @@ const theme = extendTheme({
           },
         },
         'gradient': {
-          background: 'linear-gradient(90deg, #DE2574, #FD4F32)',
+          background: '#DE2574',
           color: 'white',
           borderRadius: '11px',
-          transition: 'background 0.2s',
+          transition: 'opacity 0.2s',
           _hover: {
-            background: 'linear-gradient(90deg, rgba(222, 37, 116, 0.80) 0%, rgba(253, 79, 50, 0.80) 100%)',
+            opacity: 0.8,
           },
         },
       },
