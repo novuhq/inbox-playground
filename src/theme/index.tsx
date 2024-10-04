@@ -86,7 +86,7 @@ const theme = extendTheme({
           },
         },
         'gradient': {
-          background: '#DE2574',
+          background: 'linear-gradient(90deg, #DE2574, #FD4F32)',
           color: 'white',
           borderRadius: '11px',
           transition: 'opacity 0.2s',
