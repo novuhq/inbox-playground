@@ -71,6 +71,7 @@ const NotionTheme = ({ subscriberId }: { subscriberId: string | null }) => {
                 paddingLeft: "4px",
                 display: "inline-block",
               }}
+              color="#37352F"
             />{" "}
             Notion Workspace
           </Text>
@@ -170,7 +171,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
       fontWeight={"500"}
       borderRadius="6px"
       bg={isActive ? "rgba(0, 0, 0, 0.03)" : "transparent"}
-      color={isActive ? "rgb(29, 27, 22)" : "rgba(55, 53, 47, 0.65)"}
+      color={isActive ? "#1D1B16" : "rgba(55, 53, 47, 0.65)"}
       _hover={{ bg: "rgba(0, 0, 0, 0.03)", cursor: "pointer" }}
       sx={{
         height: "30px",
@@ -184,7 +185,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         }}
         as={icon}
       />
-      <Text fontSize="14px">{label}</Text>
+      <Text fontSize="14px" color={isActive ? "#1D1B16" : "rgba(55, 53, 47, 0.65)"}>{label}</Text>
     </HStack>
   );
 };

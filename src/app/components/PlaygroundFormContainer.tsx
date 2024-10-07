@@ -8,6 +8,9 @@ import {
   Tab,
   TabPanels,
   TabPanel,
+  TabIndicator,
+  Box,
+  Spinner,
 } from "@chakra-ui/react";
 import InboxDesignForm from "./InboxDesignForm";
 import NotificationContentForm from "./NotificationContentForm";
@@ -25,7 +28,8 @@ const PlaygroundFormContainer = () => {
       width="100%"
       maxW="600px"
       borderWidth="1px"
-      borderRadius="lg"
+      borderColor="gray.200"
+      borderRadius="18px"
       padding={3}
       boxShadow="lg"
       bg="white"
@@ -40,7 +44,7 @@ const PlaygroundFormContainer = () => {
             setSelectedTheme(themes[index]);
           }}
         >
-          <TabList>
+          <TabList borderBottom="1px solid #E2E8F0">
             {themes.map((theme) => (
               <Tab
                 key={theme.id}
@@ -50,6 +54,14 @@ const PlaygroundFormContainer = () => {
                     height: "20px",
                   },
                 }}
+                fontWeight="600"
+                color="gray.20"
+                _selected={{
+                  color: "gray.10",
+                }}
+                _hover={{
+                  color: "gray.10",
+                }}
               >
                 <span style={{ marginRight: "10px", display: "inline-block" }}>
                   {theme.icon}
@@ -58,6 +70,12 @@ const PlaygroundFormContainer = () => {
               </Tab>
             ))}
           </TabList>
+          <TabIndicator
+            mt="-1.5px"
+            height="2px"
+            borderRadius="1px"
+            bg="linear-gradient(90deg, #DE2573 0%, #FC4E32 100%)"
+          />
           <TabPanels height="calc(100% - 30px)">
             {themes.map((theme) => (
               <TabPanel key={theme.id} height="100%" overflowY="auto">
@@ -69,13 +87,14 @@ const PlaygroundFormContainer = () => {
         </Tabs>
 
         <Button
-          colorScheme="blue"
+          variant="gradient"
           size="md"
           width="full"
           marginTop={4}
+          alignSelf="flex-end"
+          color="white"
           isLoading={isLoading}
           onClick={handleSubmit}
-          alignSelf="flex-end"
         >
           Send Notification
         </Button>
