@@ -28,11 +28,11 @@ const PlaygroundFormContainer = () => {
       width="100%"
       maxW="600px"
       borderWidth="1px"
-      borderColor="gray.200"
+      borderColor="#6B7DB3"
       borderRadius="18px"
       padding={3}
       boxShadow="lg"
-      bg="white"
+      bg="linear-gradient(180deg, #1B2137 -0.49%, #111522 48.7%)"
       height="100%"
       minHeight="400px"
       direction="column"
@@ -44,7 +44,7 @@ const PlaygroundFormContainer = () => {
             setSelectedTheme(themes[index]);
           }}
         >
-          <TabList borderBottom="1px solid #E2E8F0">
+          <TabList borderBottom="1px solid #30385A">
             {themes.map((theme) => (
               <Tab
                 key={theme.id}
@@ -54,13 +54,13 @@ const PlaygroundFormContainer = () => {
                     height: "20px",
                   },
                 }}
-                fontWeight="600"
-                color="gray.20"
+                fontWeight="400"
+                color="#A8A9BD"
                 _selected={{
-                  color: "gray.10",
+                  color: "white",
                 }}
                 _hover={{
-                  color: "gray.10",
+                  color: "white",
                 }}
               >
                 <span style={{ marginRight: "10px", display: "inline-block" }}>
@@ -74,7 +74,7 @@ const PlaygroundFormContainer = () => {
             mt="-1.5px"
             height="2px"
             borderRadius="1px"
-            bg="linear-gradient(90deg, #DE2573 0%, #FC4E32 100%)"
+            bg="white"
           />
           <TabPanels height="calc(100% - 30px)">
             {themes.map((theme) => (
@@ -87,12 +87,14 @@ const PlaygroundFormContainer = () => {
         </Tabs>
 
         <Button
-          variant="gradient"
+          variant="white-outline"
           size="md"
           width="full"
           marginTop={4}
           alignSelf="flex-end"
           color="white"
+          fontWeight="500"
+          lineHeight="1.2"
           isLoading={isLoading}
           onClick={handleSubmit}
         >

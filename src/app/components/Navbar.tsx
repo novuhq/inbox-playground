@@ -1,21 +1,17 @@
-"use client";
+'use client'
 
+import NextLink from "next/link";
 import {
   Box,
   Flex,
-  Text,
   HStack,
   Button,
   Image,
-  VStack,
-  useDisclosure,
   useColorModeValue,
 } from "@chakra-ui/react";
-import CodeModal from "./CodeModal";
 
-const Navbar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const bgColor = useColorModeValue("white", "gray.800");
+const Navbar = ({ children }: { children: React.ReactNode }) => {
+  const bgColor = useColorModeValue("black", "gray.800");
   const textColor = useColorModeValue("gray.10", "gray.200");
 
   return (
@@ -51,36 +47,24 @@ const Navbar = () => {
             }
             cursor="pointer"
           />
-          <VStack alignItems="flex-start" spacing={2.5}>
-            <Text fontSize="lg" fontWeight="bold" color={textColor} lineHeight={1}>
-              Inbox Component Playground
-            </Text>
-            <Text fontSize="sm" color={textColor} lineHeight={1}>
-              In-app notifications powered by Novu
-            </Text>
-          </VStack>
         </HStack>
         <HStack spacing={4}>
+          {children}
           <Button
-            variant="ghost"
-            colorScheme="gray"
+            as={NextLink}
+            href="https://dashboard.novu.co/?utm_campaign=gs_top_bar"
             color={textColor}
-            onClick={() =>
-              window.open("https://docs.novu.co/inbox/introduction", "_blank")
-            }
+            variant="white"
+            fontSize="12px"
+            fontWeight="medium"
+            lineHeight="100%"
+            textTransform="uppercase"
           >
-            Docs
-          </Button>
-          <Button
-            onClick={onOpen}
-            color={textColor}
-            variant="gradient-outline"
-          >
-            Get Code
+            Get started
           </Button>
         </HStack>
       </Flex>
-      <CodeModal isOpen={isOpen} onClose={onClose} />
+      
     </Box>
   );
 };

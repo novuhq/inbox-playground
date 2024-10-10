@@ -47,7 +47,7 @@ export function InboxDesignForm() {
         <Text fontSize="lg" fontWeight="bold" textAlign="center">
           Configure And Design Inbox Component
         </Text>
-        <Text fontSize="sm" color="gray.20" textAlign="center">
+        <Text fontSize="15px" color="white" opacity={0.8} textAlign="center">
           Click on the &quot;Apply Changes&quot; button to see the changes in
           the Inbox component.
         </Text>
@@ -65,7 +65,7 @@ export function InboxDesignForm() {
 
         <SimpleGrid columns={1} spacing={4}>
           <FormLabel>Inbox Language</FormLabel>
-          <Text fontSize="sm" color="gray.20">
+          <Text fontSize="15px" color="white" opacity={0.8}>
             Select the language for your inbox notifications.
           </Text>
           <Select {...register("language")}>

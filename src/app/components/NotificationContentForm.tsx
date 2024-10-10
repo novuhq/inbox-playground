@@ -100,8 +100,8 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
     <form>
       <VStack spacing={4} alignItems="stretch">
         <div>
-          <Heading size="sm">Subscriber</Heading>
-          <Text fontSize="sm" color="gray.20" mb={2}>
+          <Heading size="sm" fontSize="18px">Subscriber</Heading>
+          <Text fontSize="15px" color="white" opacity={0.8} mb={2}>
             The recipient of the notification, change the details to customize.
           </Text>
         </div>
@@ -131,7 +131,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
           />
         </Flex>
 
-        <Divider borderColor="#DEE2E6" opacity={0.6} />
+        <Divider borderColor="#30385A" />
 
         <Controller
           name="selectedWorkflow"
@@ -139,8 +139,8 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
           defaultValue={workflows[0].id}
           render={({ field }) => (
             <FormControl>
-              <Heading size="sm">Workflow</Heading>
-              <Text fontSize="sm" color="gray.20" mb={2}>
+              <Heading size="sm" fontSize="18px">Workflow</Heading>
+              <Text fontSize="15px" color="white" opacity={0.8} mb={2}>
                 Select a workflow to customize the notification content.
               </Text>
               <Select {...field} size="sm">
