@@ -61,12 +61,13 @@ const theme = extendTheme({
     Heading: {
       baseStyle: {
         color: "white",
-        fontWeight: "medium",
+        fontWeight: "500",
       },
     },
     Text: {
       baseStyle: {
         color: "white",
+        fontWeight: "350",
       },
     },
     Switch: {
@@ -118,6 +119,7 @@ const theme = extendTheme({
     FormLabel: {
       baseStyle: {
         color: "rgba(255, 255, 255, 0.6)",
+        fontWeight: "350",
       },
     },
     Input: FormField,
