@@ -17,7 +17,6 @@ const ThemeRenderer = () => {
       position="relative"
       zIndex={10}
       width="100%"
-      maxW="1200px"
       height="100%"
       minHeight="400px"
       flexGrow={1}

@@ -11,7 +11,7 @@ import { Suspense } from "react";
 const AppContent = async () => {
   const starsCount = await getGithubStars();
   return (
-    <Box height="100vh" bg="#05050B">
+    <Box height="100vh" bg="#05050B" overflow="hidden">
       <Navbar>
         <Suspense>
           <ButtonGithubStars starsCount={starsCount} />
