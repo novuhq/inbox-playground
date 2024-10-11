@@ -1,23 +1,7 @@
 "use client";
 
-import {
-  Box,
-  Flex,
-  Text,
-  IconButton,
-  VStack,
-  HStack,
-  Link,
-  Icon,
-  Avatar,
-} from "@chakra-ui/react";
-import {
-  FiSearch,
-  FiHome,
-  FiInbox,
-  FiXCircle,
-  FiCheckCircle,
-} from "react-icons/fi";
+import { Box, Flex, Text, IconButton, VStack, HStack, Link, Icon, Avatar } from "@chakra-ui/react";
+import { FiSearch, FiHome, FiInbox, FiXCircle, FiCheckCircle } from "react-icons/fi";
 import { BsFillFileTextFill, BsTrash, BsArrowRepeat } from "react-icons/bs";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { FaUserFriends } from "react-icons/fa";
@@ -89,7 +73,6 @@ const LinearTheme = ({ subscriberId }: { subscriberId: string | null }) => {
   return (
     <Flex
       width="100%"
-      maxW="1200px"
       height="100%"
       minHeight="400px"
       borderRadius="lg"
@@ -110,12 +93,7 @@ const LinearTheme = ({ subscriberId }: { subscriberId: string | null }) => {
         borderRight="1px solid"
         borderColor={"#26282d"}
       >
-        <Flex
-          alignItems="center"
-          justifyContent={"space-between"}
-          mb={"8px"}
-          paddingLeft="4px"
-        >
+        <Flex alignItems="center" justifyContent={"space-between"} mb={"8px"} paddingLeft="4px">
           <Text fontSize="14px" fontWeight="bold">
             <Icon
               as={LinearIcon}
@@ -169,13 +147,7 @@ const LinearTheme = ({ subscriberId }: { subscriberId: string | null }) => {
       </Box>
 
       {/* Main Content Area */}
-      <Box
-        flex="1"
-        height="100%"
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-      >
+      <Box flex="1" height="100%" display="flex" flexDirection="column" justifyContent="center">
         <Box height="100%" overflowY="auto" width="100%" maxW="900px">
           {subscriberId && (
             <Inbox {...novuConfig}>

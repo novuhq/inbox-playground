@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write \"**/*.{css,js,jsx,ts,tsx,json}\""
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
@@ -20,6 +21,7 @@
     "@paralleldrive/cuid2": "^2.2.2",
     "@react-email/components": "0.0.22",
     "axios": "^1.7.4",
+    "chakra-react-select": "^4.10.1",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.5.4",
     "next": "14.2.8",
@@ -40,6 +42,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "postcss": "^8",
+    "prettier": "^3.3.3",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }

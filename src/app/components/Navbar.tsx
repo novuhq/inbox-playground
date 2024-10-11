@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
-  const bgColor = useColorModeValue("black", "gray.800");
+  const bgColor = useColorModeValue("", "gray.800");
   const textColor = useColorModeValue("gray.10", "gray.200");
 
   return (

@@ -44,19 +44,14 @@ export function InboxDesignForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} onChange={handleFormChange}>
       <VStack spacing={4} alignItems="stretch" mb="20px">
-        <Text fontSize="lg" fontWeight="bold" textAlign="center">
+        <Text fontSize="lg" fontWeight="bold">
           Configure And Design Inbox Component
         </Text>
-        <Text fontSize="15px" color="white" opacity={0.8} textAlign="center">
-          Click on the &quot;Apply Changes&quot; button to see the changes in
-          the Inbox component.
+        <Text fontSize="15px" color="white" opacity={0.8}>
+          Click on the &quot;Apply Changes&quot; button to see the changes in the Inbox component.
         </Text>
 
-        <FormControl
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-        >
+        <FormControl display="flex" alignItems="center" justifyContent="space-between">
           <FormLabel mb="0" htmlFor="open">
             Keep Inbox Open
           </FormLabel>
@@ -80,75 +75,39 @@ export function InboxDesignForm() {
         <SimpleGrid columns={2} spacing={4}>
           <FormControl>
             <FormLabel>Primary Color</FormLabel>
-            <Input
-              {...register("colorPrimary")}
-              placeholder="#0081F1"
-              size="sm"
-            />
+            <Input {...register("colorPrimary")} placeholder="#0081F1" size="sm" />
           </FormControl>
           <FormControl>
             <FormLabel>Primary Foreground</FormLabel>
-            <Input
-              {...register("colorPrimaryForeground")}
-              placeholder="white"
-              size="sm"
-            />
+            <Input {...register("colorPrimaryForeground")} placeholder="white" size="sm" />
           </FormControl>
           <FormControl>
             <FormLabel>Secondary Color</FormLabel>
-            <Input
-              {...register("colorSecondary")}
-              placeholder="#F3F3F3"
-              size="sm"
-            />
+            <Input {...register("colorSecondary")} placeholder="#F3F3F3" size="sm" />
           </FormControl>
           <FormControl>
             <FormLabel>Secondary Foreground</FormLabel>
-            <Input
-              {...register("colorSecondaryForeground")}
-              placeholder="#1A1523"
-              size="sm"
-            />
+            <Input {...register("colorSecondaryForeground")} placeholder="#1A1523" size="sm" />
           </FormControl>
           <FormControl>
             <FormLabel>Counter Color</FormLabel>
-            <Input
-              {...register("colorCounter")}
-              placeholder="#E5484D"
-              size="sm"
-            />
+            <Input {...register("colorCounter")} placeholder="#E5484D" size="sm" />
           </FormControl>
           <FormControl>
             <FormLabel>Counter Foreground</FormLabel>
-            <Input
-              {...register("colorCounterForeground")}
-              placeholder="white"
-              size="sm"
-            />
+            <Input {...register("colorCounterForeground")} placeholder="white" size="sm" />
           </FormControl>
           <FormControl>
             <FormLabel>Background Color</FormLabel>
-            <Input
-              {...register("colorBackground")}
-              placeholder="#FCFCFC"
-              size="sm"
-            />
+            <Input {...register("colorBackground")} placeholder="#FCFCFC" size="sm" />
           </FormControl>
           <FormControl>
             <FormLabel>Foreground Color</FormLabel>
-            <Input
-              {...register("colorForeground")}
-              placeholder="#1A1523"
-              size="sm"
-            />
+            <Input {...register("colorForeground")} placeholder="#1A1523" size="sm" />
           </FormControl>
           <FormControl>
             <FormLabel>Neutral Color</FormLabel>
-            <Input
-              {...register("colorNeutral")}
-              placeholder="black"
-              size="sm"
-            />
+            <Input {...register("colorNeutral")} placeholder="black" size="sm" />
           </FormControl>
           <FormControl>
             <FormLabel>Font Size</FormLabel>
@@ -156,11 +115,7 @@ export function InboxDesignForm() {
           </FormControl>
           <FormControl>
             <FormLabel>Border Radius</FormLabel>
-            <Input
-              {...register("borderRadius")}
-              placeholder="0.375rem"
-              size="sm"
-            />
+            <Input {...register("borderRadius")} placeholder="0.375rem" size="sm" />
           </FormControl>
         </SimpleGrid>
       </VStack>

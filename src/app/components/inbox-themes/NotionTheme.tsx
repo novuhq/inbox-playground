@@ -14,13 +14,7 @@ import {
 import { FiArchive } from "react-icons/fi";
 import { FaRegCheckSquare } from "react-icons/fa";
 import { PiNotificationFill } from "react-icons/pi";
-import {
-  FiSearch,
-  FiHome,
-  FiInbox,
-  FiSettings,
-  FiChevronDown,
-} from "react-icons/fi";
+import { FiSearch, FiHome, FiInbox, FiSettings, FiChevronDown } from "react-icons/fi";
 import { BsFillFileTextFill, BsTrash } from "react-icons/bs";
 import { AiOutlineCalendar, AiOutlineCheck } from "react-icons/ai";
 
@@ -40,9 +34,7 @@ const NotionTheme = ({ subscriberId }: { subscriberId: string | null }) => {
   return (
     <Flex
       width="100%"
-      maxW="1200px"
       height="100%"
-      minHeight="400px"
       borderRadius="lg"
       bg="white"
       style={{
@@ -131,9 +123,7 @@ const NotionTheme = ({ subscriberId }: { subscriberId: string | null }) => {
           {subscriberId && (
             <Inbox
               subscriberId={subscriberId as string}
-              applicationIdentifier={
-                process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID as string
-              }
+              applicationIdentifier={process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID as string}
               appearance={selectedTheme?.appearance}
             >
               <Notifications
@@ -185,7 +175,9 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         }}
         as={icon}
       />
-      <Text fontSize="14px" color={isActive ? "#1D1B16" : "rgba(55, 53, 47, 0.65)"}>{label}</Text>
+      <Text fontSize="14px" color={isActive ? "#1D1B16" : "rgba(55, 53, 47, 0.65)"}>
+        {label}
+      </Text>
     </HStack>
   );
 };
@@ -245,13 +237,7 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
         </VStack>
         {/* Conditionally render the avatar box only if there is an avatar */}
 
-        <Box
-          position="relative"
-          display="flex"
-          alignItems="center"
-          mr="8px"
-          height="26px"
-        >
+        <Box position="relative" display="flex" alignItems="center" mr="8px" height="26px">
           {!notification.isRead && (
             <Box>
               <Box width="8px" height="8px" bg="blue.500" borderRadius="full" />
@@ -271,7 +257,7 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
         {/* Main content with conditional margin based on avatar */}
         <VStack align="start" spacing={"8px"} flex="1" mt="3px">
           <Flex justify="space-between" width="100%">
-            <Text fontSize="14px" color="gray.800" fontWeight="600" >
+            <Text fontSize="14px" color="gray.800" fontWeight="600">
               {notification.subject}
             </Text>
             <Text fontSize="xs" color="gray.400">
@@ -287,8 +273,7 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
               </Text>
             )}
 
-          {(notificationType === "Mention" ||
-            notificationType === "Comment") && (
+          {(notificationType === "Mention" || notificationType === "Comment") && (
             <Button
               variant="ghost"
               size="sm"
@@ -337,8 +322,8 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
                 John Doe
               </Text>
               <Text fontSize="14px" color="rgb(55, 53, 47)" fontWeight="400">
-                This is a notification Comment made by John Doe and posted on
-                the page Top Secret Project
+                This is a notification Comment made by John Doe and posted on the page Top Secret
+                Project
               </Text>
             </Box>
           )}
