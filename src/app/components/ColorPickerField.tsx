@@ -13,18 +13,15 @@ function ColorPickerField({
   placeholder,
   name,
   label,
-  index,
 }: {
   register: UseFormRegister<any>;
   setValue: UseFormSetValue<any>;
   placeholder: string;
   name: string;
   label: string;
-  index: number;
 }) {
   const [color, setColor] = useColor(placeholder);
   const [openColorPicker, setOpenColorPicker] = useState(false);
-  const pickerPosition = index % 2 === 0 ? { left: 0 } : { right: 0 };
   const pickerRef = useRef<HTMLDivElement>(null);
 
   useClickOutside([pickerRef], () => setOpenColorPicker(false));
@@ -57,7 +54,7 @@ function ColorPickerField({
         <PickerIcon className="inset-y-2 right-3 absolute pointer-events-none" />
 
         {openColorPicker && (
-          <Box position="absolute" top="100%" paddingTop="10px" zIndex={50} {...pickerPosition}>
+          <Box position="absolute" top="100%" paddingTop="10px" zIndex={50} right={0}>
             <ColorPicker
               color={color}
               onChange={handleColorChange}

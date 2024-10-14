@@ -176,13 +176,7 @@ export function InboxDesignForm() {
 
         <SimpleGrid columns={2} spacing={4}>
           {items.map((item, index) => (
-            <ColorPickerField
-              key={item.name}
-              {...item}
-              register={register}
-              setValue={setValue}
-              index={index}
-            />
+            <ColorPickerField key={item.name} {...item} register={register} setValue={setValue} />
           ))}
           <FormControl>
             <FormLabel fontSize="sm" color="white" opacity={0.6}>
