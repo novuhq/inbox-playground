@@ -111,7 +111,7 @@ const PlaygroundFormContainer = () => {
             <TabIndicator mt="-1.5px" height="2px" borderRadius="1px" bg="white" />
             <TabPanels height="calc(100% - 30px)">
               {themes.map((theme) => (
-                <TabPanel key={theme.id} height="100%" overflowY="auto">
+                <TabPanel key={theme.id} height="100%" overflowY="auto" overflowX="hidden">
                   {theme.id === "default-theme" ? <InboxDesignForm /> : null}
                   <NotificationContentForm workflows={theme.workflows} />
                 </TabPanel>

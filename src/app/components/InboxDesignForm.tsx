@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useTheme } from "../contexts/ThemeContext";
-
+import { ColorPicker, useColor } from "react-color-palette";
+import "react-color-palette/css";
 import {
   VStack,
   Text,
@@ -12,13 +13,129 @@ import {
   SimpleGrid,
   Select,
   Input,
+  Button,
+  Box,
 } from "@chakra-ui/react";
+import { PickerIcon } from "./icons/Picker";
+import useClickOutside from "../hooks/useClickOutside";
+import { UseFormRegister, UseFormSetValue } from "react-hook-form";
+
+const items = [
+  {
+    label: "Primary Color",
+    name: "colorPrimary",
+    placeholder: "#0081F1",
+  },
+  {
+    label: "Primary Foreground",
+    name: "colorPrimaryForeground",
+    placeholder: "white",
+  },
+  {
+    label: "Secondary Color",
+    name: "colorSecondary",
+    placeholder: "#F3F3F3",
+  },
+  {
+    label: "Secondary Foreground",
+    name: "colorSecondaryForeground",
+    placeholder: "#1A1523",
+  },
+  {
+    label: "Counter Color",
+    name: "colorCounter",
+    placeholder: "#E5484D",
+  },
+  {
+    label: "Counter Foreground",
+    name: "colorCounterForeground",
+    placeholder: "white",
+  },
+  {
+    label: "Background Color",
+    name: "colorBackground",
+    placeholder: "#FCFCFC",
+  },
+  {
+    label: "Foreground Color",
+    name: "colorForeground",
+    placeholder: "#1A1523",
+  },
+  {
+    label: "Neutral Color",
+    name: "colorNeutral",
+    placeholder: "black",
+  },
+];
+
+function ColorPickerField({
+  register,
+  setValue,
+  placeholder,
+  name,
+  label,
+  index,
+}: {
+  register: UseFormRegister<any>;
+  setValue: UseFormSetValue<any>;
+  placeholder: string;
+  name: string;
+  label: string;
+  index: number;
+}) {
+  const [color, setColor] = useColor(placeholder);
+  const [openColorPicker, setOpenColorPicker] = useState(false);
+  const pickerPosition = index % 2 === 0 ? { left: 0 } : { right: 0 };
+  const pickerRef = useRef<HTMLDivElement>(null);
+
+  useClickOutside([pickerRef], () => setOpenColorPicker(false));
+
+  useEffect(() => {
+    setValue(name, color.hex);
+  }, [color, name, setValue]);
+
+  const handleColorChange = (newColor: any) => {
+    setColor(newColor);
+    setValue(name, newColor.hex);
+  };
+
+  return (
+    <FormControl position="relative">
+      <FormLabel>{label}</FormLabel>
+      <Box position="relative" ref={pickerRef}>
+        <Input
+          {...register(name)}
+          placeholder={placeholder}
+          value={color.hex}
+          size="sm"
+          readOnly
+          onClick={() => setOpenColorPicker(!openColorPicker)}
+          cursor="pointer"
+        />
+
+        <PickerIcon className="inset-y-2 right-3 absolute pointer-events-none" />
+
+        {openColorPicker && (
+          <Box position="absolute" top="100%" paddingTop="10px" zIndex={50} {...pickerPosition}>
+            <ColorPicker
+              color={color}
+              onChange={handleColorChange}
+              hideInput={["rgb", "hsv"]}
+              height={100}
+            />
+          </Box>
+        )}
+      </Box>
+    </FormControl>
+  );
+}
 
 export function InboxDesignForm() {
   const {
     inboxThemeForm: {
       handleSubmit,
       register,
+      setValue,
       formState: { errors, isSubmitting },
       getValues,
     },
@@ -73,42 +190,15 @@ export function InboxDesignForm() {
         </SimpleGrid>
 
         <SimpleGrid columns={2} spacing={4}>
-          <FormControl>
-            <FormLabel>Primary Color</FormLabel>
-            <Input {...register("colorPrimary")} placeholder="#0081F1" size="sm" />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Primary Foreground</FormLabel>
-            <Input {...register("colorPrimaryForeground")} placeholder="white" size="sm" />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Secondary Color</FormLabel>
-            <Input {...register("colorSecondary")} placeholder="#F3F3F3" size="sm" />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Secondary Foreground</FormLabel>
-            <Input {...register("colorSecondaryForeground")} placeholder="#1A1523" size="sm" />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Counter Color</FormLabel>
-            <Input {...register("colorCounter")} placeholder="#E5484D" size="sm" />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Counter Foreground</FormLabel>
-            <Input {...register("colorCounterForeground")} placeholder="white" size="sm" />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Background Color</FormLabel>
-            <Input {...register("colorBackground")} placeholder="#FCFCFC" size="sm" />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Foreground Color</FormLabel>
-            <Input {...register("colorForeground")} placeholder="#1A1523" size="sm" />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Neutral Color</FormLabel>
-            <Input {...register("colorNeutral")} placeholder="black" size="sm" />
-          </FormControl>
+          {items.map((item, index) => (
+            <ColorPickerField
+              key={item.name}
+              {...item}
+              register={register}
+              setValue={setValue}
+              index={index}
+            />
+          ))}
           <FormControl>
             <FormLabel>Font Size</FormLabel>
             <Input {...register("fontSize")} placeholder="inherit" size="sm" />

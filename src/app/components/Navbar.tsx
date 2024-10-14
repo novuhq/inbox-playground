@@ -1,14 +1,7 @@
-'use client'
+"use client";
 
 import NextLink from "next/link";
-import {
-  Box,
-  Flex,
-  HStack,
-  Button,
-  Image,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Flex, HStack, Button, Image, useColorModeValue } from "@chakra-ui/react";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   const bgColor = useColorModeValue("", "gray.800");
@@ -19,19 +12,12 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
       as="nav"
       position="sticky"
       top={0}
-      zIndex={10}
       bg={bgColor}
       boxShadow="sm"
       transition="box-shadow 0.2s"
       _hover={{ boxShadow: "md" }}
     >
-      <Flex
-        mx="auto"
-        px={10}
-        py={3}
-        alignItems="center"
-        justifyContent="space-between"
-      >
+      <Flex mx="auto" px={10} py={3} alignItems="center" justifyContent="space-between">
         <HStack spacing={4} alignItems="center">
           <Image
             src="/novuLogo.svg"
@@ -40,10 +26,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
             width={116}
             objectFit="contain"
             onClick={() =>
-              window.open(
-                "https://novu.co?utm_source=sourceInboxPlayground",
-                "_blank"
-              )
+              window.open("https://novu.co?utm_source=sourceInboxPlayground", "_blank")
             }
             cursor="pointer"
           />
@@ -64,7 +47,6 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
           </Button>
         </HStack>
       </Flex>
-      
     </Box>
   );
 };
