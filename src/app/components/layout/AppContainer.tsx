@@ -9,13 +9,13 @@ import ButtonGithubStars from "../ButtonGithubStars";
 import { Suspense } from "react";
 
 const AppContent = async () => {
-  // const starsCount = await getGithubStars();
+  const starsCount = await getGithubStars();
 
   return (
     <Box height="100vh" bg="#05050B" overflow="hidden">
       <Navbar>
         <Suspense>
-          <ButtonGithubStars starsCount={0} />
+          <ButtonGithubStars starsCount={starsCount} />
         </Suspense>
       </Navbar>
       <Flex

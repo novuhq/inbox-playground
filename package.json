@@ -25,6 +25,7 @@
     "date-fns": "^3.6.0",
     "framer-motion": "^11.5.4",
     "next": "14.2.8",
+    "next-plausible": "^3.12.2",
     "react": "^18",
     "react-code-block": "^1.0.0",
     "react-color": "^2.19.3",

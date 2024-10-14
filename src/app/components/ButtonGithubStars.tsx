@@ -1,11 +1,12 @@
 "use client";
 
 import { Button } from "@chakra-ui/react";
-import { buttonClick } from "../hooks/useLandingSimpleTracking";
+import { usePlausible } from "next-plausible";
 import NextLink from "next/link";
 import { GitHubIcon } from "./icons/GitHub";
 
 const ButtonGithubStars = ({ starsCount }: { starsCount: number }) => {
+  const plausible = usePlausible();
   return (
     <Button
       className="flex items-center group"
@@ -14,7 +15,7 @@ const ButtonGithubStars = ({ starsCount }: { starsCount: number }) => {
       href="https://github.com/novuhq/novu"
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() => buttonClick("github_star", { type: "menu" })}
+      onClick={() => plausible("github_star", { props: { type: "menu" } })}
       fontSize="12px"
       fontWeight="medium"
       lineHeight="100%"
