@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <PlausibleProvider domain="inbox.novu.co/" />
+        <PlausibleProvider domain="inbox.novu.co" />
       </head>
       <GoogleTagManager gtmId="GTM-KXMC4XP2" />
       <body>{children}</body>
