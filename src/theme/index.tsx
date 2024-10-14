@@ -6,14 +6,15 @@ const FormField = defineStyleConfig({
   baseStyle: {
     field: {
       color: "white",
-      borderRadius: "8px",
-      height: "40px",
+      borderRadius: "4px",
+      px: "12px",
+      lineHeight: "1",
     },
   },
   sizes: {
-    md: {
+    sm: {
       field: {
-        height: "40px",
+        height: "36px",
       },
     },
   },
@@ -36,8 +37,8 @@ const FormField = defineStyleConfig({
     },
   },
   defaultProps: {
-    size: "md",
     variant: "outline",
+    size: "sm",
   },
 });
 
@@ -120,6 +121,7 @@ const theme = extendTheme({
       baseStyle: {
         color: "rgba(255, 255, 255, 0.6)",
         fontWeight: "350",
+        lineHeight: "1",
       },
     },
     Input: FormField,
@@ -127,7 +129,7 @@ const theme = extendTheme({
     Textarea: {
       baseStyle: {
         color: "white",
-        borderRadius: "8px",
+        borderRadius: "4px",
       },
       sizes: {
         md: {

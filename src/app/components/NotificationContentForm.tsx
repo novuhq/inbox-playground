@@ -1,5 +1,5 @@
 "use client";
-import { Select, SingleValue, OptionBase } from "chakra-react-select";
+import { Select, OptionBase } from "chakra-react-select";
 import React, { useEffect } from "react";
 import { Controller } from "react-hook-form";
 import {
@@ -112,7 +112,14 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
           <Heading size="sm" fontSize="18px">
             Subscriber
           </Heading>
-          <Text fontSize="15px" color="white" fontWeight={350} opacity={0.8} mb={2}>
+          <Text
+            fontSize="15px"
+            color="white"
+            fontWeight={350}
+            opacity={0.8}
+            mt={1.5}
+            lineHeight={1.4}
+          >
             The recipient of the notification, change the details to customize.
           </Text>
         </div>
@@ -142,103 +149,109 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
           />
         </Flex>
 
-        <Divider borderColor="#30385A" />
+        <Divider borderColor="#30385A" my={3} />
+        <Flex flexDirection="column" gap={6}>
+          <Controller
+            name="selectedWorkflow"
+            control={control}
+            defaultValue={workflows[0].id}
+            render={({ field }) => (
+              <FormControl>
+                <Heading size="sm" fontSize="18px">
+                  Workflow
+                </Heading>
+                <FormLabel fontSize="sm" mt={5}>
+                  Select a workflow to customize the notification content.
+                </FormLabel>
+                <Select
+                  {...field}
+                  size="sm"
+                  options={workflowOptions}
+                  value={workflowOptions.find((option) => option.value === field.value)}
+                  defaultValue={workflowOptions[0]}
+                  onChange={(newValue) => field.onChange(newValue?.value)}
+                  chakraStyles={{
+                    dropdownIndicator: (provided) => ({
+                      ...provided,
+                      bg: "transparent",
+                      px: 2,
+                      cursor: "inherit",
+                    }),
+                    indicatorSeparator: (provided) => ({
+                      ...provided,
+                      display: "none",
+                    }),
+                    menu: (provided) => ({
+                      ...provided,
+                      borderRadius: "4px",
+                      color: "white",
+                    }),
+                    menuList: (provided) => ({
+                      ...provided,
+                      bg: "#1A1E32",
+                      border: "1px solid #30385A",
+                    }),
+                    option: (provided) => ({
+                      ...provided,
+                      bg: "#1A1E32",
+                      _hover: {
+                        bg: "rgba(48, 56, 90, 0.50)",
+                      },
+                    }),
+                  }}
+                />
+              </FormControl>
+            )}
+          />
 
-        <Controller
-          name="selectedWorkflow"
-          control={control}
-          defaultValue={workflows[0].id}
-          render={({ field }) => (
-            <FormControl>
-              <Heading size="sm" fontSize="18px">
-                Workflow
-              </Heading>
-              <Text fontSize="15px" color="white" opacity={0.8} mb={2}>
-                Select a workflow to customize the notification content.
-              </Text>
-              <Select<WorkflowOption, false>
-                {...field}
-                size="sm"
-                options={workflowOptions}
-                value={workflowOptions.find(option => option.value === field.value)}
-                onChange={(newValue) => field.onChange(newValue?.value)}
-                chakraStyles={{
-                  dropdownIndicator: (provided) => ({
-                    ...provided,
-                    bg: "transparent",
-                    px: 2,
-                    cursor: "inherit",
-                  }),
-                  indicatorSeparator: (provided) => ({
-                    ...provided,
-                    display: "none",
-                  }),
-                  menu: (provided) => ({
-                    ...provided,
-                    borderRadius: "4px",
-                    color: "white",
-                  }),
-                  menuList: (provided) => ({
-                    ...provided,
-                    bg: "#1A1E32",
-                    border: "1px solid #30385A",
-                  }),
-                  option: (provided) => ({
-                    ...provided,
-                    bg: "#1A1E32",
-                    _hover: {
-                      bg: "rgba(48, 56, 90, 0.50)",
-                    },
-                  }),
-                }}
-              />
-            </FormControl>
-          )}
-        />
+          <Controller
+            name="inAppSubject"
+            control={control}
+            render={({ field }) => (
+              <FormControl>
+                <FormLabel fontSize="sm">Subject</FormLabel>
+                <Input {...field} placeholder="In-App Notification Subject" size="sm" />
+              </FormControl>
+            )}
+          />
 
-        <Controller
-          name="inAppSubject"
-          control={control}
-          render={({ field }) => (
-            <FormControl>
-              <FormLabel fontSize="sm">Subject</FormLabel>
-              <Input {...field} placeholder="In-App Notification Subject" size="sm" />
-            </FormControl>
-          )}
-        />
-
-        <Controller
-          name="inAppBody"
-          control={control}
-          render={({ field }) => (
-            <FormControl>
-              <FormLabel fontSize="sm">Body</FormLabel>
-              <Textarea
-                {...field}
-                placeholder="In-App Notification Body"
-                size="sm"
-                resize="vertical"
-              />
-            </FormControl>
-          )}
-        />
-
+          <Controller
+            name="inAppBody"
+            control={control}
+            render={({ field }) => (
+              <FormControl>
+                <FormLabel fontSize="sm">Body</FormLabel>
+                <Textarea
+                  {...field}
+                  placeholder="In-App Notification Body"
+                  size="sm"
+                  resize="vertical"
+                />
+              </FormControl>
+            )}
+          />
+        </Flex>
         <Controller
           name="enablePrimaryAction"
           control={control}
           render={({ field }) => (
-            <FormControl display="flex" alignItems="center" justifyContent="space-between">
-              <FormLabel fontSize="sm" mb="0">
+            <FormControl
+              display="flex"
+              alignItems="center"
+              justifyContent="flex-start"
+              gap={2.5}
+              mt={2.5}
+            >
+              <FormLabel fontSize="sm" mb="0" mr={0}>
                 Enable Primary Action
               </FormLabel>
               <Switch {...(field as any)} isChecked={field.value} size="sm" />
             </FormControl>
           )}
         />
-
         {enablePrimaryAction && (
           <>
-            <Flex alignItems="center" justifyContent="space-between" gap={4}>
+            <Flex alignItems="center" justifyContent="space-between" gap={4} mt={1}>
               <Controller
                 name="inAppPrimaryActionLabel"
                 control={control}
@@ -268,8 +281,14 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
           name="enableSecondaryAction"
           control={control}
           render={({ field }) => (
-            <FormControl display="flex" alignItems="center" justifyContent="space-between">
-              <FormLabel fontSize="sm" mb="0">
+            <FormControl
+              display="flex"
+              alignItems="center"
+              justifyContent="flex-start"
+              gap={2.5}
+              mt={3}
+            >
+              <FormLabel fontSize="sm" mb="0" mr={0}>
                 Enable Secondary Action
               </FormLabel>
               <Switch {...(field as any)} isChecked={field.value} size="sm" />
@@ -304,7 +323,8 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
             </Flex>
           </>
         )}
-        <Flex alignItems="center" justifyContent="space-between" gap={4}>
+
+        <Flex flexDirection="column" gap={5} mt={2.5}>
           <Controller
             name="showInAppAvatar"
             control={control}
@@ -325,6 +345,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
             control={control}
             render={({ field }) => (
               <FormControl flex={1}>
+                <FormLabel fontSize="sm">Avatar URL</FormLabel>
                 <Input
                   {...field}
                   placeholder="Avatar URL"

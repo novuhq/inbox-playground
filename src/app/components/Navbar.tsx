@@ -17,13 +17,13 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
       transition="box-shadow 0.2s"
       _hover={{ boxShadow: "md" }}
     >
-      <Flex mx="auto" px={10} py={3} alignItems="center" justifyContent="space-between">
+      <Flex mx="auto" pl={8} pr="72px" py={3} alignItems="center" justifyContent="space-between">
         <HStack spacing={4} alignItems="center">
           <Image
             src="/novuLogo.svg"
             alt="Novu Logo"
-            height={10}
-            width={116}
+            height={8}
+            width={102}
             objectFit="contain"
             onClick={() =>
               window.open("https://novu.co?utm_source=sourceInboxPlayground", "_blank")
@@ -31,7 +31,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
             cursor="pointer"
           />
         </HStack>
-        <HStack spacing={4}>
+        <HStack spacing={5}>
           {children}
           <Button
             as={NextLink}
@@ -39,6 +39,8 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
             color={textColor}
             variant="white"
             fontSize="12px"
+            px={5}
+            py={3.5}
             fontWeight="medium"
             lineHeight="100%"
             textTransform="uppercase"

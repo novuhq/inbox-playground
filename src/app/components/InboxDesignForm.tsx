@@ -4,6 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useTheme } from "../contexts/ThemeContext";
 import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/css";
+import { Select, OptionBase } from "chakra-react-select";
 import {
   VStack,
   Text,
@@ -11,14 +12,13 @@ import {
   FormLabel,
   Switch,
   SimpleGrid,
-  Select,
   Input,
-  Button,
   Box,
+  Flex,
 } from "@chakra-ui/react";
 import { PickerIcon } from "./icons/Picker";
 import useClickOutside from "../hooks/useClickOutside";
-import { UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { UseFormRegister, UseFormSetValue, Controller } from "react-hook-form";
 
 const items = [
   {
@@ -101,7 +101,9 @@ function ColorPickerField({
 
   return (
     <FormControl position="relative">
-      <FormLabel>{label}</FormLabel>
+      <FormLabel fontSize="sm" color="white" opacity={0.6}>
+        {label}
+      </FormLabel>
       <Box position="relative" ref={pickerRef}>
         <Input
           {...register(name)}
@@ -136,6 +138,7 @@ export function InboxDesignForm() {
       handleSubmit,
       register,
       setValue,
+      control,
       formState: { errors, isSubmitting },
       getValues,
     },
@@ -160,33 +163,79 @@ export function InboxDesignForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} onChange={handleFormChange}>
-      <VStack spacing={4} alignItems="stretch" mb="20px">
-        <Text fontSize="lg" fontWeight="bold">
-          Configure And Design Inbox Component
-        </Text>
-        <Text fontSize="15px" color="white" opacity={0.8}>
-          Click on the &quot;Apply Changes&quot; button to see the changes in the Inbox component.
-        </Text>
+      <VStack spacing={4} alignItems="stretch">
+        <Flex flexDirection="column" gap={1}>
+          <Text fontSize="xl" fontWeight="medium" lineHeight={1}>
+            Configure And Design Inbox Component
+          </Text>
+          <Text fontSize="15px" color="white" opacity={0.8} lineHeight={1.4} maxW="408px">
+            Click on the &quot;Apply Changes&quot; button to see the changes in the Inbox component.
+          </Text>
+        </Flex>
 
-        <FormControl display="flex" alignItems="center" justifyContent="space-between">
-          <FormLabel mb="0" htmlFor="open">
+        <FormControl
+          display="flex"
+          alignItems="center"
+          justifyContent="flex-start"
+          gap={2.5}
+          mt={3}
+        >
+          <FormLabel mb="0" htmlFor="open" fontSize="sm" mr={0}>
             Keep Inbox Open
           </FormLabel>
-          <Switch {...register("open")} size="md" />
+          <Switch {...register("open")} size="sm" />
         </FormControl>
 
-        <SimpleGrid columns={1} spacing={4}>
-          <FormLabel>Inbox Language</FormLabel>
-          <Text fontSize="15px" color="white" opacity={0.8}>
+        <SimpleGrid columns={1} mt={1.5}>
+          <FormLabel fontSize="sm" color="white" opacity={0.6}>
             Select the language for your inbox notifications.
-          </Text>
-          <Select {...register("language")}>
-            {availableLanguages.map((lang) => (
-              <option key={lang.code} value={lang.code}>
-                {lang.label}
-              </option>
-            ))}
-          </Select>
+          </FormLabel>
+          <Controller
+            name="language"
+            control={control}
+            render={({ field }) => (
+              <Select
+                {...field}
+                options={availableLanguages}
+                defaultValue={availableLanguages[0]}
+                onChange={(newValue) => field.onChange(newValue?.code)}
+                value={availableLanguages.find((lang) => lang.code === field.value) || null}
+                chakraStyles={{
+                  singleValue: (provided) => ({
+                    ...provided,
+                    overflow: "visible",
+                  }),
+                  dropdownIndicator: (provided) => ({
+                    ...provided,
+                    bg: "transparent",
+                    px: 2,
+                    cursor: "inherit",
+                  }),
+                  indicatorSeparator: (provided) => ({
+                    ...provided,
+                    display: "none",
+                  }),
+                  menu: (provided) => ({
+                    ...provided,
+                    borderRadius: "4px",
+                    color: "white",
+                  }),
+                  menuList: (provided) => ({
+                    ...provided,
+                    bg: "#1A1E32",
+                    border: "1px solid #30385A",
+                  }),
+                  option: (provided) => ({
+                    ...provided,
+                    bg: "#1A1E32",
+                    _hover: {
+                      bg: "rgba(48, 56, 90, 0.50)",
+                    },
+                  }),
+                }}
+              />
+            )}
+          />
         </SimpleGrid>
 
         <SimpleGrid columns={2} spacing={4}>
@@ -200,11 +249,15 @@ export function InboxDesignForm() {
             />
           ))}
           <FormControl>
-            <FormLabel>Font Size</FormLabel>
+            <FormLabel fontSize="sm" color="white" opacity={0.6}>
+              Font Size
+            </FormLabel>
             <Input {...register("fontSize")} placeholder="inherit" size="sm" />
           </FormControl>
           <FormControl>
-            <FormLabel>Border Radius</FormLabel>
+            <FormLabel fontSize="sm" color="white" opacity={0.6}>
+              Border Radius
+            </FormLabel>
             <Input {...register("borderRadius")} placeholder="0.375rem" size="sm" />
           </FormControl>
         </SimpleGrid>

@@ -50,7 +50,6 @@ const PlaygroundFormContainer = () => {
         borderWidth="1px"
         borderColor="#6B7DB3"
         borderRadius="18px"
-        padding={3}
         boxShadow="lg"
         bg="linear-gradient(180deg, #1B2137 -0.49%, #111522 48.7%)"
         position="relative"
@@ -88,6 +87,8 @@ const PlaygroundFormContainer = () => {
               {themes.map((theme) => (
                 <Tab
                   key={theme.id}
+                  px={7}
+                  py={4}
                   sx={{
                     svg: {
                       width: "20px",
@@ -102,8 +103,9 @@ const PlaygroundFormContainer = () => {
                   _hover={{
                     color: "white",
                   }}
+                  lineHeight="1"
                 >
-                  <span style={{ marginRight: "10px", display: "inline-block" }}>{theme.icon}</span>
+                  <span style={{ marginRight: "6px", display: "inline-block" }}>{theme.icon}</span>
                   {theme.title}
                 </Tab>
               ))}
@@ -111,28 +113,39 @@ const PlaygroundFormContainer = () => {
             <TabIndicator mt="-1.5px" height="2px" borderRadius="1px" bg="white" />
             <TabPanels height="calc(100% - 30px)">
               {themes.map((theme) => (
-                <TabPanel key={theme.id} height="100%" overflowY="auto" overflowX="hidden">
+                <TabPanel
+                  key={theme.id}
+                  height="100%"
+                  overflowY="auto"
+                  overflowX="hidden"
+                  px={7}
+                  py="26px"
+                  gap={10}
+                  display="flex"
+                  flexDirection="column"
+                >
                   {theme.id === "default-theme" ? <InboxDesignForm /> : null}
                   <NotificationContentForm workflows={theme.workflows} />
                 </TabPanel>
               ))}
             </TabPanels>
           </Tabs>
-
-          <Button
-            variant="white-outline"
-            size="md"
-            width="full"
-            marginTop={4}
-            alignSelf="flex-end"
-            color="white"
-            fontWeight="500"
-            lineHeight="1.2"
-            isLoading={isLoading}
-            onClick={handleSubmit}
-          >
-            Send Notification
-          </Button>
+          <Box p={3}>
+            <Button
+              variant="white-outline"
+              size="md"
+              width="full"
+              height="44px"
+              alignSelf="flex-end"
+              color="white"
+              fontWeight="500"
+              lineHeight="1.2"
+              isLoading={isLoading}
+              onClick={handleSubmit}
+            >
+              Send Notification
+            </Button>
+          </Box>
         </VStack>
       </Flex>
     </Flex>
