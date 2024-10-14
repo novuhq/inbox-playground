@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useTheme } from "../contexts/ThemeContext";
 import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/css";
-import { Select, OptionBase } from "chakra-react-select";
+import { Select } from "chakra-react-select";
 import {
   VStack,
   Text,
