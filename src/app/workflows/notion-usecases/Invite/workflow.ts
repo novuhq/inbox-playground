@@ -1,17 +1,12 @@
 import { workflow } from "@novu/framework";
 import { payloadSchema } from "./payloadSchema";
 import { inAppControlSchema } from "./stepsControlSchema";
-import { z } from "zod";
 
-// Define the name for your workflow
 const workflowName = "notion-invite-notification";
 
-// Define the workflow
 export const notionInviteNotification = workflow(
   workflowName,
   async ({ step, payload, subscriber }) => {
-    // Define the step for the workflow
-    // -----------------------------------in-app step-------------------------------------------------------------------------
     await step.inApp(
       "in-app-step",
       async (controls) => {
@@ -40,34 +35,12 @@ export const notionInviteNotification = workflow(
         return result;
       },
       {
-        controlSchema: z.object({
-          subscriberFirstName: z.string().default("John"),
-          subscriberLastName: z.string().default("Doe"),
-          inAppSubject: z
-            .string()
-            .default(
-              `{{subscriber.firstName | capitalize}} {{subscriber.lastName | capitalize}} invited you to`
-            ),
-          inAppBody: z.string().default("In-App Notification Body!"),
-          inAppAvatar: z
-            .string()
-            .default("https://avatars.githubusercontent.com/u/63902456?v=4"),
-          showInAppAvatar: z.boolean().default(true),
-          inAppPrimaryActionLabel: z.string().default("Reply"),
-          enablePrimaryAction: z.boolean().default(true),
-          inAppPrimaryActionUrl: z.string().default("https://novu.com"),
-          inAppSecondaryActionLabel: z.string().default("Dismiss"),
-          enableSecondaryAction: z.boolean().default(false),
-          inAppSecondaryActionUrl: z.string().default("https://novu.com"),
-        }),
+        controlSchema: inAppControlSchema,
       }
     );
-
-    // -----------------------------------payload schema-------------------------------------------------------------------------
   },
   {
-    payloadSchema: z.object({}),
-    // -----------------------------------tags-------------------------------------------------------------------------
+    payloadSchema: payloadSchema,
     tags: ["Invite"],
   }
 );

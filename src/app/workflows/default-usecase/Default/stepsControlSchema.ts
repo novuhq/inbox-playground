@@ -1,17 +1,10 @@
 import { z } from "zod";
 
 export const inAppControlSchema = z.object({
-  subscriberFirstName: z.string().default("John"),
-  subscriberLastName: z.string().default("Doe"),
-  inAppSubject: z
-    .string()
-    .default(
-      `{{subscriber.firstName | capitalize}} {{subscriber.lastName | capitalize}} commented in`
-    ),
-  inAppBody: z.string().default("Important Page"),
-  inAppAvatar: z
-    .string()
-    .default("https://avatars.githubusercontent.com/u/63902456?v=4"),
+  useControls: z.boolean().default(false),
+  inAppSubject: z.string().default("In-App Notification Subject!"),
+  inAppBody: z.string().default("In-App Notification Body!"),
+  inAppAvatar: z.string().default("https://avatars.githubusercontent.com/u/63902456?v=4"),
   showInAppAvatar: z.boolean().default(true),
   inAppPrimaryActionLabel: z.string().default("Reply"),
   enablePrimaryAction: z.boolean().default(true),

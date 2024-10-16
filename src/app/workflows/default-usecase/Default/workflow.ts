@@ -2,9 +2,9 @@ import { workflow } from "@novu/framework";
 import { payloadSchema } from "./payloadSchema";
 import { inAppControlSchema } from "./stepsControlSchema";
 
-const workflowName = "notion-suggestion-notification";
+const workflowName = "default-notification";
 
-export const notionSuggestionNotification = workflow(
+export const defaultNotification = workflow(
   workflowName,
   async ({ step, payload, subscriber }) => {
     await step.inApp(
@@ -41,6 +41,5 @@ export const notionSuggestionNotification = workflow(
   },
   {
     payloadSchema: payloadSchema,
-    tags: ["Suggestion"],
   }
 );

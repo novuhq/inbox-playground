@@ -6,9 +6,9 @@ export const inAppControlSchema = z.object({
   inAppSubject: z
     .string()
     .default(
-      `{{subscriber.firstName | capitalize}} {{subscriber.lastName | capitalize}} commented in`
+      `⬆️ 1st upvote!`
     ),
-  inAppBody: z.string().default("Important Page"),
+  inAppBody: z.string().default("Go see your post on r/novuhq: 'Novu is...'"),
   inAppAvatar: z
     .string()
     .default("https://avatars.githubusercontent.com/u/63902456?v=4"),
