@@ -1,54 +1,25 @@
 import { z } from "zod";
 import { CronExpression } from "@novu/framework";
 
-export const emailControlSchema = z.object({
-  subject: z.string().default("A Successful Test on Novu!"),
-  showHeader: z.boolean().default(true),
-  components: z
-    .array(
-      z.object({
-        type: z.enum(["heading", "text", "button", "code", "users"]),
-        text: z.string().default(""),
-        align: z.enum(["left", "center", "right"]).default("left"),
-      }),
-    )
-    .default([
-      {
-        type: "heading",
-        text: "Welcome to Novu",
-        align: "center",
-      },
-      {
-        type: "text",
-        text: "Congratulations on receiving your first notification email from Novu! Join the hundreds of thousands of developers worldwide who use Novu to build notification platforms for their products.",
-        align: "left",
-      },
-      {
-        type: "users",
-        align: "center",
-        text: "",
-      },
-      {
-        type: "text",
-        text: "Ready to get started? Click on the button below, and you will see first-hand how easily you can edit this email content.",
-        align: "left",
-      },
-      {
-        type: "button",
-        text: "Edit Email",
-        align: "center",
-      },
-    ]),
-});
-
 export const inAppControlSchema = z.object({
-  inAppSubject: z.string().default("In-App Notification Subject!"),
-  pageName: z.string().default("Very Intresting Page"),
-  inAppAvatar: z.string().default("https://avatars.githubusercontent.com/u/63902456?v=4"),
+  subscriberFirstName: z.string().default("John"),
+  subscriberLastName: z.string().default("Doe"),
+  inAppSubject: z
+    .string()
+    .default(
+      `{{subscriber.firstName | capitalize}} {{subscriber.lastName | capitalize}} intived you to`
+    ),
+  inAppBody: z.string().default("Important Page"),
+  inAppAvatar: z
+    .string()
+    .default("https://avatars.githubusercontent.com/u/63902456?v=4"),
   showInAppAvatar: z.boolean().default(true),
-  inAppPrimaryActionLabel: z.string().default("Reply"),
+  inAppPrimaryActionLabel: z.string().default("Join"),
   enablePrimaryAction: z.boolean().default(true),
   inAppPrimaryActionUrl: z.string().default("https://novu.com"),
+  inAppSecondaryActionLabel: z.string().default("Dismiss"),
+  enableSecondaryAction: z.boolean().default(false),
+  inAppSecondaryActionUrl: z.string().default("https://novu.com"),
 });
 
 export const smsControlSchema = z.object({

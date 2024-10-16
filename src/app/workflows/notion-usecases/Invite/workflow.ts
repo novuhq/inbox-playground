@@ -1,46 +1,46 @@
 import { workflow } from "@novu/framework";
 import { payloadSchema } from "./payloadSchema";
+import { inAppControlSchema } from "./stepsControlSchema";
 
-// Define the name for your workflow
 const workflowName = "notion-invite-notification";
 
-// Define the workflow
 export const notionInviteNotification = workflow(
   workflowName,
-  async ({ step, payload }) => {
-    // Define the step for the workflow
-    // -----------------------------------in-app step-------------------------------------------------------------------------
+  async ({ step, payload, subscriber }) => {
     await step.inApp(
       "in-app-step",
-      async () => {
+      async (controls) => {
         const result: any = {
-          subject: payload.inAppSubject,
-          body: payload.inAppBody,
+          subject: controls.inAppSubject,
+          body: controls.inAppBody,
         };
 
-        if (payload.showInAppAvatar) {
-          result.avatar = payload.inAppAvatar;
+        if (controls.showInAppAvatar) {
+          result.avatar = controls.inAppAvatar;
         }
 
-        if (payload.enablePrimaryAction) {
+        if (controls.enablePrimaryAction) {
           result.primaryAction = {
-            label: payload.inAppPrimaryActionLabel,
-            url: payload.inAppPrimaryActionUrl,
+            label: controls.inAppPrimaryActionLabel,
+            url: controls.inAppPrimaryActionUrl,
           };
         }
 
-        if (payload.enableSecondaryAction) {
+        if (controls.enableSecondaryAction) {
           result.secondaryAction = {
-            label: payload.inAppSecondaryActionLabel,
-            url: payload.inAppSecondaryActionUrl,
+            label: controls.inAppSecondaryActionLabel,
+            url: controls.inAppSecondaryActionUrl,
           };
         }
         return result;
       },
+      {
+        controlSchema: inAppControlSchema,
+      }
     );
   },
   {
+    payloadSchema: payloadSchema,
     tags: ["Invite"],
-    payloadSchema: payloadSchema
   }
 );
