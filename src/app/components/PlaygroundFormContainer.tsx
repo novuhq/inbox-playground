@@ -15,28 +15,13 @@ import {
 import InboxDesignForm from "./InboxDesignForm";
 import NotificationContentForm from "./NotificationContentForm";
 import { useNotificationForm } from "../hooks/useNotificationForm";
+import { useSubscriber } from "../hooks/useSubscriber";
 import { useTheme } from "../contexts/ThemeContext";
-import { useState, useEffect } from "react";
 
 const PlaygroundFormContainer = () => {
   const { themes, setSelectedTheme } = useTheme();
 
   const { handleSubmit, isLoading } = useNotificationForm();
-  const [tabIndex, setTabIndex] = useState(0);
-
-  useEffect(() => {
-    const storedTabIndex = localStorage.getItem("selectedTabIndex");
-    if (storedTabIndex !== null) {
-      setTabIndex(parseInt(storedTabIndex, 10));
-      setSelectedTheme(themes[parseInt(storedTabIndex, 10)]);
-    }
-  }, []);
-
-  const handleTabChange = (index: number) => {
-    setTabIndex(index);
-    setSelectedTheme(themes[index]);
-    localStorage.setItem("selectedTabIndex", index.toString());
-  };
 
   return (
     <Flex
@@ -55,8 +40,9 @@ const PlaygroundFormContainer = () => {
       <VStack spacing={4} alignItems="stretch" flexGrow={1} height="100%">
         <Tabs
           height="calc(100% - 80px)"
-          onChange={handleTabChange}
-          index={tabIndex}
+          onChange={(index) => {
+            setSelectedTheme(themes[index]);
+          }}
         >
           <TabList borderBottom="1px solid #E2E8F0">
             {themes.map((theme) => (

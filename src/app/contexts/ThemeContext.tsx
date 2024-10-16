@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import React, { createContext, useContext, useState, ReactNode } from "react";
 import { NotionIcon } from "../components/icons/Notion";
 import { useForm, UseFormReturn } from "react-hook-form";
 import { RedditIcon } from "../components/icons/Reddit";
@@ -255,10 +255,10 @@ const themes: Theme[] = [
           inAppBody: `In-App Notification Body!`, //page name
           enablePrimaryAction: true,
           inAppPrimaryActionLabel: "Reply",
-          inAppPrimaryActionUrl: "https://novu.com",
+          inAppPrimaryActionUrl: "https://google.com",
           enableSecondaryAction: false,
           inAppSecondaryActionLabel: "Dismiss",
-          inAppSecondaryActionUrl: "https://novu.com",
+          inAppSecondaryActionUrl: "https://google.com",
           showInAppAvatar: true,
           inAppAvatar: "https://avatars.githubusercontent.com/u/77433905?s=200&v=4",
         },
@@ -292,7 +292,6 @@ interface ThemeContextType {
   setSelectedTheme: (theme: Theme) => void;
   inboxThemeForm: UseFormReturn<any>;
   notificationForm: UseFormReturn<NotificationFormState>;
-  isThemeLoaded: boolean; // Add this line
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -310,110 +309,42 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [selectedTheme, setSelectedTheme] = useState<Theme>(themes[0]);
-  const [isThemeLoaded, setIsThemeLoaded] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('selectedTheme');
-      if (savedTheme) {
-        setSelectedTheme(JSON.parse(savedTheme));
-      }
-      setIsThemeLoaded(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined' && isThemeLoaded) {
-      localStorage.setItem('selectedTheme', JSON.stringify(selectedTheme));
-    }
-  }, [selectedTheme, isThemeLoaded]);
-
+  const [selectedTheme, setSelectedTheme] = useState(themes[0]);
   const inboxThemeForm = useForm({
-    defaultValues: typeof window !== 'undefined'
-      ? JSON.parse(localStorage.getItem('inboxThemeFormValues') || JSON.stringify({
-          open: true,
-          language: "en",
-          colorPrimary: "#0081F1",
-          colorPrimaryForeground: "white",
-          colorSecondary: "#F3F3F3",
-          colorSecondaryForeground: "#1A1523",
-          colorCounter: "#E5484D",
-          colorCounterForeground: "white",
-          colorBackground: "#FCFCFC",
-          colorForeground: "#1A1523",
-          colorNeutral: "black",
-          fontSize: "inherit",
-          borderRadius: "0.375rem",
-        }))
-      : {
-          open: true,
-          language: "en",
-          colorPrimary: "#0081F1",
-          colorPrimaryForeground: "white",
-          colorSecondary: "#F3F3F3",
-          colorSecondaryForeground: "#1A1523",
-          colorCounter: "#E5484D",
-          colorCounterForeground: "white",
-          colorBackground: "#FCFCFC",
-          colorForeground: "#1A1523",
-          colorNeutral: "black",
-          fontSize: "inherit",
-          borderRadius: "0.375rem",
-        },
+    defaultValues: {
+      open: true,
+      language: "en",
+      colorPrimary: "#0081F1",
+      colorPrimaryForeground: "white",
+      colorSecondary: "#F3F3F3",
+      colorSecondaryForeground: "#1A1523",
+      colorCounter: "#E5484D",
+      colorCounterForeground: "white",
+      colorBackground: "#FCFCFC",
+      colorForeground: "#1A1523",
+      colorNeutral: "black",
+      fontSize: "inherit",
+      borderRadius: "0.375rem",
+    },
   });
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const subscription = inboxThemeForm.watch((value) => {
-        localStorage.setItem('inboxThemeFormValues', JSON.stringify(value));
-      });
-      return () => subscription.unsubscribe();
-    }
-  }, [inboxThemeForm]);
 
   const notificationForm = useForm<NotificationFormState>({
-    defaultValues: typeof window !== 'undefined'
-      ? JSON.parse(localStorage.getItem('notificationFormValues') || JSON.stringify({
-          subscriberFirstName: "John",
-          subscriberLastName: "Doe",
-          inAppSubject: "",
-          inAppBody: "",
-          inAppAvatar: "",
-          showInAppAvatar: false,
-          inAppPrimaryActionLabel: "",
-          enablePrimaryAction: false,
-          inAppPrimaryActionUrl: "",
-          inAppSecondaryActionLabel: "",
-          enableSecondaryAction: false,
-          inAppSecondaryActionUrl: "",
-          selectedWorkflow: themes[0].workflows[0].id,
-        }))
-      : {
-          subscriberFirstName: "John",
-          subscriberLastName: "Doe",
-          inAppSubject: "",
-          inAppBody: "",
-          inAppAvatar: "",
-          showInAppAvatar: false,
-          inAppPrimaryActionLabel: "",
-          enablePrimaryAction: false,
-          inAppPrimaryActionUrl: "",
-          inAppSecondaryActionLabel: "",
-          enableSecondaryAction: false,
-          inAppSecondaryActionUrl: "",
-          selectedWorkflow: themes[0].workflows[0].id,
-        },
+    defaultValues: {
+      subscriberFirstName: "John",
+      subscriberLastName: "Doe",
+      inAppSubject: "",
+      inAppBody: "",
+      inAppAvatar: "",
+      showInAppAvatar: false,
+      inAppPrimaryActionLabel: "",
+      enablePrimaryAction: false,
+      inAppPrimaryActionUrl: "",
+      inAppSecondaryActionLabel: "",
+      enableSecondaryAction: false,
+      inAppSecondaryActionUrl: "",
+      selectedWorkflow: themes[0].workflows[0].id,
+    },
   });
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const subscription = notificationForm.watch((value) => {
-        localStorage.setItem('notificationFormValues', JSON.stringify(value));
-      });
-      return () => subscription.unsubscribe();
-    }
-  }, [notificationForm]);
 
   const value: ThemeContextType = {
     themes,
@@ -421,7 +352,6 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     setSelectedTheme,
     inboxThemeForm,
     notificationForm,
-    isThemeLoaded, // Add this line
   };
 
   return (
