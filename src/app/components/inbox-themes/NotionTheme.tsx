@@ -388,30 +388,10 @@ function formatTime(timestamp: any) {
   const now = new Date().getTime();
   const diffInSeconds = Math.floor((now - date.getTime()) / 1000);
 
-  // Time calculations
-  const secondsInMinute = 60;
-  const secondsInHour = secondsInMinute * 60;
-  const secondsInDay = secondsInHour * 24;
-  const secondsInWeek = secondsInDay * 7;
-  const secondsInYear = secondsInDay * 365;
-
-  if (diffInSeconds < secondsInMinute) {
-    return `${diffInSeconds} seconds`;
-  } else if (diffInSeconds < secondsInHour) {
-    const minutes = Math.floor(diffInSeconds / secondsInMinute);
-    return `${minutes} minutes`;
-  } else if (diffInSeconds < secondsInDay) {
-    const hours = Math.floor(diffInSeconds / secondsInHour);
-    return `${hours} hours`;
-  } else if (diffInSeconds < secondsInWeek) {
-    const days = Math.floor(diffInSeconds / secondsInDay);
-    return `${days} days`;
-  } else if (diffInSeconds < secondsInYear) {
-    const options: any = { month: "short", day: "numeric" };
-    return date.toLocaleDateString(undefined, options); // e.g., "Feb 26"
-  } else {
-    return date.getFullYear().toString(); // e.g., "2022"
-  }
+  if (diffInSeconds < 60) return `${diffInSeconds}s ago`;
+  if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`;
+  if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`;
+  return date.toLocaleDateString();
 }
 
 export default NotionTheme;
