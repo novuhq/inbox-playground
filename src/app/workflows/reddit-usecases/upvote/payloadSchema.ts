@@ -1,17 +1,11 @@
 import { z } from "zod";
 
 export const payloadSchema = z.object({
-  subscriberFirstName: z.string().default("John"),
+  subscriberFirstName: z.string().default("John"), 
   subscriberLastName: z.string().default("Doe"),
-  inAppSubject: z
-    .string()
-    .default(
-      `{{subscriber.firstName | capitalize}} {{subscriber.lastName | capitalize}} invited you to`
-    ),
+  inAppSubject: z.string().default("In-App Notification Subject!"),
   inAppBody: z.string().default("In-App Notification Body!"),
-  inAppAvatar: z
-    .string()
-    .default("https://avatars.githubusercontent.com/u/63902456?v=4"),
+  inAppAvatar: z.string().default("https://avatars.githubusercontent.com/u/63902456?v=4"),
   showInAppAvatar: z.boolean().default(true),
   inAppPrimaryActionLabel: z.string().default("Reply"),
   enablePrimaryAction: z.boolean().default(true),

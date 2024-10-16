@@ -1,14 +1,13 @@
 import { workflow } from "@novu/framework";
 import { payloadSchema } from "./payloadSchema";
 
-const workflowName = "notion-comment-notification";
+
+const workflowName = "default-notification";
 
 // Define the workflow
-export const notionCommentNotification = workflow(
+export const defaultNotification = workflow(
   workflowName,
-  async ({ step, payload, subscriber }) => {
-    // Define the step for the workflow
-    // -----------------------------------in-app step-------------------------------------------------------------------------
+  async ({ step, payload }) => {
     await step.inApp(
       "in-app-step",
       async () => {
@@ -37,9 +36,9 @@ export const notionCommentNotification = workflow(
         return result;
       },
     );
+    
   },
   {
-    tags: ["Comment"],
     payloadSchema: payloadSchema
   }
 );

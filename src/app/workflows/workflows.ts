@@ -5,6 +5,7 @@ import { notionCommentNotification } from './notion-usecases/Comment/workflow';
 import { redditReplyToComment } from './reddit-usecases/reply-to-comment/workflow';
 import { redditReplyToPost } from './reddit-usecases/reply-to-post/workflow';
 import { redditUpvote } from './reddit-usecases/upvote/workflow';
+import { defaultNotification } from './default-usecase/Default/workflow';
 
 
 export const workflows = [
@@ -15,5 +16,6 @@ export const workflows = [
     redditReplyToPost,
     redditUpvote,
     redditReplyToComment,
+    defaultNotification
 ]
 

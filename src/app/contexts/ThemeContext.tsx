@@ -246,7 +246,23 @@ const themes: Theme[] = [
     id: "default-theme",
     title: "Default Theme",
     icon: null,
-    workflows: [{ id: "custom-workflow", title: "Custom Workflow" }],
+    workflows: [
+      {
+        id: "default-notification",
+        title: "Custom Workflow",
+        data: {
+          inAppSubject: `In-App Notification Subject!`, //Main notification text (subject)
+          inAppBody: `In-App Notification Body!`, //page name
+          enablePrimaryAction: true,
+          inAppPrimaryActionLabel: "Reply",
+          inAppPrimaryActionUrl: "https://novu.com",
+          enableSecondaryAction: false,
+          inAppSecondaryActionLabel: "Dismiss",
+          inAppSecondaryActionUrl: "https://novu.com",
+          showInAppAvatar: true,
+          inAppAvatar: "https://avatars.githubusercontent.com/u/77433905?s=200&v=4",
+        },
+      }],
     appearance: {
       variables: {},
       elements: {},

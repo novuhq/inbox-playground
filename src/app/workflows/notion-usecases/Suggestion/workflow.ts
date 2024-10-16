@@ -1,72 +1,43 @@
 import { workflow } from "@novu/framework";
-// import { renderEmail } from "./email-templates/react-email-template";
 import { payloadSchema } from "./payloadSchema";
-import { z } from "zod";
 
 const workflowName = "notion-suggestion-notification";
 
 // Define the workflow
 export const notionSuggestionNotification = workflow(
   workflowName,
-  async ({ step, payload, subscriber }) => {
-    // Define the step for the workflow
-    // -----------------------------------in-app step-------------------------------------------------------------------------
+  async ({ step, payload }) => {
     await step.inApp(
       "In App Step",
-      async (controls) => {
+      async () => {
         const result: any = {
-          subject: controls.inAppSubject,
-          body: controls.inAppBody,
+          subject: payload.inAppSubject,
+          body: payload.inAppBody,
         };
 
-        if (controls.showInAppAvatar) {
-          result.avatar = controls.inAppAvatar;
+        if (payload.showInAppAvatar) {
+          result.avatar = payload.inAppAvatar;
         }
 
-        if (controls.enablePrimaryAction) {
+        if (payload.enablePrimaryAction) {
           result.primaryAction = {
-            label: controls.inAppPrimaryActionLabel,
-            url: controls.inAppPrimaryActionUrl,
+            label: payload.inAppPrimaryActionLabel,
+            url: payload.inAppPrimaryActionUrl,
           };
         }
 
-        if (controls.enableSecondaryAction) {
+        if (payload.enableSecondaryAction) {
           result.secondaryAction = {
-            label: controls.inAppSecondaryActionLabel,
-            url: controls.inAppSecondaryActionUrl,
+            label: payload.inAppSecondaryActionLabel,
+            url: payload.inAppSecondaryActionUrl,
           };
         }
         return result;
       },
-      {
-        controlSchema: z.object({
-          subscriberFirstName: z.string().default("John"),
-          subscriberLastName: z.string().default("Doe"),
-          inAppSubject: z
-            .string()
-            .default(
-              `{{subscriber.firstName | capitalize}} {{subscriber.lastName | capitalize}} suggested in`
-            ),
-          inAppBody: z.string().default("In-App Notification Body!"),
-          inAppAvatar: z
-            .string()
-            .default("https://avatars.githubusercontent.com/u/63902456?v=4"),
-          showInAppAvatar: z.boolean().default(true),
-          inAppPrimaryActionLabel: z.string().default("Reply"),
-          enablePrimaryAction: z.boolean().default(true),
-          inAppPrimaryActionUrl: z.string().default("https://novu.com"),
-          inAppSecondaryActionLabel: z.string().default("Dismiss"),
-          enableSecondaryAction: z.boolean().default(false),
-          inAppSecondaryActionUrl: z.string().default("https://novu.com"),
-        }),
-      }
     );
-
-    // -----------------------------------payload schema-------------------------------------------------------------------------
   },
   {
     payloadSchema: payloadSchema,
-    // -----------------------------------tags-------------------------------------------------------------------------
     tags: ["Suggestion"],
   }
 );
