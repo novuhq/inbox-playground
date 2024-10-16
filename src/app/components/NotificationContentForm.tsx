@@ -1,5 +1,5 @@
 "use client";
-
+import { Select, OptionBase } from "chakra-react-select";
 import React, { useEffect } from "react";
 import { Controller } from "react-hook-form";
 import {
@@ -10,7 +10,6 @@ import {
   Switch,
   Text,
   VStack,
-  Select,
   Heading,
   Flex,
   Divider,
@@ -20,6 +19,11 @@ import { useTheme } from "../contexts/ThemeContext";
 interface Workflow {
   id: string;
   title: string;
+}
+
+interface WorkflowOption extends OptionBase {
+  label: string;
+  value: string;
 }
 
 interface NotificationFormState {
@@ -52,6 +56,11 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
     selectedTheme,
   } = useTheme();
 
+  const workflowOptions: WorkflowOption[] = workflows.map((workflow) => ({
+    label: workflow.title,
+    value: workflow.id,
+  }));
+
   const formValues = watch();
   const selectedWorkflowId = watch("selectedWorkflow");
 
@@ -63,7 +72,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
 
   useEffect(() => {
     const selectedWorkflow = selectedTheme.workflows.find(
-      (workflow) => workflow.id === selectedWorkflowId
+      (workflow) => workflow.id === selectedWorkflowId,
     );
 
     if (selectedWorkflow && selectedWorkflow.data) {
@@ -100,8 +109,17 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
     <form>
       <VStack spacing={4} alignItems="stretch">
         <div>
-          <Heading size="sm">Subscriber</Heading>
-          <Text fontSize="sm" color="gray.20" mb={2}>
+          <Heading size="sm" fontSize="18px">
+            Subscriber
+          </Heading>
+          <Text
+            fontSize="15px"
+            color="white"
+            fontWeight={350}
+            opacity={0.8}
+            mt={1.5}
+            lineHeight={1.4}
+          >
             The recipient of the notification, change the details to customize.
           </Text>
         </div>
@@ -125,66 +143,94 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
             render={({ field }) => (
               <FormControl flex={1}>
                 <FormLabel fontSize="sm">Last Name</FormLabel>
-                  <Input {...field} placeholder="Last Name" size="sm" />
+                <Input {...field} placeholder="Last Name" size="sm" />
               </FormControl>
             )}
           />
         </Flex>
 
-        <Divider borderColor="#DEE2E6" opacity={0.6} />
+        <Divider borderColor="#30385A" my={3} />
+        <Flex flexDirection="column" gap={6}>
+          <Controller
+            name="selectedWorkflow"
+            control={control}
+            defaultValue={workflows[0].id}
+            render={({ field }) => (
+              <FormControl>
+                <Heading size="sm" fontSize="18px">
+                  Workflow
+                </Heading>
+                <FormLabel fontSize="sm" mt={5}>
+                  Select a workflow to customize the notification content.
+                </FormLabel>
+                <Select
+                  {...field}
+                  size="sm"
+                  options={workflowOptions}
+                  value={workflowOptions.find((option) => option.value === field.value)}
+                  defaultValue={workflowOptions[0]}
+                  onChange={(newValue) => field.onChange(newValue?.value)}
+                  chakraStyles={{
+                    dropdownIndicator: (provided) => ({
+                      ...provided,
+                      bg: "transparent",
+                      px: 2,
+                      cursor: "inherit",
+                    }),
+                    indicatorSeparator: (provided) => ({
+                      ...provided,
+                      display: "none",
+                    }),
+                    menu: (provided) => ({
+                      ...provided,
+                      borderRadius: "4px",
+                      color: "white",
+                    }),
+                    menuList: (provided) => ({
+                      ...provided,
+                      bg: "#1A1E32",
+                      border: "1px solid #30385A",
+                    }),
+                    option: (provided) => ({
+                      ...provided,
+                      bg: "#1A1E32",
+                      _hover: {
+                        bg: "rgba(48, 56, 90, 0.50)",
+                      },
+                    }),
+                  }}
+                />
+              </FormControl>
+            )}
+          />
 
-        <Controller
-          name="selectedWorkflow"
-          control={control}
-          defaultValue={workflows[0].id}
-          render={({ field }) => (
-            <FormControl>
-              <Heading size="sm">Workflow</Heading>
-              <Text fontSize="sm" color="gray.20" mb={2}>
-                Select a workflow to customize the notification content.
-              </Text>
-              <Select {...field} size="sm">
-                {workflows.map((workflow) => (
-                  <option key={workflow.id} value={workflow.id}>
-                    {workflow.title}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          )}
-        />
+          <Controller
+            name="inAppSubject"
+            control={control}
+            render={({ field }) => (
+              <FormControl>
+                <FormLabel fontSize="sm">Subject</FormLabel>
+                <Input {...field} placeholder="In-App Notification Subject" size="sm" />
+              </FormControl>
+            )}
+          />
 
-        <Controller
-          name="inAppSubject"
-          control={control}
-          render={({ field }) => (
-            <FormControl>
-              <FormLabel fontSize="sm">Subject</FormLabel>
-              <Input
-                {...field}
-                placeholder="In-App Notification Subject"
-                size="sm"
-              />
-            </FormControl>
-          )}
-        />
-
-        <Controller
-          name="inAppBody"
-          control={control}
-          render={({ field }) => (
-            <FormControl>
-              <FormLabel fontSize="sm">Body</FormLabel>
-              <Textarea
-                {...field}
-                placeholder="In-App Notification Body"
-                size="sm"
-                resize="vertical"
-              />
-            </FormControl>
-          )}
-        />
-
+          <Controller
+            name="inAppBody"
+            control={control}
+            render={({ field }) => (
+              <FormControl>
+                <FormLabel fontSize="sm">Body</FormLabel>
+                <Textarea
+                  {...field}
+                  placeholder="In-App Notification Body"
+                  size="sm"
+                  resize="vertical"
+                />
+              </FormControl>
+            )}
+          />
+        </Flex>
         <Controller
           name="enablePrimaryAction"
           control={control}
@@ -192,34 +238,27 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
             <FormControl
               display="flex"
               alignItems="center"
-              justifyContent="space-between"
+              justifyContent="flex-start"
+              gap={2.5}
+              mt={2.5}
             >
-              <FormLabel fontSize="sm" mb="0">
+              <FormLabel fontSize="sm" mb="0" mr={0}>
                 Enable Primary Action
               </FormLabel>
-              <Switch
-                {...(field as any)}
-                isChecked={field.value}
-                size="sm"
-              />
+              <Switch {...(field as any)} isChecked={field.value} size="sm" />
             </FormControl>
           )}
         />
-
         {enablePrimaryAction && (
           <>
-            <Flex alignItems="center" justifyContent="space-between" gap={4}>
+            <Flex alignItems="center" justifyContent="space-between" gap={4} mt={1}>
               <Controller
                 name="inAppPrimaryActionLabel"
                 control={control}
                 render={({ field }) => (
                   <FormControl>
                     <FormLabel fontSize="sm">Primary Action Label</FormLabel>
-                    <Input
-                      {...field}
-                      placeholder="Primary Action Label"
-                      size="sm"
-                    />
+                    <Input {...field} placeholder="Primary Action Label" size="sm" />
                   </FormControl>
                 )}
               />
@@ -230,11 +269,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
                 render={({ field }) => (
                   <FormControl>
                     <FormLabel fontSize="sm">Primary Action URL</FormLabel>
-                    <Input
-                      {...field}
-                      placeholder="Primary Action URL"
-                      size="sm"
-                    />
+                    <Input {...field} placeholder="Primary Action URL" size="sm" />
                   </FormControl>
                 )}
               />
@@ -249,9 +284,11 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
             <FormControl
               display="flex"
               alignItems="center"
-              justifyContent="space-between"
+              justifyContent="flex-start"
+              gap={2.5}
+              mt={3}
             >
-              <FormLabel fontSize="sm" mb="0">
+              <FormLabel fontSize="sm" mb="0" mr={0}>
                 Enable Secondary Action
               </FormLabel>
               <Switch {...(field as any)} isChecked={field.value} size="sm" />
@@ -268,11 +305,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
                 render={({ field }) => (
                   <FormControl>
                     <FormLabel fontSize="sm">Secondary Action Label</FormLabel>
-                    <Input
-                      {...field}
-                      placeholder="Secondary Action Label"
-                      size="sm"
-                    />
+                    <Input {...field} placeholder="Secondary Action Label" size="sm" />
                   </FormControl>
                 )}
               />
@@ -283,18 +316,15 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
                 render={({ field }) => (
                   <FormControl>
                     <FormLabel fontSize="sm">Secondary Action URL</FormLabel>
-                    <Input
-                      {...field}
-                      placeholder="Secondary Action URL"
-                      size="sm"
-                    />
+                    <Input {...field} placeholder="Secondary Action URL" size="sm" />
                   </FormControl>
                 )}
               />
             </Flex>
           </>
         )}
-        <Flex alignItems="center" justifyContent="space-between" gap={4}>
+
+        <Flex flexDirection="column" gap={5} mt={2.5}>
           <Controller
             name="showInAppAvatar"
             control={control}
@@ -304,11 +334,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
                   <FormLabel fontSize="sm" mb="0" mr={2} whiteSpace="nowrap">
                     Show Avatar
                   </FormLabel>
-                  <Switch
-                    {...(field as any)}
-                    isChecked={field.value}
-                    size="sm"
-                  />
+                  <Switch {...(field as any)} isChecked={field.value} size="sm" />
                 </FormControl>
               );
             }}
@@ -319,6 +345,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
             control={control}
             render={({ field }) => (
               <FormControl flex={1}>
+                <FormLabel fontSize="sm">Avatar URL</FormLabel>
                 <Input
                   {...field}
                   placeholder="Avatar URL"

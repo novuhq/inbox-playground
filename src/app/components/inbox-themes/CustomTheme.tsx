@@ -28,11 +28,7 @@ const englishLocalization = {
   "notifications.actions.readAll": "Mark all as read",
   "notifications.actions.archiveAll": "Archive all",
   "notifications.actions.archiveRead": "Archive read",
-  "notifications.newNotifications": ({
-    notificationCount,
-  }: {
-    notificationCount: number;
-  }) =>
+  "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
     `${notificationCount > 99 ? "99+" : notificationCount} new ${
       notificationCount === 1 ? "notification" : "notifications"
     }`,
@@ -46,10 +42,7 @@ const englishLocalization = {
 
 type LocalizationKey = keyof typeof englishLocalization;
 
-const localization: Record<
-  string,
-  Record<LocalizationKey, LocalizationValue>
-> = {
+const localization: Record<string, Record<LocalizationKey, LocalizationValue>> = {
   // English (Default)
   "en-US": englishLocalization,
 
@@ -66,15 +59,9 @@ const localization: Record<
     "notifications.actions.readAll": "Tout marquer comme lu",
     "notifications.actions.archiveAll": "Tout archiver",
     "notifications.actions.archiveRead": "Archiver les lus",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
+    "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
       `${notificationCount > 99 ? "99+" : notificationCount} ${
-        notificationCount === 1
-          ? "nouvelle notification"
-          : "nouvelles notifications"
+        notificationCount === 1 ? "nouvelle notification" : "nouvelles notifications"
       }`,
     "notification.actions.read.toolTip": "Marquer comme lu",
     "notification.actions.unread.toolTip": "Marquer comme non lu",
@@ -97,11 +84,7 @@ const localization: Record<
     "notifications.actions.readAll": "Alle als gelesen markieren",
     "notifications.actions.archiveAll": "Alle archivieren",
     "notifications.actions.archiveRead": "Gelesenes archivieren",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
+    "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
       `${notificationCount > 99 ? "99+" : notificationCount} neue ${
         notificationCount === 1 ? "Benachrichtigung" : "Benachrichtigungen"
       }`,
@@ -126,11 +109,7 @@ const localization: Record<
     "notifications.actions.readAll": "すべて既読にする",
     "notifications.actions.archiveAll": "すべてアーカイブ",
     "notifications.actions.archiveRead": "既読をアーカイブ",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
+    "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
       `${notificationCount > 99 ? "99+" : notificationCount} 件の${
         notificationCount === 1 ? "新しい通知" : "新しい通知"
       }`,
@@ -155,11 +134,7 @@ const localization: Record<
     "notifications.actions.readAll": "Отметить все как прочитанное",
     "notifications.actions.archiveAll": "Архивировать все",
     "notifications.actions.archiveRead": "Архивировать прочитанное",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
+    "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
       `${notificationCount > 99 ? "99+" : notificationCount} новых ${
         notificationCount === 1 ? "уведомление" : "уведомлений"
       }`,
@@ -172,10 +147,7 @@ const localization: Record<
   },
 };
 
-const typedLocalization: Record<
-  string,
-  Record<LocalizationKey, any>
-> = localization;
+const typedLocalization: Record<string, Record<LocalizationKey, any>> = localization;
 
 const CustomTheme = ({ subscriberId }: { subscriberId: string | null }) => {
   const novuConfig: any = {
@@ -205,7 +177,6 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string | null }) => {
   return (
     <Flex
       width="100%"
-      maxW="1200px"
       height="100%"
       minHeight="400px"
       borderRadius="lg"

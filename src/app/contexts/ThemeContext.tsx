@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { NotionIcon } from "../components/icons/Notion";
 import { useForm, UseFormReturn } from "react-hook-form";
 import { RedditIcon } from "../components/icons/Reddit";
+import { PenIcon } from "../components/icons/Pen";
 
 
 export interface Workflow {
@@ -179,18 +180,18 @@ const themes: Theme[] = [
 {
     id: "reddit",
     title: "Reddit",
-  icon: <RedditIcon />,
-  appearance: {
-    variables: {},
-    elements: {
-      inboxHeader: {
-        display: "none",
+    icon: <RedditIcon />,
+    appearance: {
+      variables: {},
+      elements: {
+        inboxHeader: {
+          display: "none",
+        },
+        preferencesHeader: {
+          display: "none",
+        },
       },
-      preferencesHeader: {
-        display: "none",
-      },
-      },
-  },
+    },
     workflows: [
       {
         id: "reddit-reply-to-comment",
@@ -245,7 +246,7 @@ const themes: Theme[] = [
   {
     id: "default-theme",
     title: "Default Theme",
-    icon: null,
+    icon: <PenIcon />,
     workflows: [
       {
         id: "default-notification",

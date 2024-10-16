@@ -1,14 +1,11 @@
-"use client";
-// insert css reset to ensure all components are styled correctly https://chakra-ui.vercel.app/getting-started#injecting-global-styles
-import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 import AppContainer from "./components/layout/AppContainer";
-import theme from "@/theme";
+
+import { Providers } from "./providers";
 
 export default function Home() {
   return (
-    <ChakraProvider theme={theme}>
-      <CSSReset/>
+    <Providers>
       <AppContainer />
-    </ChakraProvider>
+    </Providers>
   );
 }

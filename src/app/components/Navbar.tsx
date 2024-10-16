@@ -1,21 +1,10 @@
 "use client";
 
-import {
-  Box,
-  Flex,
-  Text,
-  HStack,
-  Button,
-  Image,
-  VStack,
-  useDisclosure,
-  useColorModeValue,
-} from "@chakra-ui/react";
-import CodeModal from "./CodeModal";
+import NextLink from "next/link";
+import { Box, Flex, HStack, Button, Image, useColorModeValue } from "@chakra-ui/react";
 
-const Navbar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const bgColor = useColorModeValue("white", "gray.800");
+const Navbar = ({ children }: { children: React.ReactNode }) => {
+  const bgColor = useColorModeValue("", "gray.800");
   const textColor = useColorModeValue("gray.10", "gray.200");
 
   return (
@@ -23,64 +12,43 @@ const Navbar = () => {
       as="nav"
       position="sticky"
       top={0}
-      zIndex={10}
       bg={bgColor}
       boxShadow="sm"
       transition="box-shadow 0.2s"
       _hover={{ boxShadow: "md" }}
     >
-      <Flex
-        mx="auto"
-        px={10}
-        py={3}
-        alignItems="center"
-        justifyContent="space-between"
-      >
+      <Flex mx="auto" pl={8} pr="72px" py={3} alignItems="center" justifyContent="space-between">
         <HStack spacing={4} alignItems="center">
           <Image
             src="/novuLogo.svg"
             alt="Novu Logo"
-            height={10}
-            width={116}
+            height={8}
+            width={102}
             objectFit="contain"
             onClick={() =>
-              window.open(
-                "https://novu.co?utm_source=sourceInboxPlayground",
-                "_blank"
-              )
+              window.open("https://novu.co?utm_source=sourceInboxPlayground", "_blank")
             }
             cursor="pointer"
           />
-          <VStack alignItems="flex-start" spacing={2.5}>
-            <Text fontSize="lg" fontWeight="bold" color={textColor} lineHeight={1}>
-              Inbox Component Playground
-            </Text>
-            <Text fontSize="sm" color={textColor} lineHeight={1}>
-              In-app notifications powered by Novu
-            </Text>
-          </VStack>
         </HStack>
-        <HStack spacing={4}>
+        <HStack spacing={5}>
+          {children}
           <Button
-            variant="ghost"
-            colorScheme="gray"
+            as={NextLink}
+            href="https://dashboard.novu.co/?utm_campaign=gs_top_bar"
             color={textColor}
-            onClick={() =>
-              window.open("https://docs.novu.co/inbox/introduction", "_blank")
-            }
+            variant="white"
+            fontSize="12px"
+            px={5}
+            py={3.5}
+            fontWeight="medium"
+            lineHeight="100%"
+            textTransform="uppercase"
           >
-            Docs
-          </Button>
-          <Button
-            onClick={onOpen}
-            color={textColor}
-            variant="gradient-outline"
-          >
-            Get Code
+            Get started
           </Button>
         </HStack>
       </Flex>
-      <CodeModal isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 };
