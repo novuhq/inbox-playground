@@ -110,7 +110,7 @@ const PlaygroundFormContainer = () => {
                 </Tab>
               ))}
             </TabList>
-            <TabIndicator mt="-1.5px" height="2px" borderRadius="1px" bg="white" />
+            <TabIndicator mt="-1.5px" height="1px" borderRadius="1px" bg="white" />
             <TabPanels height="calc(100% - 30px)">
               {themes.map((theme) => (
                 <TabPanel
