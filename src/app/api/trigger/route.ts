@@ -8,10 +8,7 @@ export async function POST(request: Request) {
   const { workflowId, to, payload, controls, bridgeUrl } = body;
 
   if (!to.subscriberId) {
-    return Response.json(
-      { error: "Subscriber id is required" },
-      { status: 400 }
-    );
+    return Response.json({ error: "Subscriber id is required" }, { status: 400 });
   }
 
   try {
@@ -31,7 +28,7 @@ export async function POST(request: Request) {
           Authorization: `ApiKey ${NOVU_API_KEY}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     return Response.json(response.data, { status: 200 });
