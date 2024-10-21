@@ -17,5 +17,10 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.rulers": [100]
+  "editor.rulers": [
+    100
+  ],
+  "cSpell.words": [
+    "novu"
+  ]
 }
