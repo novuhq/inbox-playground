@@ -1,10 +1,11 @@
 import { test, expect } from "@playwright/test";
 
 test("loads inbox playground", async ({ page }) => {
-  await page.goto("/");
+  const newPage = await page.context().newPage();
+  await newPage.goto("/");
 
-  await expect(page.locator(".nv-notificationList")).toBeVisible();
-  await expect(page.locator(".nv-inboxStatus__title")).toBeVisible();
+  await expect(newPage.locator(".nv-notificationList")).toBeVisible();
+  await expect(newPage.locator(".nv-inboxStatus__title")).toBeVisible();
 });
 
 test("new notification notice is visible", async ({ page }) => {
