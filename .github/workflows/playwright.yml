@@ -1,0 +1,42 @@
+name: Playwright Tests
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Build Next.js app
+      run: npm run build
+    - name: Start Next.js app
+      run: npm run start &
+    - name: Wait for Next.js to start
+      run: |
+        timeout=30
+        while ! nc -z localhost 3000; do
+          if [ $timeout -le 0 ]; then
+            echo "Timed out waiting for Next.js to start"
+            exit 1
+          fi
+          sleep 1
+          ((timeout--))
+        done
+    - name: Run Playwright tests
+      run: npx playwright test
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30
