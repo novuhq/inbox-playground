@@ -8,21 +8,22 @@ test("loads inbox playground", async ({ page }) => {
 });
 
 test("new notification notice is visible", async ({ page }) => {
-  await page.goto("/");
+  const newPage = await page.context().newPage();
+  await newPage.goto("/");
 
-  await page.waitForLoadState("networkidle");
+  await newPage.waitForLoadState("networkidle");
 
-  await page.locator("[data-testid='send-notification-button']").click();
+  await newPage.locator("[data-testid='send-notification-button']").click();
 
-  await page.locator(".nv-notificationListNewNotificationsNotice__button").click();
+  await newPage.locator(".nv-notificationListNewNotificationsNotice__button").click();
 
-  await page.waitForSelector(".nv-notificationListNewNotificationsNotice__button", {
+  await newPage.waitForSelector(".nv-notificationListNewNotificationsNotice__button", {
     state: "hidden",
     timeout: 5000,
   });
 
-  await page.locator("[data-testid='send-notification-button']").click();
-  await page.waitForSelector(".nv-notificationListNewNotificationsNotice__button", {
+  await newPage.locator("[data-testid='send-notification-button']").click();
+  await newPage.waitForSelector(".nv-notificationListNewNotificationsNotice__button", {
     state: "visible",
     timeout: 5000,
   });
