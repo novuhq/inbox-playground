@@ -18,6 +18,11 @@ test("new notification notice is visible", async ({ browser }) => {
 
   await newPage.locator("[data-testid='send-notification-button']").click();
 
+  await newPage.waitForSelector(".nv-notificationListNewNotificationsNotice__button", {
+    state: "visible",
+    timeout: 5000,
+  });
+
   await newPage.locator(".nv-notificationListNewNotificationsNotice__button").click();
 
   await newPage.waitForSelector(".nv-notificationListNewNotificationsNotice__button", {
