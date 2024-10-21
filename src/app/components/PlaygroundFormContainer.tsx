@@ -132,6 +132,7 @@ const PlaygroundFormContainer = () => {
           </Tabs>
           <Box p={3}>
             <Button
+              data-testid="send-notification-button"
               variant="white-outline"
               size="md"
               width="full"
