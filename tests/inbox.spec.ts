@@ -1,15 +1,17 @@
 import { test, expect } from "@playwright/test";
 
-test("loads inbox playground", async ({ page }) => {
-  const newPage = await page.context().newPage();
+test("loads inbox playground", async ({ browser }) => {
+  const context = await browser.newContext();
+  const newPage = await context.newPage();
   await newPage.goto("/");
 
   await expect(newPage.locator(".nv-notificationList")).toBeVisible();
   await expect(newPage.locator(".nv-inboxStatus__title")).toBeVisible();
 });
 
-test("new notification notice is visible", async ({ page }) => {
-  const newPage = await page.context().newPage();
+test("new notification notice is visible", async ({ browser }) => {
+  const context = await browser.newContext();
+  const newPage = await context.newPage();
   await newPage.goto("/");
 
   await newPage.waitForLoadState("networkidle");
