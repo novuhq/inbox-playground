@@ -124,8 +124,8 @@ const PlaygroundFormContainer = () => {
                   display="flex"
                   flexDirection="column"
                 >
-                  {theme.id === "default-theme" ? <InboxDesignForm /> : null}
                   <NotificationContentForm workflows={theme.workflows} />
+                  {theme.id === "default-theme" ? <InboxDesignForm /> : null}
                 </TabPanel>
               ))}
             </TabPanels>

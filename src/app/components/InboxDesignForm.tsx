@@ -42,16 +42,6 @@ const items = [
     placeholder: "#1A1523",
   },
   {
-    label: "Counter Color",
-    name: "colorCounter",
-    placeholder: "#E5484D",
-  },
-  {
-    label: "Counter Foreground",
-    name: "colorCounterForeground",
-    placeholder: "white",
-  },
-  {
     label: "Background Color",
     name: "colorBackground",
     placeholder: "#FCFCFC",
@@ -60,6 +50,19 @@ const items = [
     label: "Foreground Color",
     name: "colorForeground",
     placeholder: "#1A1523",
+  },
+];
+
+const advancedItems = [
+  {
+    label: "Counter Color",
+    name: "colorCounter",
+    placeholder: "#E5484D",
+  },
+  {
+    label: "Counter Foreground",
+    name: "colorCounterForeground",
+    placeholder: "white",
   },
   {
     label: "Neutral Color",
@@ -77,8 +80,10 @@ export function InboxDesignForm() {
       control,
       formState: { errors, isSubmitting },
       getValues,
+      watch,
     },
   } = useTheme();
+  const enableAdvancedSettings = watch("enableAdvancedSettings");
 
   function onSubmit(values: any) {
     alert(JSON.stringify(values, null, 2));
@@ -175,22 +180,48 @@ export function InboxDesignForm() {
         </SimpleGrid>
 
         <SimpleGrid columns={2} spacing={4}>
-          {items.map((item, index) => (
+          {items.map((item) => (
             <ColorPickerField key={item.name} {...item} register={register} setValue={setValue} />
           ))}
-          <FormControl>
-            <FormLabel fontSize="sm" color="white" opacity={0.6}>
-              Font Size
-            </FormLabel>
-            <Input {...register("fontSize")} placeholder="inherit" size="sm" />
-          </FormControl>
-          <FormControl>
-            <FormLabel fontSize="sm" color="white" opacity={0.6}>
-              Border Radius
-            </FormLabel>
-            <Input {...register("borderRadius")} placeholder="0.375rem" size="sm" />
-          </FormControl>
         </SimpleGrid>
+        <Controller
+          name="enableAdvancedSettings"
+          control={control}
+          render={({ field }) => (
+            <FormControl
+              display="flex"
+              alignItems="center"
+              justifyContent="flex-start"
+              gap={2.5}
+              mt={3}
+            >
+              <FormLabel fontSize="sm" mb="0" mr={0}>
+                Enable Secondary Action
+              </FormLabel>
+              <Switch {...(field as any)} isChecked={field.value} size="sm" />
+            </FormControl>
+          )}
+        />
+
+        {enableAdvancedSettings && (
+          <SimpleGrid columns={2} spacing={4}>
+            {advancedItems.map((item) => (
+              <ColorPickerField key={item.name} {...item} register={register} setValue={setValue} />
+            ))}
+            <FormControl>
+              <FormLabel fontSize="sm" color="white" opacity={0.6}>
+                Font Size
+              </FormLabel>
+              <Input {...register("fontSize")} placeholder="inherit" size="sm" />
+            </FormControl>
+            <FormControl>
+              <FormLabel fontSize="sm" color="white" opacity={0.6}>
+                Border Radius
+              </FormLabel>
+              <Input {...register("borderRadius")} placeholder="0.375rem" size="sm" />
+            </FormControl>
+          </SimpleGrid>
+        )}
       </VStack>
     </form>
   );
