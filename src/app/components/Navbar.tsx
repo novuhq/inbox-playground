@@ -56,6 +56,7 @@ const Navbar = () => {
             fontSize="12px"
             fontWeight="medium"
             lineHeight="100%"
+            transition="color 0.2s"
             _hover={{
               textDecoration: "none",
               color: "#00d5ff",
