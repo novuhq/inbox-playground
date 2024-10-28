@@ -181,11 +181,6 @@ function InboxComponent() {
             </Box>
           </VStack>
         </ModalBody>
-        <ModalFooter>
-          <Button colorScheme="blue" onClick={onClose}>
-            Close
-          </Button>
-        </ModalFooter>
       </ModalContent>
     </Modal>
   );
