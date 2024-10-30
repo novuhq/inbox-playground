@@ -17,10 +17,79 @@ import {
 } from "@chakra-ui/react";
 import { useCopyToClipboard } from "react-use";
 import { useTheme } from "../contexts/ThemeContext";
+import CopyIcon from "./icons/copy.inline.svg";
+import CheckIcon from "./icons/check.inline.svg";
+
 interface CodeModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+const CodeSnippet = ({ code, language }: { code: string; language: string }) => {
+  const [, copyToClipboard] = useCopyToClipboard();
+  const [isCopied, setIsCopied] = useState(false);
+
+  const copyCode = useCallback(() => {
+    copyToClipboard(code);
+    setIsCopied(true);
+  }, [copyToClipboard]);
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    if (isCopied) {
+      timeoutId = setTimeout(() => setIsCopied(false), 1500);
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [isCopied]);
+
+  return (
+    <Box position="relative">
+      <CodeBlock code={code} language={"tsx"}>
+        <CodeBlock.Code
+          style={{
+            background: "#0E101B",
+            color: "#E2E8F0",
+            padding: "16px",
+            borderRadius: "6px",
+            border: "1px solid #212640",
+            boxShadow: "lg",
+            maxHeight: "400px",
+            overflow: "auto",
+            fontSize: "13px",
+          }}
+        >
+          <div className="table-row">
+            <CodeBlock.LineNumber className="table-cell pr-4 text-sm text-gray-500 text-right select-none" />
+            <CodeBlock.LineContent className="table-cell">
+              <CodeBlock.Token />
+            </CodeBlock.LineContent>
+          </div>
+        </CodeBlock.Code>
+        <Button
+          width="28px"
+          height="28px"
+          size="xs"
+          borderRadius="4px"
+          px={0}
+          border="1px solid #212640"
+          bg="#131625"
+          color="#5F668C"
+          _hover={{
+            color: "#E2E8F0",
+          }}
+          onClick={copyCode}
+          position="absolute"
+          top={4}
+          right={4}
+          zIndex="1"
+        >
+          {isCopied ? <CheckIcon /> : <CopyIcon />}
+        </Button>
+      </CodeBlock>
+    </Box>
+  );
+};
 
 function CodeModal({ isOpen, onClose }: CodeModalProps) {
   const {
@@ -72,107 +141,46 @@ function InboxComponent() {
   );
 }
   `;
-  const [, copyToClipboard] = useCopyToClipboard();
-  const [isCopied, setIsCopied] = useState(false);
 
-  const copyCode = useCallback(() => {
-    copyToClipboard(code);
-    setIsCopied(true);
-  }, [copyToClipboard]);
-
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    if (isCopied) {
-      timeoutId = setTimeout(() => setIsCopied(false), 1500);
-    }
-
-    return () => clearTimeout(timeoutId);
-  }, [isCopied]);
-
-  const bgColor = useColorModeValue("gray.50", "gray.800");
+  const bgColor = useColorModeValue(
+    "linear-gradient(180deg, #1B2137 -0.49%, #111522 48.7%), #0F0F15",
+    "gray.800",
+  );
   const textColor = useColorModeValue("gray.800", "gray.100");
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="6xl">
-      <ModalOverlay />
+    <Modal isOpen={isOpen} onClose={onClose} size="3xl">
+      <ModalOverlay bg="rgba(0, 0, 0, 0.6)" />
       <ModalContent bg={bgColor} color={textColor}>
-        <ModalHeader fontSize="2xl" fontWeight="bold">
+        <ModalHeader
+          fontSize="4xl"
+          fontWeight="bold"
+          color="white"
+          px={8}
+          pt={8}
+          pb={3}
+          lineHeight={1.125}
+        >
           Get Code
         </ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
+        <ModalCloseButton color="white" />
+        <ModalBody px={8} pb={8}>
           <VStack spacing={6} align="stretch">
             <Box>
-              <Text fontSize="md" fontWeight="semibold" mb={2}>
+              <Text fontSize="lg" mb={4}>
                 1. Install the package
               </Text>
-              <Box position="relative">
-                <CodeBlock code={"npm install @novu/react"} language={"bash"}>
-                  <CodeBlock.Code
-                    style={{
-                      background: "#1A202C",
-                      color: "#E2E8F0",
-                      padding: "1.5rem",
-                      borderRadius: "0.5rem",
-                      boxShadow: "lg",
-                    }}
-                  >
-                    <div className="table-row">
-                      <CodeBlock.LineNumber className="table-cell pr-4 text-sm text-gray-500 text-right select-none" />
-                      <CodeBlock.LineContent className="table-cell">
-                        <CodeBlock.Token />
-                      </CodeBlock.LineContent>
-                    </div>
-                  </CodeBlock.Code>
-                </CodeBlock>
-              </Box>
+              <CodeSnippet code={"npm install @novu/react"} language="bash" />
             </Box>
 
             <Box>
-              <Text fontSize="md" fontWeight="semibold" mb={2}>
+              <Text fontSize="lg" mb={4}>
                 2. Add and import the Inbox component
               </Text>
-              <Box position="relative">
-                <CodeBlock code={code} language={"tsx"}>
-                  <CodeBlock.Code
-                    style={{
-                      background: "#1A202C",
-                      color: "#E2E8F0",
-                      padding: "1.5rem",
-                      borderRadius: "0.5rem",
-                      boxShadow: "lg",
-                      maxHeight: "400px",
-                      overflow: "auto",
-                    }}
-                  >
-                    <div className="table-row">
-                      <CodeBlock.LineNumber className="table-cell pr-4 text-sm text-gray-500 text-right select-none" />
-                      <CodeBlock.LineContent className="table-cell">
-                        <CodeBlock.Token />
-                      </CodeBlock.LineContent>
-                    </div>
-                  </CodeBlock.Code>
-                  <Button
-                    size="sm"
-                    colorScheme="blue"
-                    onClick={copyCode}
-                    position="absolute"
-                    top={2}
-                    right={2}
-                    zIndex="1"
-                  >
-                    {isCopied ? "Copied!" : "Copy code"}
-                  </Button>
-                </CodeBlock>
-              </Box>
+              <CodeSnippet code={code} language="tsx" />
             </Box>
           </VStack>
         </ModalBody>
-        <ModalFooter>
-          <Button colorScheme="blue" onClick={onClose}>
-            Close
-          </Button>
-        </ModalFooter>
       </ModalContent>
     </Modal>
   );
