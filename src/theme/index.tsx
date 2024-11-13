@@ -96,7 +96,7 @@ const theme = extendTheme({
           background: "transparent",
           color: "white",
           borderRadius: "4px",
-          border: "1px solid rgba(255, 255, 255, 0.7)",
+          border: "1px solid rgba(255, 255, 255, 0.4)",
           transition: "background color 0.2s",
           _hover: {
             background: "white",

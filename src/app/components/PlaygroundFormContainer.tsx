@@ -25,7 +25,16 @@ const PlaygroundFormContainer = () => {
   const { handleSubmit, isLoading } = useNotificationForm();
 
   return (
-    <Flex position="relative" width="100%" maxW="600px" height="100%" minHeight="400px">
+    <Flex
+      position="relative"
+      width="100%"
+      maxW="600px"
+      height="100%"
+      minHeight="400px"
+      padding="1px"
+      borderRadius="18px"
+      backgroundImage="radial-gradient(97.19% 102.87% at 95.42% -2.87%, #6B7DB3 6.8%, #1F2437 65.55%)"
+    >
       <Image
         src="/images/dots.svg"
         alt=""
@@ -47,8 +56,6 @@ const PlaygroundFormContainer = () => {
       />
       <Flex
         width="100%"
-        borderWidth="1px"
-        borderColor="#6B7DB3"
         borderRadius="18px"
         boxShadow="lg"
         bg="linear-gradient(180deg, #1B2137 -0.49%, #111522 48.7%)"
@@ -76,14 +83,33 @@ const PlaygroundFormContainer = () => {
           borderRadius="17px"
         />
 
-        <VStack spacing={4} alignItems="stretch" flexGrow={1} height="100%">
+        <VStack
+          spacing={4}
+          alignItems="stretch"
+          flexGrow={1}
+          height="100%"
+          position="relative"
+          zIndex={10}
+        >
           <Tabs
             height="calc(100% - 80px)"
             onChange={(index) => {
               setSelectedTheme(themes[index]);
             }}
           >
-            <TabList borderBottom="1px solid #30385A">
+            <TabList
+              borderBottom="none"
+              position="relative"
+              _before={{
+                content: "''",
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: "1px",
+                backgroundImage: "linear-gradient(90deg, #2C3353 57.33%, #3B4884 100%)",
+              }}
+            >
               {themes.map((theme) => (
                 <Tab
                   key={theme.id}
