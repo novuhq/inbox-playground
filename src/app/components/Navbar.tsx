@@ -45,7 +45,7 @@ const Navbar = () => {
         </HStack>
         <HStack spacing={7}>
           <Link
-            href="https://github.com/novuhq/novu"
+            href="https://git.new/novu"
             isExternal
             display="flex"
             alignItems="center"
@@ -80,7 +80,7 @@ const Navbar = () => {
             </Button>
             <Button
               as={NextLink}
-              href="https://dashboard.novu.co/?utm_campaign=gs_top_bar"
+              href="https://dashboard-v2.novu.co/?utm_campaign=gs_top_bar"
               color={textColor}
               variant="white"
               fontSize="12px"
