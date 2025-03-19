@@ -1,11 +1,10 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import { NotionIcon } from "../components/icons/Notion";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
-import { RedditIcon } from "../components/icons/Reddit";
+import { NotionIcon } from "../components/icons/Notion";
 import { PenIcon } from "../components/icons/Pen";
-
+import { RedditIcon } from "../components/icons/Reddit";
 
 export interface Workflow {
   id: string;
@@ -47,14 +46,15 @@ const themes: Theme[] = [
         notificationListNewNotificationsNotice__button: {
           background: "#2b6cb0",
         },
-        notificationListContainer: {
-          paddingRight: "10px",
-        },
+
         inboxHeader: {
           padding: "8px 16px",
         },
         inboxStatus__dropdownTrigger: {
           gap: "2px",
+        },
+        notificationListEmptyNoticeOverlay: {
+          display: "none",
         },
         moreActionsContainer: {
           marginRight: "-4px",
@@ -177,7 +177,7 @@ const themes: Theme[] = [
       },
     ],
   },
-{
+  {
     id: "reddit",
     title: "Reddit",
     icon: <RedditIcon />,
@@ -206,7 +206,8 @@ const themes: Theme[] = [
           inAppSecondaryActionLabel: "Dismiss",
           inAppSecondaryActionUrl: "https://google.com",
           showInAppAvatar: true,
-          inAppAvatar: "https://i.redd.it/snoovatar/avatars/3c428706-19a9-48f3-b7ce-cb67f2773e7b.png",
+          inAppAvatar:
+            "https://i.redd.it/snoovatar/avatars/3c428706-19a9-48f3-b7ce-cb67f2773e7b.png",
         },
       },
       {
@@ -222,7 +223,8 @@ const themes: Theme[] = [
           inAppSecondaryActionLabel: "Dismiss",
           inAppSecondaryActionUrl: "",
           showInAppAvatar: true,
-          inAppAvatar: "https://i.redd.it/snoovatar/avatars/aa71dd87-6310-46ae-9ba8-02f37e4271bc.png",
+          inAppAvatar:
+            "https://i.redd.it/snoovatar/avatars/aa71dd87-6310-46ae-9ba8-02f37e4271bc.png",
         },
       },
       {
@@ -263,7 +265,8 @@ const themes: Theme[] = [
           showInAppAvatar: true,
           inAppAvatar: "https://avatars.githubusercontent.com/u/77433905?s=200&v=4",
         },
-      }],
+      },
+    ],
     appearance: {
       variables: {},
       elements: {},
@@ -355,7 +358,5 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     notificationForm,
   };
 
-  return (
-    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }

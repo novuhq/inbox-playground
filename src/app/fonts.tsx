@@ -1,4 +1,4 @@
-import { Global } from '@emotion/react'
+import { Global } from "@emotion/react";
 
 const Fonts = () => (
   <Global
@@ -31,6 +31,15 @@ const Fonts = () => (
         font-family: 'Brother-1816';
         src: url('/fonts/brother-1816/brother-1816-medium.woff2') format('woff2');
         font-weight: 500;
+        font-style: normal;
+        font-display: fallback;
+      }
+
+
+      @font-face {
+        font-family: 'Brother-1816';
+        src: url('/fonts/brother-1816/brother-1816-medium.woff2') format('woff2');
+        font-weight: 600;
         font-style: normal;
         font-display: fallback;
       }

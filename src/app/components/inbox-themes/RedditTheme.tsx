@@ -1,23 +1,21 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 // import Image from 'next/image'; // Import the Image component
 import { Inbox, Notification, Notifications, Preferences } from "@novu/react";
-import { useTheme } from "../../contexts/ThemeContext";
-import { FaReddit, FaRegCommentDots } from "react-icons/fa";
 import {
-  AiOutlineSearch,
-  AiOutlineArrowUp,
   AiOutlineArrowDown,
-  AiOutlineShareAlt,
   AiOutlineArrowLeft,
+  AiOutlineArrowUp,
   AiOutlineHome,
+  AiOutlineSearch,
+  AiOutlineShareAlt,
 } from "react-icons/ai";
-import { FiBell, FiPlus, FiMail } from "react-icons/fi";
-import { BiMessageSquareDetail, BiHash, BiStar, BiCompass } from "react-icons/bi";
+import { BiCompass, BiHash, BiMessageSquareDetail, BiStar } from "react-icons/bi";
+import { BsArrowUp, BsBellFill, BsFillChatLeftTextFill } from "react-icons/bs"; // Dot icon
+import { FaBell, FaReddit, FaRegCommentDots } from "react-icons/fa";
+import { FiMail, FiMoreHorizontal, FiPlus, FiSettings } from "react-icons/fi";
 import { TbClick } from "react-icons/tb"; // Click icon (or similar)
-import { BsBellFill, BsArrowUp, BsFillChatLeftTextFill } from "react-icons/bs"; // Dot icon
-import { FiSettings, FiMoreHorizontal } from "react-icons/fi";
-import { FaBell } from "react-icons/fa";
+import { useTheme } from "../../contexts/ThemeContext";
 
 const RedditTheme = ({ subscriberId }: { subscriberId: string | null }) => {
   const { selectedTheme } = useTheme();
@@ -77,7 +75,7 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string | null }) => {
 
             {/* Notification Window */}
             {isNotificationsOpen && (
-              <div className="absolute right-0 top-full mt-2 w-[400px] h-[472px] bg-white border rounded-lg shadow-lg z-10 flex flex-col">
+              <div className="absolute overflow-auto h-full right-0 top-full mt-2 w-[400px] min-h-[600px] bg-white border rounded-lg shadow-lg z-10 flex flex-col">
                 {/* Tabs */}
                 <div className="flex justify-between items-center border-b p-3">
                   <div className="flex flex-grow space-x-4 justify-center">

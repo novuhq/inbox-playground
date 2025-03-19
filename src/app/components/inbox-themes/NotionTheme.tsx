@@ -1,30 +1,29 @@
 import {
-  Box,
-  Flex,
-  Text,
-  IconButton,
-  VStack,
   Avatar,
-  HStack,
-  Link,
-  Icon,
-  useColorModeValue,
+  Box,
   Button,
+  Flex,
+  HStack,
+  Icon,
+  IconButton,
+  Link,
+  Text,
+  useColorModeValue,
+  VStack,
 } from "@chakra-ui/react";
-import { FiArchive } from "react-icons/fi";
-import { FaRegCheckSquare } from "react-icons/fa";
-import { PiNotificationFill } from "react-icons/pi";
-import { FiSearch, FiHome, FiInbox, FiSettings, FiChevronDown } from "react-icons/fi";
+import { AiOutlineCalendar } from "react-icons/ai";
 import { BsFillFileTextFill, BsTrash } from "react-icons/bs";
-import { AiOutlineCalendar, AiOutlineCheck } from "react-icons/ai";
+import { FaRegCheckSquare } from "react-icons/fa";
+import { FiArchive, FiChevronDown, FiHome, FiInbox, FiSearch, FiSettings } from "react-icons/fi";
+import { PiNotificationFill } from "react-icons/pi";
 
-import { GrDocumentText } from "react-icons/gr";
-import { FaUserFriends } from "react-icons/fa";
 import { Inbox, Notification, Notifications } from "@novu/react";
-import { NotionIcon } from "../icons/Notion";
 import React, { useState } from "react";
+import { FaUserFriends } from "react-icons/fa";
+import { GrDocumentText } from "react-icons/gr";
 import { useTheme } from "../../contexts/ThemeContext";
 import { useInitialNotifications } from "../../hooks/useInitialNotifications";
+import { NotionIcon } from "../icons/Notion";
 
 const NotionTheme = ({ subscriberId }: { subscriberId: string | null }) => {
   const { selectedTheme } = useTheme();
