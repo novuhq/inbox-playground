@@ -77,7 +77,7 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string | null }) => {
 
             {/* Notification Window */}
             {isNotificationsOpen && (
-              <div className="absolute right-0 top-full mt-2 w-[400px] h-[572px] bg-white border rounded-lg shadow-lg z-10 flex flex-col">
+              <div className="absolute right-0 top-full mt-2 w-[400px] h-[672px] bg-white border rounded-lg shadow-lg z-10 flex flex-col">
                 {/* Tabs */}
                 <div className="flex justify-between items-center border-b p-3">
                   <div className="flex flex-grow space-x-4 justify-center">
