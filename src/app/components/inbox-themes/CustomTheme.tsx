@@ -230,6 +230,8 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string | null }) => {
                 open={appearanceVariables.open === true ? true : undefined}
                 applicationIdentifier={novuConfig.applicationIdentifier}
                 subscriberId={novuConfig.subscriberId}
+                placement="bottom-end"
+                placementOffset={10}
                 localization={
                   typedLocalization[
                     appearanceVariables.language as keyof typeof typedLocalization
@@ -238,13 +240,16 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string | null }) => {
                 appearance={{
                   variables: appearanceVariables,
                   elements: {
+                    bellContainer: {
+                      paddingTop: "5px !important",
+                    },
                     bellIcon: {
-                      height: "30px",
-                      width: "30px",
+                      height: "20px",
+                      width: "20px",
                     },
                     popoverContent: {
                       marginTop: "15px !important",
-                      marginLeft: "-6.5% !important",
+                      marginLeft: "0.5% !important",
                     },
                     ...selectedTheme?.appearance?.elements,
                   },

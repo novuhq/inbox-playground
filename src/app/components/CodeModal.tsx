@@ -14,11 +14,14 @@ import {
   Box,
   VStack,
   useColorModeValue,
+  HStack,
+  Icon,
 } from "@chakra-ui/react";
 import { useCopyToClipboard } from "react-use";
 import { useTheme } from "../contexts/ThemeContext";
 import CopyIcon from "./icons/copy.inline.svg";
 import CheckIcon from "./icons/check.inline.svg";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 interface CodeModalProps {
   isOpen: boolean;
@@ -148,6 +151,13 @@ function InboxComponent() {
   );
   const textColor = useColorModeValue("gray.800", "gray.100");
 
+  const handleDocumentationClick = () => {
+    window.open(
+      "https://docs.novu.co/platform/inbox/overview?utm_source=inbox-playground",
+      "_blank",
+    );
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="3xl">
       <ModalOverlay bg="rgba(0, 0, 0, 0.6)" />
@@ -181,6 +191,17 @@ function InboxComponent() {
             </Box>
           </VStack>
         </ModalBody>
+        <ModalFooter px={8} pb={8} justifyContent="flex-end">
+          <Button
+            // leftIcon={<Icon as={ExternalLinkIcon} />}
+            colorScheme="blue"
+            variant="outline"
+            size="md"
+            onClick={handleDocumentationClick}
+          >
+            View Documentation
+          </Button>
+        </ModalFooter>
       </ModalContent>
     </Modal>
   );
