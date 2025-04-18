@@ -54,6 +54,19 @@ const nextConfig = {
 
     return config;
   },
+  async redirects() {
+    if (process.env.NODE_ENV !== "production") {
+      return [];
+    }
+
+    return [
+      {
+        source: "/",
+        destination: "https://novu.co/inbox/playground",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
