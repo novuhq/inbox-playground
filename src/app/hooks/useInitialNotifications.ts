@@ -39,8 +39,7 @@ export const useInitialNotifications = () => {
                   inAppPrimaryActionLabel: workflowData.inAppPrimaryActionLabel,
                   enablePrimaryAction: workflowData.enablePrimaryAction,
                   inAppPrimaryActionUrl: workflowData.inAppPrimaryActionUrl,
-                  inAppSecondaryActionLabel:
-                    workflowData.inAppSecondaryActionLabel,
+                  inAppSecondaryActionLabel: workflowData.inAppSecondaryActionLabel,
                   enableSecondaryAction: workflowData.enableSecondaryAction,
                   inAppSecondaryActionUrl: workflowData.inAppSecondaryActionUrl,
                 },

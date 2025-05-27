@@ -4,7 +4,6 @@ import { payloadSchema } from "./payloadSchema";
 
 const workflowName = "reddit-reply-to-post";
 
-
 export const redditReplyToPost = workflow(
   workflowName,
   async ({ step, payload, subscriber }) => {
@@ -37,11 +36,11 @@ export const redditReplyToPost = workflow(
       },
       {
         controlSchema: inAppControlSchema,
-      }
+      },
     );
   },
   {
     payloadSchema: payloadSchema,
     tags: ["ReplyToPost"],
-  }
+  },
 );

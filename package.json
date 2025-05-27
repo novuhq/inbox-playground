@@ -24,7 +24,7 @@
     "chakra-react-select": "^4.10.1",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.5.4",
-    "next": "14.2.8",
+    "next": "^15.3.2",
     "next-plausible": "^3.12.2",
     "react": "^18",
     "react-code-block": "^1.0.0",

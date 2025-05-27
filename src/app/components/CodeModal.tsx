@@ -35,7 +35,7 @@ const CodeSnippet = ({ code, language }: { code: string; language: string }) => 
   const copyCode = useCallback(() => {
     copyToClipboard(code);
     setIsCopied(true);
-  }, [copyToClipboard]);
+  }, [copyToClipboard, code]);
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;

@@ -137,6 +137,7 @@ export function InboxDesignForm() {
             render={({ field }) => (
               <Select
                 {...field}
+                instanceId="language-select"
                 options={availableLanguages}
                 defaultValue={availableLanguages[0]}
                 onChange={(newValue) => field.onChange(newValue?.code)}

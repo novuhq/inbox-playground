@@ -6,14 +6,10 @@ export const inAppControlSchema = z.object({
   inAppSubject: z
     .string()
     .default(
-      `u/{{subscriber.firstName | capitalize}} replied to your comment in r/ProgrammerHumor`
+      `u/{{subscriber.firstName | capitalize}} replied to your comment in r/ProgrammerHumor`,
     ),
-  inAppBody: z
-    .string()
-    .default("you thought you had edge cases covered..you thought"),
-  inAppAvatar: z
-    .string()
-    .default("https://avatars.githubusercontent.com/u/63902456?v=4"),
+  inAppBody: z.string().default("you thought you had edge cases covered..you thought"),
+  inAppAvatar: z.string().default("https://avatars.githubusercontent.com/u/63902456?v=4"),
   showInAppAvatar: z.boolean().default(true),
   inAppPrimaryActionLabel: z.string().default("Reply back"),
   enablePrimaryAction: z.boolean().default(true),

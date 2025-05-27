@@ -1,3 +1,5 @@
+"use server";
+
 import axios from "axios";
 
 const NOVU_API_KEY = process.env.NOVU_SECRET_KEY;

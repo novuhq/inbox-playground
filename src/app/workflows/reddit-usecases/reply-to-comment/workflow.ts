@@ -36,11 +36,11 @@ export const redditReplyToComment = workflow(
       },
       {
         controlSchema: inAppControlSchema,
-      }
+      },
     );
   },
   {
     payloadSchema: payloadSchema,
     tags: ["ReplyToComment"],
-  }
+  },
 );

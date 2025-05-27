@@ -14,20 +14,11 @@ const localSubscriberId = getLocalStorageItem("inbox_demo_subscriberId");
 
 const localInboxDesign = {
   colorPrimary: getLocalStorageItem("inbox_demo_colorPrimary", "#0081F1"),
-  colorPrimaryForeground: getLocalStorageItem(
-    "inbox_demo_colorPrimaryForeground",
-    "white"
-  ),
+  colorPrimaryForeground: getLocalStorageItem("inbox_demo_colorPrimaryForeground", "white"),
   colorSecondary: getLocalStorageItem("inbox_demo_colorSecondary", "#F3F3F3"),
-  colorSecondaryForeground: getLocalStorageItem(
-    "inbox_demo_colorSecondaryForeground",
-    "#1A1523"
-  ),
+  colorSecondaryForeground: getLocalStorageItem("inbox_demo_colorSecondaryForeground", "#1A1523"),
   colorCounter: getLocalStorageItem("inbox_demo_colorCounter", "#E5484D"),
-  colorCounterForeground: getLocalStorageItem(
-    "inbox_demo_colorCounterForeground",
-    "white"
-  ),
+  colorCounterForeground: getLocalStorageItem("inbox_demo_colorCounterForeground", "white"),
   colorBackground: getLocalStorageItem("inbox_demo_colorBackground", "#FCFCFC"),
   colorForeground: getLocalStorageItem("inbox_demo_colorForeground", "#1A1523"),
   colorNeutral: getLocalStorageItem("inbox_demo_colorNeutral", "black"),
@@ -51,11 +42,7 @@ const localization = {
     "notifications.actions.readAll": "Mark all as read",
     "notifications.actions.archiveAll": "Archive all",
     "notifications.actions.archiveRead": "Archive read",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
+    "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
       `${notificationCount > 99 ? "99+" : notificationCount} new ${
         notificationCount === 1 ? "notification" : "notifications"
       }`,
@@ -79,11 +66,7 @@ const localization = {
     "notifications.actions.readAll": "Marcar todo como leído",
     "notifications.actions.archiveAll": "Archivar todo",
     "notifications.actions.archiveRead": "Archivar leídos",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
+    "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
       `${notificationCount > 99 ? "99+" : notificationCount} ${
         notificationCount === 1 ? "nueva notificación" : "nuevas notificaciones"
       }`,
@@ -107,15 +90,9 @@ const localization = {
     "notifications.actions.readAll": "Tout marquer comme lu",
     "notifications.actions.archiveAll": "Tout archiver",
     "notifications.actions.archiveRead": "Archiver les lus",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
+    "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
       `${notificationCount > 99 ? "99+" : notificationCount} ${
-        notificationCount === 1
-          ? "nouvelle notification"
-          : "nouvelles notifications"
+        notificationCount === 1 ? "nouvelle notification" : "nouvelles notifications"
       }`,
     "notification.actions.read.toolTip": "Marquer comme lu",
     "notification.actions.unread.toolTip": "Marquer comme non lu",
@@ -137,11 +114,7 @@ const localization = {
     "notifications.actions.readAll": "Alle als gelesen markieren",
     "notifications.actions.archiveAll": "Alle archivieren",
     "notifications.actions.archiveRead": "Gelesenes archivieren",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
+    "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
       `${notificationCount > 99 ? "99+" : notificationCount} neue ${
         notificationCount === 1 ? "Benachrichtigung" : "Benachrichtigungen"
       }`,
@@ -165,11 +138,7 @@ const localization = {
     "notifications.actions.readAll": "全部标记为已读",
     "notifications.actions.archiveAll": "全部归档",
     "notifications.actions.archiveRead": "归档已读",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
+    "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
       `${notificationCount > 99 ? "99+" : notificationCount} 条${
         notificationCount === 1 ? "新通知" : "新通知"
       }`,
@@ -193,11 +162,7 @@ const localization = {
     "notifications.actions.readAll": "すべて既読にする",
     "notifications.actions.archiveAll": "すべてアーカイブ",
     "notifications.actions.archiveRead": "既読をアーカイブ",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
+    "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
       `${notificationCount > 99 ? "99+" : notificationCount} 件の${
         notificationCount === 1 ? "新しい通知" : "新しい通知"
       }`,
@@ -221,11 +186,7 @@ const localization = {
     "notifications.actions.readAll": "모두 읽음으로 표시",
     "notifications.actions.archiveAll": "모두 보관",
     "notifications.actions.archiveRead": "읽은 것 보관",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
+    "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
       `${notificationCount > 99 ? "99+" : notificationCount} 개의 ${
         notificationCount === 1 ? "새 알림" : "새 알림"
       }`,
@@ -249,11 +210,7 @@ const localization = {
     "notifications.actions.readAll": "Отметить все как прочитанное",
     "notifications.actions.archiveAll": "Архивировать все",
     "notifications.actions.archiveRead": "Архивировать прочитанное",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
+    "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
       `${notificationCount > 99 ? "99+" : notificationCount} новых ${
         notificationCount === 1 ? "уведомление" : "уведомлений"
       }`,
@@ -277,11 +234,7 @@ const localization = {
     "notifications.actions.readAll": "Marcar tudo como lido",
     "notifications.actions.archiveAll": "Arquivar tudo",
     "notifications.actions.archiveRead": "Arquivar lidos",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
+    "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
       `${notificationCount > 99 ? "99+" : notificationCount} ${
         notificationCount === 1 ? "nova notificação" : "novas notificações"
       }`,
@@ -305,11 +258,7 @@ const localization = {
     "notifications.actions.readAll": "Segna tutto come letto",
     "notifications.actions.archiveAll": "Archivia tutto",
     "notifications.actions.archiveRead": "Archivia letti",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
+    "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
       `${notificationCount > 99 ? "99+" : notificationCount} nuove ${
         notificationCount === 1 ? "notifica" : "notifiche"
       }`,
@@ -333,11 +282,7 @@ const localization = {
     "notifications.actions.readAll": "सभी को पढ़ा हुआ चिह्नित करें",
     "notifications.actions.archiveAll": "सभी को संग्रहित करें",
     "notifications.actions.archiveRead": "पढ़ा हुआ संग्रहित करें",
-    "notifications.newNotifications": ({
-      notificationCount,
-    }: {
-      notificationCount: number;
-    }) =>
+    "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
       `${notificationCount > 99 ? "99+" : notificationCount} नई ${
         notificationCount === 1 ? "सूचना" : "सूचनाएं"
       }`,
@@ -354,9 +299,7 @@ const localization = {
 export const novuConfig = {
   applicationIdentifier: process.env.NEXT_PUBLIC_APPLICATION_IDENTIFIER!,
   subscriberId: localSubscriberId!,
-  localization:
-    localization[localLocale as keyof typeof localization] ||
-    localization["en-US"], // Fallback to English if locale not found
+  localization: localization[localLocale as keyof typeof localization] || localization["en-US"], // Fallback to English if locale not found
   ...(getLocalStorageItem("inbox_demo_open") === "true" && { open: true }),
   appearance: {
     variables: {

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-// import Image from 'next/image'; // Import the Image component
+import Image from "next/image";
 import { Inbox, Notification, Notifications, Preferences } from "@novu/react";
 import { useTheme } from "../../contexts/ThemeContext";
 import { FaReddit, FaRegCommentDots } from "react-icons/fa";
@@ -134,12 +134,12 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string | null }) => {
             )}
           </div>
           {/* Avatar Image */}
-          <img
+          <Image
             src="https://styles.redditmedia.com/t5_4hy1ad/styles/profileIcon_snooaa71dd87-6310-46ae-9ba8-02f37e4271bc-headshot.png?width=128&height=128&frame=1&auto=webp&crop=128:128,smart&s=23622e6012eab57c189c8586ca7c8f2f7ef2c3ae"
             alt="User Avatar"
             className="cursor-pointer rounded-full hover:bg-gray-200 p-1"
-            width="32"
-            height="32"
+            width={32}
+            height={32}
           />
         </div>
       </div>
@@ -454,7 +454,7 @@ const InboxItem = ({ notification }: { notification: Notification }) => {
     >
       {/* Avatar with Notification Type Icon */}
       <div className="relative">
-        <img
+        <Image
           src={
             notification.avatar ||
             "https://styles.redditmedia.com/t5_4hy1ad/styles/profileIcon_snooaa71dd87-6310-46ae-9ba8-02f37e4271bc-headshot.png?width=128&height=128&frame=1&auto=webp&crop=128:128,smart&s=23622e6012eab57c189c8586ca7c8f2f7ef2c3ae"

@@ -37,11 +37,11 @@ export const notionCommentNotification = workflow(
       },
       {
         controlSchema: inAppControlSchema,
-      }
+      },
     );
   },
   {
     payloadSchema: payloadSchema,
     tags: ["Comment"],
-  }
+  },
 );

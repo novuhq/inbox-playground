@@ -47,12 +47,10 @@ export const inAppControlSchema = z.object({
   inAppSubject: z
     .string()
     .default(
-      `{{subscriber.firstName | capitalize}} {{subscriber.lastName | capitalize}} mentioned you in`
+      `{{subscriber.firstName | capitalize}} {{subscriber.lastName | capitalize}} mentioned you in`,
     ),
   inAppBody: z.string().default("Secret Project Page"),
-  inAppAvatar: z
-    .string()
-    .default("https://avatars.githubusercontent.com/u/63902456?v=4"),
+  inAppAvatar: z.string().default("https://avatars.githubusercontent.com/u/63902456?v=4"),
   showInAppAvatar: z.boolean().default(true),
   inAppPrimaryActionLabel: z.string().default("Reply"),
   enablePrimaryAction: z.boolean().default(true),
@@ -89,5 +87,4 @@ export const digestControlSchema = z.object({
   cron: z.string().default(CronExpression.EVERY_DAY_AT_8AM), // visit https://crontab.guru/ to set the cron expression.
 });
 
-export const customControlSchema = z.object({
-});
+export const customControlSchema = z.object({});

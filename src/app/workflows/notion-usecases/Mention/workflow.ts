@@ -36,11 +36,11 @@ export const notionMentionNotification = workflow(
       },
       {
         controlSchema: inAppControlSchema,
-      }
+      },
     );
   },
   {
     payloadSchema: payloadSchema,
     tags: ["Mention"],
-  }
+  },
 );

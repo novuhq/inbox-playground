@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 import theme from "@/theme";

@@ -1,11 +1,10 @@
 import { Box, Flex } from "@chakra-ui/react";
 import Navbar from "../Navbar";
 import PlaygroundFormContainer from "../PlaygroundFormContainer";
-
 import { ThemeProvider } from "../../contexts/ThemeContext";
 import ThemeRenderer from "../ThemeRender";
 
-const AppContent = async () => {
+const AppContent = () => {
   return (
     <Box height="100vh" bg="#05050B" overflow="hidden">
       <Navbar />

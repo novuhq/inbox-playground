@@ -1,14 +1,7 @@
 "use client";
 import React from "react";
 import { useTheme } from "../../contexts/ThemeContext";
-import {
-  Box,
-  Flex,
-  Text,
-  useColorModeValue,
-  useBreakpointValue,
-  Stack,
-} from "@chakra-ui/react";
+import { Box, Flex, Text, useColorModeValue, useBreakpointValue, Stack } from "@chakra-ui/react";
 import { Inbox } from "@novu/react";
 
 type LocalizationValue =
@@ -174,17 +167,17 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string | null }) => {
   };
 
   const tabs = [
-  {
-      label: "All",
-      value: "all",
+    {
+      label: "All Notifications",
+      filter: { tags: [] },
     },
     {
-      label: "Product Updates",
-      value: "product-updates",
+      label: "Promotions",
+      filter: { tags: ["promotions"] },
     },
     {
-      label: "Support",
-      value: "support-updates",
+      label: "Security Alerts",
+      filter: { tags: ["security", "alert"] },
     },
   ];
 
@@ -230,54 +223,42 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string | null }) => {
               <DesktopNav />
             </Flex>
           </Flex>
-
-          <Flex
-            justify="flex-end"
-            align="center"
-            width="100%"
-            maxW="600px"
-            minW="300px"
-            height="30%"
-          >
-            {/* Inbox Component */}
-            {subscriberId && (
-              <Inbox
-                open={appearanceVariables.open === true ? true : undefined}
-                applicationIdentifier={novuConfig.applicationIdentifier}
-                subscriberId={novuConfig.subscriberId}
-                localization={
-                  typedLocalization[
-                    appearanceVariables.language as keyof typeof typedLocalization
-                  ] || typedLocalization["en-US"]
-                }
-                tabs={tabs}
-                appearance={{
-                  variables: appearanceVariables,
-                  elements: {
-                    bellContainer: {
-                      height: "20px",
-                      width: "20px",
-                    },
-                    bellIcon: {
-                      height: "20px",
-                      width: "20px",
-                    },
-                    bellDot: {
-                      height: "10px !important",
-                      width: "10px !important",
-                      backgroundColor: appearanceVariables.colorPrimary,
-                    },
-                    popoverContent: {
-                      marginTop: "5px !important",
-                      marginLeft: "0.7% !important",
-                      borderRadius: appearanceVariables.borderRadius,
-                    },
+          {/* Inbox Component */}
+          {subscriberId && (
+            <Inbox
+              open={appearanceVariables.open === true ? true : undefined}
+              applicationIdentifier={novuConfig.applicationIdentifier}
+              subscriberId={novuConfig.subscriberId}
+              localization={
+                typedLocalization[appearanceVariables.language as keyof typeof typedLocalization] ||
+                typedLocalization["en-US"]
+              }
+              tabs={tabs}
+              appearance={{
+                variables: appearanceVariables,
+                elements: {
+                  bellContainer: {
+                    height: "20px",
+                    width: "20px",
                   },
-                  icons: {},
-                }}
-              />
-            )}
-          </Flex>
+                  bellIcon: {
+                    height: "20px",
+                    width: "20px",
+                  },
+                  bellDot: {
+                    height: "10px !important",
+                    width: "10px !important",
+                    backgroundColor: appearanceVariables.colorPrimary,
+                  },
+                  popoverContent: {
+                    marginTop: "10px !important",
+                    marginLeft: "-10px !important",
+                  },
+                },
+                icons: {},
+              }}
+            />
+          )}
         </Flex>
       </Box>
     </Flex>

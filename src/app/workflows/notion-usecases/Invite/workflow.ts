@@ -36,11 +36,11 @@ export const notionInviteNotification = workflow(
       },
       {
         controlSchema: inAppControlSchema,
-      }
+      },
     );
   },
   {
     payloadSchema: payloadSchema,
     tags: ["Invite"],
-  }
+  },
 );

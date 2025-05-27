@@ -36,11 +36,11 @@ export const notionSuggestionNotification = workflow(
       },
       {
         controlSchema: inAppControlSchema,
-      }
+      },
     );
   },
   {
     payloadSchema: payloadSchema,
     tags: ["Suggestion"],
-  }
+  },
 );

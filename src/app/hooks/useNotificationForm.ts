@@ -11,8 +11,7 @@ export const useNotificationForm = () => {
   const { getValues } = notificationForm;
 
   const onSubmit = async () => {
-    const { subscriberFirstName, subscriberLastName, selectedWorkflow } =
-      getValues();
+    const { subscriberFirstName, subscriberLastName, selectedWorkflow } = getValues();
 
     if (!subscriberFirstName) {
       toast({

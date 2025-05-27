@@ -36,11 +36,11 @@ export const redditUpvote = workflow(
       },
       {
         controlSchema: inAppControlSchema,
-      }
+      },
     );
   },
   {
     payloadSchema: payloadSchema,
     tags: ["Upvote"],
-  }
+  },
 );

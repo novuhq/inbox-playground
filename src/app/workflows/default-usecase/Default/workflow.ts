@@ -36,10 +36,10 @@ export const defaultNotification = workflow(
       },
       {
         controlSchema: inAppControlSchema,
-      }
+      },
     );
   },
   {
     payloadSchema: payloadSchema,
-  }
+  },
 );
