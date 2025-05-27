@@ -8,7 +8,6 @@ import {
   useColorModeValue,
   useBreakpointValue,
   Stack,
-  position,
 } from "@chakra-ui/react";
 import { Inbox } from "@novu/react";
 
@@ -174,11 +173,27 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string | null }) => {
     borderRadius: formValues.borderRadius,
   };
 
+  const tabs = [
+  {
+      label: "All",
+      value: "all",
+    },
+    {
+      label: "Product Updates",
+      value: "product-updates",
+    },
+    {
+      label: "Support",
+      value: "support-updates",
+    },
+  ];
+
   return (
     <Flex
       width="100%"
       height="100%"
       minHeight="400px"
+      padding="10px"
       borderRadius="lg"
       bg="white"
       style={{
@@ -230,29 +245,35 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string | null }) => {
                 open={appearanceVariables.open === true ? true : undefined}
                 applicationIdentifier={novuConfig.applicationIdentifier}
                 subscriberId={novuConfig.subscriberId}
-                placement="bottom-end"
-                placementOffset={10}
                 localization={
                   typedLocalization[
                     appearanceVariables.language as keyof typeof typedLocalization
                   ] || typedLocalization["en-US"]
                 }
+                tabs={tabs}
                 appearance={{
                   variables: appearanceVariables,
                   elements: {
                     bellContainer: {
-                      paddingTop: "5px !important",
+                      height: "20px",
+                      width: "20px",
                     },
                     bellIcon: {
                       height: "20px",
                       width: "20px",
                     },
-                    popoverContent: {
-                      marginTop: "15px !important",
-                      marginLeft: "0.5% !important",
+                    bellDot: {
+                      height: "10px !important",
+                      width: "10px !important",
+                      backgroundColor: appearanceVariables.colorPrimary,
                     },
-                    ...selectedTheme?.appearance?.elements,
+                    popoverContent: {
+                      marginTop: "5px !important",
+                      marginLeft: "0.7% !important",
+                      borderRadius: appearanceVariables.borderRadius,
+                    },
                   },
+                  icons: {},
                 }}
               />
             )}

@@ -150,7 +150,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
         </Flex>
 
         <Divider borderColor="#30385A" my={3} />
-        <Flex flexDirection="column" gap={6}>
+        {/* <Flex flexDirection="column" gap={6}>
           <Controller
             name="selectedWorkflow"
             control={control}
@@ -230,7 +230,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
               </FormControl>
             )}
           />
-        </Flex>
+        </Flex> */}
         <Controller
           name="enablePrimaryAction"
           control={control}
