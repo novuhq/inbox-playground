@@ -20,6 +20,10 @@ const ColorPickerField = dynamic(() => import("./ColorPickerField"), {
   ssr: false,
 });
 
+const DynamicSelect = dynamic(() => Promise.resolve(Select), {
+  ssr: false,
+});
+
 const items = [
   {
     label: "Primary Color",
@@ -93,7 +97,7 @@ export function InboxDesignForm() {
     const val = getValues();
   }
 
-  const availableLanguages = [
+  const availableLanguages: { code: string; label: string }[] = [
     { code: "en", label: "English" },
     { code: "es", label: "Spanish" },
     { code: "fr", label: "French" },
@@ -135,12 +139,14 @@ export function InboxDesignForm() {
             name="language"
             control={control}
             render={({ field }) => (
-              <Select
+              <DynamicSelect
                 {...field}
                 instanceId="language-select"
                 options={availableLanguages}
                 defaultValue={availableLanguages[0]}
-                onChange={(newValue) => field.onChange(newValue?.code)}
+                onChange={(newValue, _actionMeta) =>
+                  field.onChange((newValue as { code: string } | null)?.code)
+                }
                 value={availableLanguages.find((lang) => lang.code === field.value) || null}
                 chakraStyles={{
                   singleValue: (provided) => ({
