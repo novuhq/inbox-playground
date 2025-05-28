@@ -17,6 +17,8 @@ export interface Theme {
   title: string;
   icon: JSX.Element | null;
   workflows: Workflow[];
+  placement?: string;
+  placementOffset?: number;
   appearance: {
     variables: Record<string, unknown>;
     elements: Record<string, unknown>;
@@ -46,6 +48,8 @@ const themes: Theme[] = [
         },
       },
     ],
+    placement: "bottom-start",
+    placementOffset: 10,
     appearance: {
       variables: {},
       elements: {},
@@ -314,7 +318,6 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   const [selectedTheme, setSelectedTheme] = useState(themes[0]);
   const inboxThemeForm = useForm({
     defaultValues: {
-      open: true,
       language: "en",
       colorPrimary: "#0081F1",
       colorPrimaryForeground: "white",

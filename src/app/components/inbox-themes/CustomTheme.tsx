@@ -88,27 +88,25 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string | null }) => {
               open={appearanceVariables.open === true ? true : undefined}
               applicationIdentifier={novuConfig.applicationIdentifier}
               subscriberId={novuConfig.subscriberId}
+              placement={"bottom-end"}
+              placementOffset={40}
               tabs={tabs}
               preferenceGroups={[
                 {
-                  name: 'Account & Security',
-                  filter: { tags: ['Account & Security'] },
+                  name: "Account & Security",
+                  filter: { tags: ["Account & Security"] },
                 },
                 {
-                  name: 'Transactions',
-                  filter: { tags: ['Transactions'] },
+                  name: "Transactions",
+                  filter: { tags: ["Transactions"] },
                 },
                 {
-                  name: 'System Updates',
-                  filter: { tags: ['System Updates'] },
+                  name: "System Updates",
+                  filter: { tags: ["System Updates"] },
                 },
                 {
-                  name: 'Promotions',
-                  filter: { tags: ['Promotions'] },
-                },
-                {
-                  name: 'All Workflows',
-                  filter: ({ preferences }) => preferences,
+                  name: "Promotions",
+                  filter: { tags: ["Promotions"] },
                 },
               ]}
               appearance={{
