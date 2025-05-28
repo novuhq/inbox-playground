@@ -234,6 +234,28 @@ const CustomTheme = ({ subscriberId }: { subscriberId: string | null }) => {
                 typedLocalization["en-US"]
               }
               tabs={tabs}
+              preferenceGroups={[
+                {
+                  name: 'Account & Security',
+                  filter: { tags: ['Account & Security'] },
+                },
+                {
+                  name: 'Transactions',
+                  filter: { tags: ['Transactions'] },
+                },
+                {
+                  name: 'System Updates',
+                  filter: { tags: ['System Updates'] },
+                },
+                {
+                  name: 'Promotions',
+                  filter: { tags: ['Promotions'] },
+                },
+                {
+                  name: 'All Workflows',
+                  filter: ({ preferences }) => preferences,
+                },
+              ]}
               appearance={{
                 variables: appearanceVariables,
                 elements: {
