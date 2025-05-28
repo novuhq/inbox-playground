@@ -19,6 +19,18 @@ import { useTheme } from "../contexts/ThemeContext";
 interface Workflow {
   id: string;
   title: string;
+  data?: {
+    inAppSubject?: string;
+    inAppBody?: string;
+    enablePrimaryAction?: boolean;
+    enableSecondaryAction?: boolean;
+    inAppPrimaryActionLabel?: string;
+    inAppSecondaryActionLabel?: string;
+    inAppSecondaryActionUrl?: string;
+    inAppPrimaryActionUrl?: string;
+    showInAppAvatar?: boolean;
+    inAppAvatar?: string;
+  };
 }
 
 interface WorkflowOption extends OptionBase {
@@ -52,7 +64,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
   onSubmit,
 }) => {
   const {
-    notificationForm: { control, watch, setValue },
+    notificationForm: { control, watch, setValue, reset },
     selectedTheme,
   } = useTheme();
 
@@ -64,43 +76,50 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
   const formValues = watch();
   const selectedWorkflowId = watch("selectedWorkflow");
 
+  // Reset form when theme changes
+  useEffect(() => {
+    reset({
+      subscriberFirstName: "John",
+      subscriberLastName: "Doe",
+      selectedWorkflow: workflows[0]?.id || "",
+      inAppSubject: "",
+      inAppBody: "",
+      inAppAvatar: "",
+      showInAppAvatar: false,
+      inAppPrimaryActionLabel: "",
+      enablePrimaryAction: false,
+      inAppPrimaryActionUrl: "",
+      inAppSecondaryActionLabel: "",
+      enableSecondaryAction: false,
+      inAppSecondaryActionUrl: "",
+    });
+  }, [selectedTheme.id, reset]);
+
+  // Update form when workflow changes
+  useEffect(() => {
+    const selectedWorkflow = workflows.find((workflow) => workflow.id === selectedWorkflowId);
+    if (selectedWorkflow?.data) {
+      setValue("inAppSubject", selectedWorkflow.data.inAppSubject as string);
+      setValue("inAppBody", selectedWorkflow.data.inAppBody as string);
+      setValue("enablePrimaryAction", !!selectedWorkflow.data.enablePrimaryAction);
+      setValue("inAppPrimaryActionLabel", selectedWorkflow.data.inAppPrimaryActionLabel as string);
+      setValue("inAppPrimaryActionUrl", selectedWorkflow.data.inAppPrimaryActionUrl as string);
+      setValue("enableSecondaryAction", !!selectedWorkflow.data.enableSecondaryAction);
+      setValue(
+        "inAppSecondaryActionLabel",
+        selectedWorkflow.data.inAppSecondaryActionLabel as string,
+      );
+      setValue("inAppSecondaryActionUrl", selectedWorkflow.data.inAppSecondaryActionUrl as string);
+      setValue("showInAppAvatar", !!selectedWorkflow.data.showInAppAvatar);
+      setValue("inAppAvatar", selectedWorkflow.data.inAppAvatar as string);
+    }
+  }, [selectedWorkflowId, workflows, setValue]);
+
   useEffect(() => {
     if (onSubmit) {
       onSubmit(formValues as NotificationFormState);
     }
   }, [formValues, onSubmit]);
-
-  useEffect(() => {
-    const selectedWorkflow = selectedTheme.workflows.find(
-      (workflow) => workflow.id === selectedWorkflowId,
-    );
-
-    if (selectedWorkflow && selectedWorkflow.data) {
-      const {
-        inAppSubject,
-        inAppBody,
-        enablePrimaryAction,
-        enableSecondaryAction,
-        inAppPrimaryActionLabel,
-        inAppSecondaryActionLabel,
-        inAppSecondaryActionUrl,
-        inAppPrimaryActionUrl,
-        showInAppAvatar,
-        inAppAvatar,
-      } = selectedWorkflow.data;
-
-      setValue("inAppSubject", inAppSubject as string);
-      setValue("inAppBody", inAppBody as string);
-      setValue("enablePrimaryAction", !!enablePrimaryAction);
-      setValue("inAppPrimaryActionLabel", inAppPrimaryActionLabel as string);
-      setValue("inAppPrimaryActionUrl", inAppPrimaryActionUrl as string);
-      setValue("enableSecondaryAction", !!enableSecondaryAction);
-      setValue("inAppSecondaryActionLabel", inAppSecondaryActionLabel as string);
-      setValue("inAppSecondaryActionUrl", inAppSecondaryActionUrl as string);
-      setValue("showInAppAvatar", !!showInAppAvatar);
-      setValue("inAppAvatar", inAppAvatar as string);
-    }
-  }, [selectedWorkflowId, selectedTheme.workflows, setValue]);
 
   const enablePrimaryAction = watch("enablePrimaryAction");
   const enableSecondaryAction = watch("enableSecondaryAction");
