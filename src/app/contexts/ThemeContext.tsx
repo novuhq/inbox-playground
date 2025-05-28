@@ -182,7 +182,7 @@ const themes: Theme[] = [
           inAppSecondaryActionLabel: "Dismiss",
           inAppSecondaryActionUrl: "",
           showInAppAvatar: true,
-          inAppAvatar: "https://avatars.githubusercontent.com/u/63902456?v=4",
+          inAppAvatar: "https://dashboard.novu.co/images/avatar.svg",
         },
       },
       {
@@ -198,7 +198,7 @@ const themes: Theme[] = [
           inAppSecondaryActionLabel: "Dismiss",
           inAppSecondaryActionUrl: "",
           showInAppAvatar: true,
-          inAppAvatar: "https://avatars.githubusercontent.com/u/63902456?v=4",
+          inAppAvatar: "https://dashboard.novu.co/images/avatar.svg",
         },
       },
     ],
@@ -249,8 +249,7 @@ const themes: Theme[] = [
           inAppSecondaryActionLabel: "Dismiss",
           inAppSecondaryActionUrl: "",
           showInAppAvatar: true,
-          inAppAvatar:
-            "https://i.redd.it/snoovatar/avatars/aa71dd87-6310-46ae-9ba8-02f37e4271bc.png",
+          inAppAvatar: "https://dashboard.novu.co/images/avatar.svg",
         },
       },
       {
@@ -266,7 +265,7 @@ const themes: Theme[] = [
           inAppSecondaryActionLabel: "Dismiss",
           inAppSecondaryActionUrl: "https://google.com",
           showInAppAvatar: true,
-          inAppAvatar: "https://avatars.githubusercontent.com/u/77433905?s=200&v=4",
+          inAppAvatar: "https://dashboard.novu.co/images/avatar.svg",
         },
       },
     ],
