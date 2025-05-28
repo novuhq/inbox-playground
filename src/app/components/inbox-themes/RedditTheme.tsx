@@ -29,10 +29,6 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string | null }) => {
     setCurrentView("notifications");
   };
 
-  const showPreferences = () => {
-    setCurrentView("preferences");
-  };
-
   const novuConfig: any = {
     applicationIdentifier: process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID,
     subscriberId: subscriberId,
@@ -81,53 +77,27 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string | null }) => {
                 {/* Tabs */}
                 <div className="flex justify-between items-center border-b p-3">
                   <div className="flex flex-grow space-x-4 justify-center">
-                    <button className="w-1/2 font-semibold text-center">
-                      {currentView === "preferences" ? "Preferences" : "Notifications"}
-                    </button>
-                    {currentView === "notifications" && (
-                      <div className="w-1/2 text-gray-500 text-center">Messages</div>
-                    )}
+                    <button className="w-1/2 font-semibold text-center">Notifications</button>
+                    <div className="w-1/2 text-gray-500 text-center">Messages</div>
                   </div>
                 </div>
 
-                {/* Mark all as read and Settings */}
+                {/* Mark all as read */}
                 <div className="flex justify-between items-center mb-4 mt-4">
-                  {currentView === "notifications" ? (
-                    <>
-                      <span className="text-sm font-normal ml-3">TODAY</span>
-                      <div className="flex items-center space-x-4 mr-3">
-                        <button className="text-sm font-bold">Mark all as read</button>
-                        <FiSettings
-                          className="text-gray-500 cursor-pointer"
-                          size={18}
-                          onClick={showPreferences}
-                        />
-                      </div>
-                    </>
-                  ) : (
-                    <div className="flex items-center space-x-4 ml-3">
-                      <AiOutlineArrowLeft
-                        className="text-gray-500 cursor-pointer"
-                        size={18}
-                        onClick={() => setCurrentView("notifications")}
-                      />
-                      <span className="text-sm font-semibold">Back to Notifications</span>
-                    </div>
-                  )}
+                  <span className="text-sm font-normal ml-3">TODAY</span>
+                  <div className="flex items-center space-x-4 mr-3">
+                    <button className="text-sm font-bold">Mark all as read</button>
+                  </div>
                 </div>
 
-                {/* Notifications List or Preferences using Novu Inbox */}
+                {/* Notifications List using Novu Inbox */}
                 {subscriberId && (
                   <Inbox {...novuConfig}>
-                    {currentView === "notifications" ? (
-                      <Notifications
-                        renderNotification={(notification) => (
-                          <InboxItem notification={notification} />
-                        )}
-                      />
-                    ) : (
-                      <Preferences />
-                    )}
+                    <Notifications
+                      renderNotification={(notification) => (
+                        <InboxItem notification={notification} />
+                      )}
+                    />
                   </Inbox>
                 )}
               </div>
