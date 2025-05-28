@@ -105,7 +105,7 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string | null }) => {
           </div>
           {/* Avatar Image */}
           <Image
-            src="https://styles.redditmedia.com/t5_4hy1ad/styles/profileIcon_snooaa71dd87-6310-46ae-9ba8-02f37e4271bc-headshot.png?width=128&height=128&frame=1&auto=webp&crop=128:128,smart&s=23622e6012eab57c189c8586ca7c8f2f7ef2c3ae"
+            src="https://dashboard.novu.co/images/avatar.svg"
             alt="User Avatar"
             className="cursor-pointer rounded-full hover:bg-gray-200 p-1"
             width={32}
