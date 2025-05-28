@@ -130,6 +130,33 @@ function InboxComponent() {
     <Inbox
       applicationIdentifier="YOUR_APP_ID"
       subscriberId="subscriberId"
+      localization={
+        typedLocalization[appearanceVariables.language as keyof typeof typedLocalization] ||
+        typedLocalization["en-US"]
+      }
+      tabs={tabs}
+      preferenceGroups={[
+        {
+          name: 'Account & Security',
+          filter: { tags: ['Account & Security'] },
+        },
+        {
+          name: 'Transactions',
+          filter: { tags: ['Transactions'] },
+        },
+        {
+          name: 'System Updates',
+          filter: { tags: ['System Updates'] },
+        },
+        {
+          name: 'Promotions',
+          filter: { tags: ['Promotions'] },
+        },
+        {
+          name: 'All Workflows',
+          filter: ({ preferences }) => preferences,
+        },
+      ]}
       appearance={{
         variables: ${JSON.stringify(appearanceVariables, null, 2)
           .split("\n")
@@ -143,7 +170,7 @@ function InboxComponent() {
     />
   );
 }
-  `;
+`;
 
   const bgColor = useColorModeValue(
     "linear-gradient(180deg, #1B2137 -0.49%, #111522 48.7%), #0F0F15",
@@ -180,7 +207,7 @@ function InboxComponent() {
               <Text fontSize="lg" mb={4}>
                 1. Install the package
               </Text>
-              <CodeSnippet code={"npm install @novu/react"} language="bash" />
+              <CodeSnippet code="npm install @novu/react" language="bash" />
             </Box>
 
             <Box>
@@ -192,13 +219,7 @@ function InboxComponent() {
           </VStack>
         </ModalBody>
         <ModalFooter px={8} pb={8} justifyContent="flex-end">
-          <Button
-            // leftIcon={<Icon as={ExternalLinkIcon} />}
-            colorScheme="blue"
-            variant="outline"
-            size="md"
-            onClick={handleDocumentationClick}
-          >
+          <Button colorScheme="blue" variant="outline" size="md" onClick={handleDocumentationClick}>
             View Documentation
           </Button>
         </ModalFooter>
