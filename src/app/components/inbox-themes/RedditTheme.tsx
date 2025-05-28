@@ -33,7 +33,10 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string | null }) => {
     applicationIdentifier: process.env.NEXT_PUBLIC_NOVU_CLIENT_APP_ID,
     subscriberId: subscriberId,
     open: true,
-    appearance: selectedTheme?.appearance,
+    appearance: {
+      ...selectedTheme?.appearance,
+      primaryColor: "#ef4444", // red-500 color
+    },
   };
 
   return (
@@ -117,7 +120,7 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string | null }) => {
       {/* Main Content Layout */}
       <div className="flex h-[calc(100%-48px)]">
         {/* Left Sidebar (Moderation) */}
-        <div className="w-1/4 bg-white p-4 rounded-lg shadow-sm mr-4 h-full flex-grow-0 overflow-y-auto">
+        <div className="w-1/4 bg-white p-4 rounded-lg shadow-sm mr-4 h-full flex-grow-0 overflow-y-auto blur-sm">
           {/* Home Section */}
           <div className="mb-4">
             <ul className="space-y-2 text-sm">
@@ -212,7 +215,7 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string | null }) => {
         </div>
 
         {/* Main Content (Post Section) */}
-        <div className="flex-1 bg-white p-4 rounded-lg shadow-sm h-full overflow-y-auto">
+        <div className="flex-1 bg-white p-4 rounded-lg shadow-sm h-full overflow-y-auto blur-sm">
           {/* First Post */}
           <div className="p-4 bg-white rounded-lg border border-gray-200 mb-4 hover:bg-gray-100">
             <div className="flex items-center mb-2">
@@ -335,7 +338,7 @@ const RedditTheme = ({ subscriberId }: { subscriberId: string | null }) => {
         </div>
 
         {/* Right Sidebar (Recent Posts) */}
-        <div className="w-1/4 bg-gray-50 p-4 rounded-lg shadow-sm ml-4 h-full flex-grow-0 overflow-y-auto">
+        <div className="w-1/4 bg-gray-50 p-4 rounded-lg shadow-sm ml-4 h-full flex-grow-0 overflow-y-auto blur-sm">
           <div className="flex justify-between items-center mb-2">
             <h3 className="font-semibold">Recent Posts</h3>
             <button className="text-blue-500 text-sm">Clear</button>
