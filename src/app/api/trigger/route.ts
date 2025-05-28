@@ -37,6 +37,16 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Error triggering Novu event:", error);
 
-    return Response.json({ error: "Failed to trigger event" }, { status: 500 });
+    if (axios.isAxiosError(error) && error.response) {
+      return Response.json(
+        {
+          error: error.response.data?.message || "Failed to trigger event",
+          details: error.response.data,
+        },
+        { status: error.response.status },
+      );
+    }
+
+    return Response.json({ error: "Failed to trigger event", details: error }, { status: 500 });
   }
 }

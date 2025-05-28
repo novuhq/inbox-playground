@@ -108,7 +108,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
   return (
     <form>
       <VStack spacing={4} alignItems="stretch">
-        {/* <div>
+        <div>
           <Heading size="sm" fontSize="18px">
             Subscriber
           </Heading>
@@ -122,9 +122,9 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
           >
             The recipient of the notification, change the details to customize.
           </Text>
-        </div> */}
+        </div>
 
-        {/* <Flex gap={4}>
+        <Flex gap={4}>
           <Controller
             name="subscriberFirstName"
             control={control}
@@ -147,10 +147,10 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
               </FormControl>
             )}
           />
-        </Flex> */}
+        </Flex>
 
-        {/* <Divider borderColor="#30385A" my={3} /> */}
-        {/* <Flex flexDirection="column" gap={6}>
+        <Divider borderColor="#30385A" my={3} />
+        <Flex flexDirection="column" gap={6}>
           <Controller
             name="selectedWorkflow"
             control={control}
@@ -230,7 +230,7 @@ const NotificationContentForm: React.FC<NotificationContentFormProps> = ({
               </FormControl>
             )}
           />
-        </Flex> */}
+        </Flex>
         <Controller
           name="enablePrimaryAction"
           control={control}

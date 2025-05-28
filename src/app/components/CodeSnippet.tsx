@@ -10,7 +10,7 @@ interface CodeSnippetProps {
   language: string;
 }
 
-const CodeSnippet = ({ code, language }: CodeSnippetProps) => {
+const CodeSnippet = ({ code }: CodeSnippetProps) => {
   const [, copyToClipboard] = useCopyToClipboard();
   const [isCopied, setIsCopied] = useState(false);
 

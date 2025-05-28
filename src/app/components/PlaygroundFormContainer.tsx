@@ -97,7 +97,7 @@ const PlaygroundFormContainer = () => {
               setSelectedTheme(themes[index]);
             }}
           >
-            {/* <TabList
+            <TabList
               borderBottom="none"
               position="relative"
               _before={{
@@ -135,7 +135,7 @@ const PlaygroundFormContainer = () => {
                   {theme.title}
                 </Tab>
               ))}
-            </TabList> */}
+            </TabList>
             <TabIndicator mt="-1.5px" height="1px" borderRadius="1px" bg="white" />
             <TabPanels height="calc(100% - 30px)">
               {themes.map((theme) => (
