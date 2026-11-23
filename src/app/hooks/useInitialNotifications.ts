@@ -27,7 +27,6 @@ export const useInitialNotifications = () => {
                 lastName: "Doe",
               },
               payload: {},
-              // bridgeUrl: "https://inbox-playground.vercel.app/api/novu",
               controls: {
                 "in-app-step": {
                   ...notificationForm.getValues(),
