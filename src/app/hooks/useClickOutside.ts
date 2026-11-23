@@ -3,7 +3,7 @@ import { useEffect, RefObject } from "react";
 const events: string[] = [`mousedown`, `touchstart`];
 
 export default function useClickOutside(
-  refs: RefObject<HTMLElement>[],
+  refs: RefObject<HTMLElement | null>[],
   onClickOutside: () => void,
 ): void {
   useEffect(() => {
