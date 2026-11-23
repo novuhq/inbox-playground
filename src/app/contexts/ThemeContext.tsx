@@ -15,7 +15,7 @@ export interface Workflow {
 export interface Theme {
   id: string;
   title: string;
-  icon: JSX.Element | null;
+  icon: React.JSX.Element | null;
   workflows: Workflow[];
   placement?: string;
   placementOffset?: number;
