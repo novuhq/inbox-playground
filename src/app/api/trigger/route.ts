@@ -22,7 +22,7 @@ const triggerSchema = z.object({
     firstName: z.string().max(100).optional(),
     lastName: z.string().max(100).optional(),
   }),
-  controls: z.record(z.unknown()).optional(),
+  controls: z.record(z.string(), z.unknown()).optional(),
 });
 
 export async function POST(request: Request) {
